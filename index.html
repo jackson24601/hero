@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dragon Quest</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="title-screen" aria-labelledby="game-title">
+      <section class="hero-card">
+        <div class="banner">
+          <p class="eyebrow">A classic browser adventure</p>
+          <h1 id="game-title">Dragon Quest</h1>
+          <p class="subtitle">So you want to be a hero</p>
+        </div>
+
+        <div class="dragon-stage" aria-label="A large green dragon guarding a stone arch">
+          <div class="stone-arch" aria-hidden="true"></div>
+          <svg class="dragon" viewBox="0 0 640 480" role="img" aria-labelledby="dragon-title dragon-desc">
+            <title id="dragon-title">Large emerald dragon</title>
+            <desc id="dragon-desc">A coiled green dragon with wings, claws, horns, and glowing red eyes.</desc>
+            <defs>
+              <radialGradient id="bellyGlow" cx="50%" cy="45%" r="60%">
+                <stop offset="0%" stop-color="#9bdd70" />
+                <stop offset="65%" stop-color="#4ca53e" />
+                <stop offset="100%" stop-color="#1f5f2e" />
+              </radialGradient>
+              <linearGradient id="wingFade" x1="0%" x2="100%" y1="0%" y2="100%">
+                <stop offset="0%" stop-color="#5cc65d" />
+                <stop offset="100%" stop-color="#143d2a" />
+              </linearGradient>
+              <filter id="dragonShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="12" stdDeviation="8" flood-color="#020913" flood-opacity="0.65" />
+              </filter>
+            </defs>
+
+            <g filter="url(#dragonShadow)" stroke="#071a18" stroke-linecap="round" stroke-linejoin="round">
+              <path class="tail" d="M140 344 C60 334 42 263 100 230 C145 205 184 238 168 277 C157 305 124 299 119 278" />
+
+              <path class="wing wing-left" fill="url(#wingFade)" d="M262 181 C192 75 95 77 49 166 C126 144 166 174 190 250 Z" />
+              <path class="wing wing-right" fill="url(#wingFade)" d="M378 173 C463 72 566 90 595 188 C515 150 463 180 436 260 Z" />
+              <path class="wing-bone" d="M262 181 L128 132 M190 250 L112 172" />
+              <path class="wing-bone" d="M378 173 L515 136 M436 260 L528 190" />
+
+              <ellipse class="body" cx="320" cy="292" rx="145" ry="122" />
+              <path class="belly" fill="url(#bellyGlow)" d="M285 191 C242 252 246 352 314 415 C392 362 398 255 351 192 C333 184 306 184 285 191 Z" />
+              <path class="belly-lines" d="M273 255 C306 272 344 273 377 256 M262 302 C305 322 350 321 390 302 M276 354 C310 369 345 369 378 352" />
+
+              <path class="neck" d="M341 198 C360 149 397 118 449 115 C477 115 501 129 510 153 C463 153 429 172 407 214 Z" />
+              <path class="head" d="M442 91 C498 80 552 108 566 153 C536 173 496 179 456 161 C429 149 416 122 442 91 Z" />
+              <path class="snout" d="M530 133 C574 127 600 145 612 173 C579 178 552 173 529 157 Z" />
+              <path class="jaw" d="M509 159 C535 185 570 191 607 183 C583 211 532 212 487 183 Z" />
+              <path class="horn" d="M458 91 L439 43 L491 80 Z" />
+              <path class="horn" d="M506 102 L523 55 L536 116 Z" />
+              <path class="eye" d="M493 124 L518 120" />
+              <path class="mouth" d="M529 157 C553 162 577 162 602 154" />
+              <path class="fang" d="M557 164 L548 194 L575 168" />
+              <path class="fang" d="M589 164 L582 190 L604 169" />
+
+              <path class="arm arm-left" d="M230 285 C182 296 151 333 141 385 C177 359 214 351 252 363 Z" />
+              <path class="arm arm-right" d="M410 285 C462 299 494 337 502 389 C467 361 426 351 388 365 Z" />
+              <path class="claw" d="M145 386 L117 408 M161 389 L141 418 M181 385 L175 415" />
+              <path class="claw" d="M500 388 L530 409 M484 391 L503 419 M463 386 L468 416" />
+
+              <path class="leg leg-left" d="M248 384 C203 396 179 426 174 461 C217 451 253 444 292 419 Z" />
+              <path class="leg leg-right" d="M392 384 C440 398 463 427 469 461 C423 452 386 444 350 418 Z" />
+              <path class="claw" d="M182 461 L158 475 M213 455 L199 478 M244 446 L241 473" />
+              <path class="claw" d="M462 461 L486 475 M431 455 L445 478 M400 446 L403 473" />
+
+              <path class="spines" d="M335 184 L327 142 L361 177 L363 135 L392 169 L399 130 L425 161" />
+            </g>
+          </svg>
+        </div>
+
+        <nav class="menu" aria-label="Title screen options">
+          <button type="button" data-action="new-game">Begin New Game</button>
+          <button type="button" data-action="continue-game">Continue Game</button>
+        </nav>
+        <p class="menu-status" aria-live="polite">Choose your path, adventurer.</p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
