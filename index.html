@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="title-screen" aria-labelledby="game-title">
-      <section class="hero-card">
+    <main class="game-shell">
+      <section class="hero-card screen is-active" id="title-screen" aria-labelledby="game-title">
         <div class="banner">
           <p class="eyebrow">A classic browser adventure</p>
           <h1 id="game-title">Dragon Quest</h1>
@@ -78,6 +78,129 @@
           <button type="button" data-action="continue-game">Continue Game</button>
         </nav>
         <p class="menu-status" aria-live="polite">Choose your path, adventurer.</p>
+      </section>
+
+      <section class="hero-card screen selection-screen" id="selection-screen" aria-labelledby="selection-title" hidden>
+        <div class="selection-heading">
+          <p class="eyebrow">Choose your character</p>
+          <h2 id="selection-title">Who answers the dragon's call?</h2>
+          <p class="selection-copy">Select the hero whose skills will shape your quest.</p>
+        </div>
+
+        <div class="character-grid" aria-label="Character classes">
+          <button class="character-card knight-card" type="button" data-character="Knight">
+            <span class="portrait-frame" aria-hidden="true">
+              <svg class="character knight" viewBox="0 0 160 220">
+                <defs>
+                  <linearGradient id="steelArmor" x1="0%" x2="100%" y1="0%" y2="100%">
+                    <stop offset="0%" stop-color="#e9f3ff" />
+                    <stop offset="48%" stop-color="#9eb3c8" />
+                    <stop offset="100%" stop-color="#43576f" />
+                  </linearGradient>
+                  <linearGradient id="redCape" x1="0%" x2="100%" y1="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ff6a42" />
+                    <stop offset="100%" stop-color="#8d1717" />
+                  </linearGradient>
+                </defs>
+                <ellipse class="hero-shadow" cx="79" cy="204" rx="45" ry="9" />
+                <path class="cape" fill="url(#redCape)" d="M50 64 C22 94 19 147 38 196 L68 177 L99 195 C121 139 113 93 91 64 Z" />
+                <path class="leg-left" d="M62 134 L49 195 L70 195 L82 139 Z" />
+                <path class="leg-right" d="M92 134 L101 195 L123 195 L109 135 Z" />
+                <path class="boot" d="M45 193 L73 193 L71 207 L38 207 Z" />
+                <path class="boot" d="M99 193 L126 193 L134 207 L101 207 Z" />
+                <path class="torso armor" fill="url(#steelArmor)" d="M51 74 L103 74 L114 136 C98 148 66 148 49 136 Z" />
+                <path class="tunic" d="M60 125 L106 125 L96 163 L70 163 Z" />
+                <path class="arm-left armor" fill="url(#steelArmor)" d="M51 84 C31 99 22 124 25 151 L43 151 C43 130 51 112 65 101 Z" />
+                <path class="arm-right armor" fill="url(#steelArmor)" d="M103 84 C123 98 134 122 132 150 L114 151 C113 129 104 112 91 101 Z" />
+                <path class="shield" d="M21 119 C38 108 55 113 61 128 C60 154 47 176 28 186 C14 168 11 140 21 119 Z" />
+                <path class="shield-mark" d="M29 127 L47 127 L41 161 L31 169 Z" />
+                <path class="sword" d="M128 70 L136 70 L135 160 L131 160 Z" />
+                <path class="sword" d="M118 155 L146 155 L146 164 L118 164 Z" />
+                <circle class="skin" cx="77" cy="49" r="25" />
+                <path class="hair" d="M53 45 C60 23 90 16 105 37 C93 31 78 32 63 42 C63 54 58 61 49 66 C48 58 49 51 53 45 Z" />
+                <path class="face" d="M69 53 C75 58 84 58 91 53" />
+                <path class="helm" fill="url(#steelArmor)" d="M50 43 C58 14 101 14 108 47 L96 43 L89 33 L80 45 L68 34 L62 46 Z" />
+                <path class="plume" d="M78 20 C79 5 95 2 106 10 C92 14 86 22 84 35 Z" />
+              </svg>
+            </span>
+            <span class="class-name">Knight</span>
+            <span class="class-trait">Blade, shield, and courage</span>
+          </button>
+
+          <button class="character-card wizard-card" type="button" data-character="Wizard">
+            <span class="portrait-frame" aria-hidden="true">
+              <svg class="character wizard" viewBox="0 0 160 220">
+                <defs>
+                  <radialGradient id="orbGlow" cx="50%" cy="50%" r="60%">
+                    <stop offset="0%" stop-color="#f9fbff" />
+                    <stop offset="45%" stop-color="#9be8ff" />
+                    <stop offset="100%" stop-color="#3178ff" />
+                  </radialGradient>
+                  <linearGradient id="robeBlue" x1="0%" x2="100%" y1="0%" y2="100%">
+                    <stop offset="0%" stop-color="#585dff" />
+                    <stop offset="100%" stop-color="#211456" />
+                  </linearGradient>
+                </defs>
+                <ellipse class="hero-shadow" cx="82" cy="204" rx="44" ry="9" />
+                <path class="staff" d="M124 58 L130 58 L118 206 L112 206 Z" />
+                <circle class="orb" fill="url(#orbGlow)" cx="127" cy="49" r="16" />
+                <path class="spark" d="M128 19 L128 7 M143 28 L153 18 M151 50 L164 49 M112 29 L102 19" />
+                <path class="robe" fill="url(#robeBlue)" d="M56 72 L101 72 C122 109 128 158 121 199 L38 199 C32 157 38 111 56 72 Z" />
+                <path class="sash" d="M52 124 C72 135 97 135 119 123 L118 141 C94 154 67 153 43 139 Z" />
+                <path class="sleeve-left" d="M56 84 C33 99 19 123 16 153 L36 157 C42 134 51 119 70 102 Z" />
+                <path class="sleeve-right" d="M100 84 C119 97 132 116 138 142 L122 151 C112 130 102 115 86 103 Z" />
+                <circle class="skin" cx="78" cy="55" r="22" />
+                <path class="beard" d="M59 66 C68 98 89 99 101 66 C92 75 70 75 59 66 Z" />
+                <path class="hat" d="M44 52 C60 15 82 1 111 0 C98 22 103 42 126 61 C95 57 71 58 44 52 Z" />
+                <path class="hat-band" d="M49 51 C73 57 100 56 121 61" />
+                <path class="face" d="M71 58 C76 62 82 62 88 58" />
+                <path class="star" d="M77 18 L81 28 L91 29 L83 36 L85 47 L77 41 L68 47 L71 36 L62 29 L73 28 Z" />
+              </svg>
+            </span>
+            <span class="class-name">Wizard</span>
+            <span class="class-trait">Spells, wisdom, and wonder</span>
+          </button>
+
+          <button class="character-card thief-card" type="button" data-character="Thief">
+            <span class="portrait-frame" aria-hidden="true">
+              <svg class="character thief" viewBox="0 0 160 220">
+                <defs>
+                  <linearGradient id="leatherVest" x1="0%" x2="100%" y1="0%" y2="100%">
+                    <stop offset="0%" stop-color="#6c4930" />
+                    <stop offset="100%" stop-color="#26170f" />
+                  </linearGradient>
+                  <linearGradient id="cloakGreen" x1="0%" x2="100%" y1="0%" y2="100%">
+                    <stop offset="0%" stop-color="#42b983" />
+                    <stop offset="100%" stop-color="#0e3f31" />
+                  </linearGradient>
+                </defs>
+                <ellipse class="hero-shadow" cx="80" cy="204" rx="43" ry="9" />
+                <path class="cloak" fill="url(#cloakGreen)" d="M50 69 C24 98 23 151 45 200 L75 184 L107 200 C121 151 113 100 94 69 Z" />
+                <path class="leg-left" d="M57 133 L43 197 L65 197 L79 137 Z" />
+                <path class="leg-right" d="M89 134 L96 197 L119 197 L108 135 Z" />
+                <path class="boot" d="M40 194 L68 194 L65 208 L33 208 Z" />
+                <path class="boot" d="M94 194 L122 194 L132 208 L99 208 Z" />
+                <path class="torso" fill="url(#leatherVest)" d="M52 75 L101 75 L113 136 C96 149 67 149 49 136 Z" />
+                <path class="belt" d="M50 124 L112 124 L112 138 L49 138 Z" />
+                <path class="arm-left" d="M53 84 C31 100 22 124 21 151 L38 155 C44 131 53 115 69 101 Z" />
+                <path class="arm-right" d="M101 84 C122 99 134 120 138 148 L121 154 C114 131 104 115 88 101 Z" />
+                <path class="dagger" d="M131 122 L151 96 L157 102 L137 128 Z" />
+                <path class="dagger" d="M122 128 L139 145 L132 152 L115 135 Z" />
+                <circle class="skin" cx="77" cy="53" r="23" />
+                <path class="hood" d="M48 58 C46 28 70 12 100 20 C114 37 113 57 101 77 C94 58 66 58 54 77 C50 71 48 64 48 58 Z" />
+                <path class="mask" d="M56 51 C70 46 87 46 101 51 L98 63 C85 59 72 59 59 63 Z" />
+                <path class="eye-line" d="M65 56 L75 56 M84 56 L94 56" />
+                <path class="face" d="M70 67 C76 72 84 72 90 67" />
+                <path class="pouch" d="M83 132 C95 136 103 146 101 160 C91 166 79 164 72 156 C73 145 76 138 83 132 Z" />
+              </svg>
+            </span>
+            <span class="class-name">Thief</span>
+            <span class="class-trait">Stealth, speed, and cunning</span>
+          </button>
+        </div>
+
+        <p class="selection-status" aria-live="polite">Pick your champion.</p>
+        <button class="back-button" type="button" data-action="back-title">Back</button>
       </section>
     </main>
 
