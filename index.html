@@ -202,6 +202,38 @@
         <p class="selection-status" aria-live="polite">Pick your champion.</p>
         <button class="back-button" type="button" data-action="back-title">Back</button>
       </section>
+
+      <section class="hero-card screen attribute-screen" id="attribute-screen" aria-labelledby="attribute-title" hidden>
+        <div class="attribute-heading">
+          <p class="eyebrow">Prepare your hero</p>
+          <h2 id="attribute-title">Shape Your Character</h2>
+          <p class="attribute-copy">
+            Spend <strong><span data-points-remaining>50</span></strong> remaining points before the quest begins.
+          </p>
+        </div>
+
+        <div class="attribute-board">
+          <div class="attribute-panel" aria-label="Primary attributes">
+            <div class="attribute-list" data-attribute-list="left"></div>
+          </div>
+
+          <div class="hero-preview" aria-live="polite">
+            <h3 data-selected-class>Hero</h3>
+            <div class="attribute-portrait" data-selected-portrait></div>
+          </div>
+
+          <div class="attribute-panel" aria-label="Skill attributes">
+            <div class="attribute-list" data-attribute-list="right"></div>
+          </div>
+        </div>
+
+        <div class="attribute-footer">
+          <div class="attribute-panel compact" aria-label="Vital attributes">
+            <div class="attribute-list vital-list" data-attribute-list="vitals"></div>
+          </div>
+          <button class="back-button" type="button" data-action="back-selection">Back</button>
+        </div>
+      </section>
     </main>
 
     <script src="script.js"></script>
