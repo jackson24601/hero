@@ -316,6 +316,12 @@ button:active {
     inset 0 2px 0 rgba(255, 255, 255, 0.5);
 }
 
+button:disabled:not(.step-button) {
+  cursor: not-allowed;
+  filter: grayscale(0.7) opacity(0.58);
+  transform: none;
+}
+
 .menu-status {
   position: relative;
   z-index: 4;
@@ -769,7 +775,7 @@ button:active {
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr minmax(180px, auto) auto auto;
   gap: clamp(0.75rem, 2vw, 1.25rem);
   align-items: end;
   margin-top: clamp(0.75rem, 2vw, 1.15rem);
@@ -784,6 +790,24 @@ button:active {
 }
 
 .attribute-footer .back-button {
+  margin-top: 0;
+}
+
+.allocation-status {
+  align-self: center;
+  margin: 0;
+  color: #4b2412;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(255, 244, 201, 0.72);
+}
+
+.begin-quest-button {
+  position: relative;
+  z-index: 4;
+  min-width: 180px;
   margin-top: 0;
 }
 
