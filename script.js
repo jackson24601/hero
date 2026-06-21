@@ -7,6 +7,8 @@ const characterCards = document.querySelectorAll("[data-character]");
 const selectedClass = document.querySelector("[data-selected-class]");
 const selectedPortrait = document.querySelector("[data-selected-portrait]");
 const pointsRemaining = document.querySelector("[data-points-remaining]");
+const allocationStatus = document.querySelector("[data-allocation-status]");
+const beginQuestButton = document.querySelector("[data-begin-quest]");
 const attributeLists = {
   left: document.querySelector('[data-attribute-list="left"]'),
   right: document.querySelector('[data-attribute-list="right"]'),
@@ -16,6 +18,9 @@ const actions = {
   "continue-game": "No saved quest was found, but the dragon is watching.",
 };
 const POINT_POOL = 50;
+const ATTRIBUTE_STEP = 5;
+const MAX_ATTRIBUTE_VALUE = 100;
+const FIXED_ATTRIBUTES = new Set(["Experience", "Health", "Mana"]);
 const ATTRIBUTE_GROUPS = {
   left: [
     "Strength",
@@ -25,87 +30,71 @@ const ATTRIBUTE_GROUPS = {
     "Luck",
     "Magic",
     "Experience",
-    "Puzzle Pts.",
   ],
   right: [
     "Weapon Use",
     "Parry",
     "Dodge",
     "Stealth",
-    "Pick Locks",
     "Throwing",
     "Climbing",
-    "Comm.",
-    "Honor",
   ],
   vitals: ["Health", "Stamina", "Mana"],
 };
 const CLASS_STARTS = {
   Knight: {
-    Strength: 28,
-    Intelligence: 12,
-    Agility: 16,
-    Vitality: 24,
-    Luck: 14,
-    Magic: 4,
-    Experience: 0,
-    "Puzzle Pts.": 0,
-    "Weapon Use": 26,
-    Parry: 24,
-    Dodge: 16,
-    Stealth: 8,
-    "Pick Locks": 4,
-    Throwing: 12,
-    Climbing: 14,
-    "Comm.": 10,
-    Honor: 22,
-    Health: 34,
-    Stamina: 30,
-    Mana: 4,
+    Strength: 85,
+    Intelligence: 40,
+    Agility: 75,
+    Vitality: 75,
+    Luck: 50,
+    Magic: 10,
+    Experience: 20,
+    "Weapon Use": 85,
+    Parry: 85,
+    Dodge: 70,
+    Stealth: 40,
+    Throwing: 70,
+    Climbing: 60,
+    Health: 100,
+    Stamina: 75,
+    Mana: 10,
   },
   Wizard: {
-    Strength: 10,
-    Intelligence: 28,
-    Agility: 14,
-    Vitality: 14,
-    Luck: 16,
-    Magic: 30,
-    Experience: 0,
-    "Puzzle Pts.": 0,
-    "Weapon Use": 8,
-    Parry: 8,
-    Dodge: 14,
-    Stealth: 10,
-    "Pick Locks": 6,
-    Throwing: 10,
-    Climbing: 8,
-    "Comm.": 18,
-    Honor: 14,
-    Health: 22,
-    Stamina: 18,
-    Mana: 36,
+    Strength: 40,
+    Intelligence: 85,
+    Agility: 50,
+    Vitality: 65,
+    Luck: 50,
+    Magic: 85,
+    Experience: 20,
+    "Weapon Use": 40,
+    Parry: 40,
+    Dodge: 60,
+    Stealth: 60,
+    Throwing: 40,
+    Climbing: 40,
+    Health: 100,
+    Stamina: 60,
+    Mana: 100,
   },
   Thief: {
-    Strength: 16,
-    Intelligence: 18,
-    Agility: 28,
-    Vitality: 16,
-    Luck: 24,
-    Magic: 6,
-    Experience: 0,
-    "Puzzle Pts.": 0,
-    "Weapon Use": 14,
-    Parry: 12,
-    Dodge: 26,
-    Stealth: 30,
-    "Pick Locks": 30,
-    Throwing: 22,
-    Climbing: 28,
-    "Comm.": 18,
-    Honor: 10,
-    Health: 24,
-    Stamina: 28,
-    Mana: 8,
+    Strength: 60,
+    Intelligence: 60,
+    Agility: 85,
+    Vitality: 75,
+    Luck: 80,
+    Magic: 10,
+    Experience: 20,
+    "Weapon Use": 60,
+    Parry: 60,
+    Dodge: 75,
+    Stealth: 85,
+    Throwing: 60,
+    Climbing: 80,
+    Health: 100,
+    Stamina: 65,
+    Mana: 10,
   },
 };
 
@@ -124,6 +113,7 @@ function showScreen(screenToShow) {
 function renderAttributeRow(attributeName) {
   const row = document.createElement("div");
   row.className = "attribute-row";
+  row.classList.toggle("is-readonly", FIXED_ATTRIBUTES.has(attributeName));
 
   const label = document.createElement("span");
   label.className = "attribute-name";
@@ -134,6 +124,12 @@ function renderAttributeRow(attributeName) {
   value.dataset.attributeValue = attributeName;
   value.textContent = currentAttributes[attributeName];
 
+  if (FIXED_ATTRIBUTES.has(attributeName)) {
+    row.title = `${attributeName} is fixed and cannot be changed.`;
+    row.append(label, value);
+    return row;
+  }
+
   const controls = document.createElement("span");
   controls.className = "attribute-controls";
 
@@ -142,7 +138,7 @@ function renderAttributeRow(attributeName) {
   upButton.type = "button";
   upButton.dataset.attribute = attributeName;
   upButton.dataset.direction = "up";
-  upButton.setAttribute("aria-label", `Increase ${attributeName}`);
+  upButton.setAttribute("aria-label", `Increase ${attributeName} by ${ATTRIBUTE_STEP}`);
   upButton.textContent = "▲";
 
   const downButton = document.createElement("button");
@@ -150,7 +146,7 @@ function renderAttributeRow(attributeName) {
   downButton.type = "button";
   downButton.dataset.attribute = attributeName;
   downButton.dataset.direction = "down";
-  downButton.setAttribute("aria-label", `Decrease ${attributeName}`);
+  downButton.setAttribute("aria-label", `Decrease ${attributeName} by ${ATTRIBUTE_STEP}`);
   downButton.textContent = "▼";
 
   controls.append(upButton, downButton);
@@ -161,6 +157,10 @@ function renderAttributeRow(attributeName) {
 
 function updateAttributeControls() {
   pointsRemaining.textContent = remainingPoints;
+  allocationStatus.textContent = remainingPoints === 0
+    ? "All points allocated. Your hero is ready."
+    : `Allocate all points to continue: ${remainingPoints} remaining.`;
+  beginQuestButton.disabled = remainingPoints !== 0;
 
   document.querySelectorAll("[data-attribute-value]").forEach((value) => {
     value.textContent = currentAttributes[value.dataset.attributeValue];
@@ -170,7 +170,7 @@ function updateAttributeControls() {
     const attribute = button.dataset.attribute;
     const isIncrease = button.dataset.direction === "up";
     button.disabled = isIncrease
-      ? remainingPoints === 0
+      ? remainingPoints < ATTRIBUTE_STEP || currentAttributes[attribute] + ATTRIBUTE_STEP > MAX_ATTRIBUTE_VALUE
       : currentAttributes[attribute] <= baseAttributes[attribute];
   });
 }
@@ -242,6 +242,13 @@ document.querySelectorAll("[data-action]").forEach((button) => {
       return;
     }
 
+    if (button.dataset.action === "begin-quest") {
+      allocationStatus.textContent = remainingPoints === 0
+        ? "Your hero is ready. The quest will begin in the next chapter."
+        : `Allocate all points to continue: ${remainingPoints} remaining.`;
+      return;
+    }
+
     statusMessage.textContent = actions[button.dataset.action];
   });
 });
@@ -271,14 +278,18 @@ document.addEventListener("click", (event) => {
   const attribute = button.dataset.attribute;
   const direction = button.dataset.direction;
 
-  if (direction === "up" && remainingPoints > 0) {
-    currentAttributes[attribute] += 1;
-    remainingPoints -= 1;
+  if (
+    direction === "up"
+    && remainingPoints >= ATTRIBUTE_STEP
+    && currentAttributes[attribute] + ATTRIBUTE_STEP <= MAX_ATTRIBUTE_VALUE
+  ) {
+    currentAttributes[attribute] += ATTRIBUTE_STEP;
+    remainingPoints -= ATTRIBUTE_STEP;
   }
 
   if (direction === "down" && currentAttributes[attribute] > baseAttributes[attribute]) {
-    currentAttributes[attribute] -= 1;
-    remainingPoints += 1;
+    currentAttributes[attribute] -= ATTRIBUTE_STEP;
+    remainingPoints += ATTRIBUTE_STEP;
   }
 
   updateAttributeControls();
