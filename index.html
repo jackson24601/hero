@@ -249,9 +249,29 @@
             <p>
               Thousands of years ago, before the common age, was the age of dragons. To be a dragon master was all. But, to be a dragon master, you had to prove yourself worthy. After years of training and study, you have made your way to the distant and mysterious vale of Thurindore. There you hope you can prove yourself, and live out your destiny...
             </p>
+            <button class="enter-vale-button" type="button" data-action="enter-vale">Enter the Vale</button>
           </div>
           <div class="scroll-cap scroll-cap-bottom" aria-hidden="true"></div>
         </article>
+      </section>
+
+      <section class="hero-card screen game-screen" id="game-screen" aria-labelledby="game-title-screen" hidden>
+        <div class="game-hud">
+          <h2 id="game-title-screen">Vale of Thurindore</h2>
+          <p data-movement-status aria-live="polite">Click a clear path to move your hero.</p>
+        </div>
+
+        <div class="adventure-scene" data-adventure-scene aria-label="Forest clearing. Click a clear spot to move.">
+          <div class="scene-sky" aria-hidden="true"></div>
+          <div class="scene-tree scene-tree-left" aria-hidden="true"></div>
+          <div class="scene-tree scene-tree-right" aria-hidden="true"></div>
+          <div class="scene-cottage" aria-hidden="true"></div>
+          <div class="scene-mound" aria-hidden="true"></div>
+          <div class="scene-path" aria-hidden="true"></div>
+          <div class="scene-ground" aria-hidden="true"></div>
+          <div class="player-marker" data-player-marker aria-hidden="true"></div>
+          <div class="player-sprite" data-player-sprite aria-label="Your hero"></div>
+        </div>
       </section>
     </main>
 
