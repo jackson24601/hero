@@ -20,6 +20,7 @@ const actions = {
 const POINT_POOL = 50;
 const ATTRIBUTE_STEP = 5;
 const MAX_ATTRIBUTE_VALUE = 100;
+const FIXED_ATTRIBUTES = new Set(["Experience", "Health", "Mana"]);
 const ATTRIBUTE_GROUPS = {
   left: [
     "Strength",
@@ -29,18 +30,14 @@ const ATTRIBUTE_GROUPS = {
     "Luck",
     "Magic",
     "Experience",
-    "Puzzle Pts.",
   ],
   right: [
     "Weapon Use",
     "Parry",
     "Dodge",
     "Stealth",
-    "Pick Locks",
     "Throwing",
     "Climbing",
-    "Comm.",
-    "Honor",
   ],
   vitals: ["Health", "Stamina", "Mana"],
 };
@@ -53,16 +50,12 @@ const CLASS_STARTS = {
     Luck: 50,
     Magic: 10,
     Experience: 20,
-    "Puzzle Pts.": 0,
     "Weapon Use": 85,
     Parry: 85,
     Dodge: 70,
     Stealth: 40,
-    "Pick Locks": 0,
     Throwing: 70,
     Climbing: 60,
-    "Comm.": 0,
-    Honor: 0,
     Health: 100,
     Stamina: 75,
     Mana: 10,
@@ -75,16 +68,12 @@ const CLASS_STARTS = {
     Luck: 50,
     Magic: 85,
     Experience: 20,
-    "Puzzle Pts.": 0,
     "Weapon Use": 40,
     Parry: 40,
     Dodge: 60,
     Stealth: 60,
-    "Pick Locks": 0,
     Throwing: 40,
     Climbing: 40,
-    "Comm.": 0,
-    Honor: 0,
     Health: 100,
     Stamina: 60,
     Mana: 100,
@@ -97,16 +86,12 @@ const CLASS_STARTS = {
     Luck: 80,
     Magic: 10,
     Experience: 20,
-    "Puzzle Pts.": 0,
     "Weapon Use": 60,
     Parry: 60,
     Dodge: 75,
     Stealth: 85,
-    "Pick Locks": 0,
     Throwing: 60,
     Climbing: 80,
-    "Comm.": 0,
-    Honor: 0,
     Health: 100,
     Stamina: 65,
     Mana: 10,
@@ -128,6 +113,7 @@ function showScreen(screenToShow) {
 function renderAttributeRow(attributeName) {
   const row = document.createElement("div");
   row.className = "attribute-row";
+  row.classList.toggle("is-readonly", FIXED_ATTRIBUTES.has(attributeName));
 
   const label = document.createElement("span");
   label.className = "attribute-name";
@@ -137,6 +123,12 @@ function renderAttributeRow(attributeName) {
   value.className = "attribute-value";
   value.dataset.attributeValue = attributeName;
   value.textContent = currentAttributes[attributeName];
+
+  if (FIXED_ATTRIBUTES.has(attributeName)) {
+    row.title = `${attributeName} is fixed and cannot be changed.`;
+    row.append(label, value);
+    return row;
+  }
 
   const controls = document.createElement("span");
   controls.className = "attribute-controls";

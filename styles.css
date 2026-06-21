@@ -667,6 +667,11 @@ button:disabled:not(.step-button) {
   border-radius: 7px;
 }
 
+.attribute-row.is-readonly {
+  grid-template-columns: minmax(0, 1fr) 3.6ch;
+  background: rgba(255, 245, 205, 0.18);
+}
+
 .attribute-name {
   overflow: hidden;
   font-size: clamp(0.98rem, 2.1vw, 1.24rem);
