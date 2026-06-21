@@ -3,6 +3,7 @@ const selectionStatus = document.querySelector(".selection-status");
 const titleScreen = document.querySelector("#title-screen");
 const selectionScreen = document.querySelector("#selection-screen");
 const attributeScreen = document.querySelector("#attribute-screen");
+const introScreen = document.querySelector("#intro-screen");
 const characterCards = document.querySelectorAll("[data-character]");
 const selectedClass = document.querySelector("[data-selected-class]");
 const selectedPortrait = document.querySelector("[data-selected-portrait]");
@@ -103,7 +104,7 @@ let currentAttributes = {};
 let remainingPoints = POINT_POOL;
 
 function showScreen(screenToShow) {
-  [titleScreen, selectionScreen, attributeScreen].forEach((screen) => {
+  [titleScreen, selectionScreen, attributeScreen, introScreen].forEach((screen) => {
     const isActive = screen === screenToShow;
     screen.hidden = !isActive;
     screen.classList.toggle("is-active", isActive);
@@ -243,9 +244,12 @@ document.querySelectorAll("[data-action]").forEach((button) => {
     }
 
     if (button.dataset.action === "begin-quest") {
-      allocationStatus.textContent = remainingPoints === 0
-        ? "Your hero is ready. The quest will begin in the next chapter."
-        : `Allocate all points to continue: ${remainingPoints} remaining.`;
+      if (remainingPoints === 0) {
+        showScreen(introScreen);
+        return;
+      }
+
+      allocationStatus.textContent = `Allocate all points to continue: ${remainingPoints} remaining.`;
       return;
     }
 
