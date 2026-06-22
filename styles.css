@@ -1189,6 +1189,12 @@ button:disabled:not(.step-button) {
     radial-gradient(ellipse at 50% 78%, rgba(36, 84, 68, 0.95) 0 44%, rgba(14, 45, 39, 0.98) 70%, #081c19 100%);
 }
 
+.adventure-scene.scene-temple {
+  background:
+    radial-gradient(ellipse at 50% 37%, rgba(178, 185, 166, 0.62) 0 30%, transparent 31%),
+    radial-gradient(ellipse at 50% 78%, rgba(118, 125, 92, 0.88) 0 48%, rgba(50, 69, 44, 0.98) 74%, #18261b 100%);
+}
+
 .adventure-scene.scene-mountains {
   background:
     radial-gradient(ellipse at 50% 72%, rgba(106, 132, 85, 0.66) 0 38%, rgba(83, 72, 58, 0.76) 65%, #242221 100%),
@@ -1367,7 +1373,10 @@ button:disabled:not(.step-button) {
 .scene-meadow .scene-cottage,
 .scene-meadow .scene-mound,
 .scene-troll .scene-cottage,
-.scene-troll .scene-mound {
+.scene-troll .scene-mound,
+.scene-temple .scene-cottage,
+.scene-temple .scene-mound,
+.scene-temple .scene-tree {
   display: none;
 }
 
@@ -1386,6 +1395,9 @@ button:disabled:not(.step-button) {
 .scene-troll-island,
 .scene-treasure-chest,
 .scene-troll-figure,
+.scene-temple-building,
+.scene-temple-columns,
+.scene-temple-steps,
 .hut-interior-wall,
 .hut-shelf,
 .hut-hearth,
@@ -1726,6 +1738,126 @@ button:disabled:not(.step-button) {
   box-shadow:
     -17px 38px 0 -9px #667346,
     17px 38px 0 -9px #667346;
+}
+
+.scene-temple .scene-sky {
+  background:
+    radial-gradient(ellipse at 60% 0%, rgba(255, 246, 201, 0.6), transparent 24%),
+    linear-gradient(180deg, #7d9fa9 0%, #6c8f75 54%, transparent 100%);
+}
+
+.scene-temple .scene-path {
+  inset: 43% 9% -2%;
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(174, 171, 146, 0.62), transparent 30%),
+    radial-gradient(ellipse at 50% 78%, rgba(111, 118, 85, 0.58), transparent 50%);
+  clip-path: ellipse(47% 40% at 50% 70%);
+}
+
+.scene-temple .scene-temple-building {
+  display: block;
+  top: 18%;
+  left: 20%;
+  z-index: 5;
+  width: 60%;
+  height: 42%;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14), transparent 22% 78%, rgba(0, 0, 0, 0.16)),
+    linear-gradient(180deg, #d7d1b9 0 25%, #a9a48f 26% 100%);
+  border: 5px solid #6f6a5d;
+  box-shadow:
+    inset 10px 0 18px rgba(255, 255, 235, 0.18),
+    inset -18px 0 24px rgba(63, 59, 51, 0.26),
+    0 22px 18px rgba(0, 0, 0, 0.32);
+}
+
+.scene-temple .scene-temple-building::before,
+.scene-temple .scene-temple-building::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-temple .scene-temple-building::before {
+  top: -34%;
+  left: -4%;
+  width: 108%;
+  height: 36%;
+  background:
+    radial-gradient(circle at 50% 62%, rgba(126, 116, 91, 0.32) 0 8%, transparent 9%),
+    linear-gradient(135deg, transparent 0 49%, #d9d2bd 50% 100%);
+  border: 5px solid #6f6a5d;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  box-shadow:
+    inset 0 -8px 12px rgba(90, 83, 68, 0.24),
+    0 8px 10px rgba(0, 0, 0, 0.24);
+}
+
+.scene-temple .scene-temple-building::after {
+  top: 13%;
+  left: 11%;
+  width: 78%;
+  height: 13%;
+  background:
+    repeating-linear-gradient(90deg, #6f6a5d 0 2px, transparent 2px 10px),
+    linear-gradient(180deg, #eee8d0, #aaa38d);
+  border-top: 4px solid #6f6a5d;
+  border-bottom: 4px solid #6f6a5d;
+}
+
+.scene-temple .scene-temple-columns {
+  display: block;
+  top: 29%;
+  left: 25%;
+  z-index: 7;
+  width: 50%;
+  height: 32%;
+  background:
+    linear-gradient(180deg, #eee8d0, #aaa38d);
+  mask-image:
+    repeating-linear-gradient(
+      90deg,
+      #000 0 9%,
+      transparent 9% 15%
+    );
+  -webkit-mask-image:
+    repeating-linear-gradient(
+      90deg,
+      #000 0 9%,
+      transparent 9% 15%
+    );
+  filter: drop-shadow(4px 6px 4px rgba(0, 0, 0, 0.28));
+}
+
+.scene-temple .scene-temple-columns::before,
+.scene-temple .scene-temple-columns::after {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 11%;
+  content: "";
+  background: #7d7664;
+}
+
+.scene-temple .scene-temple-columns::before {
+  top: 0;
+}
+
+.scene-temple .scene-temple-columns::after {
+  bottom: 0;
+}
+
+.scene-temple .scene-temple-steps {
+  display: block;
+  top: 60%;
+  left: 18%;
+  z-index: 6;
+  width: 64%;
+  height: 16%;
+  background:
+    linear-gradient(180deg, transparent 0 22%, #a7a08d 23% 38%, transparent 39% 48%, #8d8778 49% 64%, transparent 65% 74%, #726c61 75% 100%);
+  border-bottom: 5px solid #4f4a43;
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+  box-shadow: 0 12px 13px rgba(0, 0, 0, 0.28);
 }
 
 .scene-hall-shadows .scene-sky {

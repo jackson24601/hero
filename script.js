@@ -48,6 +48,7 @@ const SWAMP_LATERN_CELL = "Swamp/Latern";
 const LATERN_ITEM = "Latern";
 const MEADOW_CELL = "Meadow";
 const TROLL_CELL = "Troll";
+const TEMPLE_CELL = "Temple";
 const EXIT_THRESHOLD = 6;
 const HEALER_HUT_DOOR_ZONE = { id: "healer-hut-door", type: "rect", x: 44, y: 44, width: 12, height: 18 };
 const HEALER_INTERIOR_EXIT_ZONE = { id: "healer-hut-exit", type: "rect", x: 42, y: 83, width: 16, height: 17 };
@@ -124,6 +125,15 @@ const SCENE_TEMPLATES = {
     blockedZones: [
       { id: "troll-island", type: "ellipse", x: 22, y: 44, radiusX: 18, radiusY: 12 },
       { id: "treasure-chest", type: "rect", x: 23, y: 38, width: 10, height: 7 },
+    ],
+  },
+  temple: {
+    title: "Ancient Temple",
+    cssClass: "scene-temple",
+    blockedZones: [
+      { id: "temple-left-wing", type: "rect", x: 22, y: 24, width: 19, height: 30 },
+      { id: "temple-right-wing", type: "rect", x: 59, y: 24, width: 19, height: 30 },
+      { id: "temple-pediment", type: "rect", x: 20, y: 16, width: 60, height: 16 },
     ],
   },
   mountains: {
@@ -469,6 +479,10 @@ function getSceneType(cell) {
     return "troll";
   }
 
+  if (cell === TEMPLE_CELL) {
+    return "temple";
+  }
+
   if (cell === HALL_OF_SHADOWS_CELL) {
     return "hallOfShadows";
   }
@@ -489,7 +503,7 @@ function getSceneType(cell) {
     return "swamp";
   }
 
-  if (cell.includes("Woods") || cell === "Town" || cell === "Temple") {
+  if (cell.includes("Woods") || cell === "Town") {
     return "woods";
   }
 
@@ -563,11 +577,12 @@ function renderScene() {
     "scene-swamp-latern",
     "scene-meadow",
     "scene-troll",
+    "scene-temple",
   );
   adventureScene.classList.add(template.cssClass);
   adventureScene.classList.toggle("has-latern", hasInventoryItem(LATERN_ITEM));
   resetTrollSprite();
-  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains" || cell === MEADOW_CELL || cell === TROLL_CELL
+  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains" || cell === MEADOW_CELL || cell === TROLL_CELL || cell === TEMPLE_CELL
     ? template.title
     : cell;
   gridLocation.textContent = isInsideHealerHut
