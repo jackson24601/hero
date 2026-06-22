@@ -1014,6 +1014,30 @@ button:disabled:not(.step-button) {
     0 24px 44px rgba(0, 0, 0, 0.42);
 }
 
+.adventure-scene.scene-woods {
+  background:
+    radial-gradient(ellipse at 48% 52%, rgba(103, 200, 83, 0.74) 0 33%, transparent 34%),
+    radial-gradient(ellipse at 58% 78%, rgba(53, 143, 53, 0.82) 0 48%, rgba(19, 82, 38, 0.96) 74%, #0d2a1c 100%);
+}
+
+.adventure-scene.scene-swamp {
+  background:
+    radial-gradient(ellipse at 42% 58%, rgba(67, 113, 83, 0.5) 0 30%, transparent 31%),
+    radial-gradient(ellipse at 50% 78%, rgba(40, 84, 66, 0.95) 0 44%, rgba(18, 52, 45, 0.98) 70%, #0b201d 100%);
+}
+
+.adventure-scene.scene-mountains {
+  background:
+    radial-gradient(ellipse at 50% 72%, rgba(106, 132, 85, 0.66) 0 38%, rgba(83, 72, 58, 0.76) 65%, #242221 100%),
+    linear-gradient(180deg, #6d8b93 0%, #455b55 44%, #322d27 100%);
+}
+
+.adventure-scene.scene-clearing {
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(122, 171, 88, 0.72) 0 18%, transparent 19%),
+    radial-gradient(ellipse at 52% 75%, rgba(159, 100, 58, 0.9) 0 44%, rgba(78, 48, 32, 0.96) 70%, #261914 100%);
+}
+
 .adventure-scene > * {
   position: absolute;
 }
@@ -1104,6 +1128,175 @@ button:disabled:not(.step-button) {
 .scene-tree-right {
   right: -9%;
   transform: scaleX(-1);
+}
+
+.scene-woods .scene-tree-left {
+  left: -3%;
+}
+
+.scene-woods .scene-tree-right {
+  right: -3%;
+}
+
+.scene-woods .scene-tree::after {
+  background:
+    radial-gradient(circle at 45% 20%, #356c2f 0 17%, transparent 18%),
+    radial-gradient(circle at 68% 30%, #244f25 0 19%, transparent 20%),
+    radial-gradient(circle at 32% 42%, #4b7f36 0 18%, transparent 19%),
+    radial-gradient(circle at 70% 58%, #2f6b2c 0 15%, transparent 16%);
+}
+
+.scene-woods .scene-cottage,
+.scene-woods .scene-mound,
+.scene-swamp .scene-cottage,
+.scene-swamp .scene-mound,
+.scene-mountains .scene-cottage,
+.scene-mountains .scene-mound {
+  display: none;
+}
+
+.scene-swamp .scene-sky {
+  background:
+    radial-gradient(ellipse at 62% 2%, rgba(196, 219, 184, 0.42), transparent 20%),
+    linear-gradient(180deg, #516e62 0%, #38564b 54%, transparent 100%);
+}
+
+.scene-swamp .scene-path {
+  inset: 42% 6% -2%;
+  background:
+    radial-gradient(ellipse at 35% 64%, rgba(69, 128, 93, 0.45), transparent 26%),
+    radial-gradient(ellipse at 68% 72%, rgba(54, 111, 91, 0.5), transparent 30%);
+  clip-path: ellipse(50% 38% at 50% 68%);
+}
+
+.scene-swamp-water {
+  display: none;
+}
+
+.scene-swamp .scene-swamp-water {
+  display: block;
+  inset: 48% 9% 12%;
+  background:
+    radial-gradient(ellipse at 24% 38%, rgba(118, 160, 115, 0.5), transparent 13%),
+    radial-gradient(ellipse at 74% 62%, rgba(111, 151, 105, 0.44), transparent 15%),
+    repeating-linear-gradient(0deg, rgba(177, 204, 133, 0.16) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(33, 86, 74, 0.72), rgba(19, 57, 50, 0.86));
+  border-radius: 48%;
+  box-shadow:
+    inset 0 0 30px rgba(7, 25, 22, 0.62),
+    0 8px 18px rgba(0, 0, 0, 0.24);
+}
+
+.scene-reeds {
+  display: none;
+}
+
+.scene-swamp .scene-reeds {
+  display: block;
+  bottom: 12%;
+  width: 20%;
+  height: 34%;
+  background:
+    linear-gradient(82deg, transparent 0 46%, #425b25 47% 51%, transparent 52%),
+    linear-gradient(100deg, transparent 0 42%, #70833a 43% 48%, transparent 49%),
+    linear-gradient(72deg, transparent 0 58%, #2d4823 59% 63%, transparent 64%);
+}
+
+.scene-reeds-left {
+  left: 8%;
+}
+
+.scene-reeds-right {
+  right: 7%;
+  transform: scaleX(-1);
+}
+
+.scene-mountain-ridge {
+  display: none;
+}
+
+.scene-mountains .scene-mountain-ridge {
+  display: block;
+  top: 0;
+  bottom: 0;
+  width: 24%;
+  background:
+    linear-gradient(135deg, transparent 0 18%, #77736c 19% 31%, transparent 32%),
+    linear-gradient(45deg, transparent 0 28%, #4d4f4b 29% 48%, transparent 49%),
+    linear-gradient(180deg, #8d8a81, #3f3e3a 60%, #25231f);
+  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.38));
+  opacity: 0.92;
+}
+
+.scene-mountain-ridge-left {
+  left: -6%;
+  clip-path: polygon(0 0, 92% 0, 74% 100%, 0 100%);
+}
+
+.scene-mountain-ridge-right {
+  right: -6%;
+  clip-path: polygon(8% 0, 100% 0, 100% 100%, 26% 100%);
+}
+
+.scene-mountains .scene-path {
+  inset: 28% 14% -6%;
+  background:
+    radial-gradient(ellipse at 45% 58%, rgba(151, 133, 95, 0.78), transparent 38%),
+    radial-gradient(ellipse at 55% 78%, rgba(106, 88, 66, 0.75), transparent 50%);
+  clip-path: ellipse(35% 48% at 50% 68%);
+}
+
+.scene-mountains .scene-tree {
+  display: none;
+}
+
+.scene-edge-blocker {
+  z-index: 7;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 50%, #394a28 0 9%, transparent 10%),
+    radial-gradient(circle at 35% 45%, #586c38 0 11%, transparent 12%),
+    radial-gradient(circle at 58% 55%, #283a22 0 10%, transparent 11%),
+    radial-gradient(circle at 80% 50%, #4a6131 0 12%, transparent 13%);
+  filter: drop-shadow(0 9px 6px rgba(0, 0, 0, 0.32));
+}
+
+.edge-north {
+  top: -2%;
+  left: 0;
+  width: 100%;
+  height: 12%;
+}
+
+.edge-south {
+  right: 0;
+  bottom: -2%;
+  left: 0;
+  height: 12%;
+}
+
+.edge-east {
+  top: 0;
+  right: -2%;
+  width: 10%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 50% 14%, #394a28 0 11%, transparent 12%),
+    radial-gradient(circle at 45% 35%, #586c38 0 12%, transparent 13%),
+    radial-gradient(circle at 55% 60%, #283a22 0 12%, transparent 13%),
+    radial-gradient(circle at 48% 84%, #4a6131 0 13%, transparent 14%);
+}
+
+.edge-west {
+  top: 0;
+  left: -2%;
+  width: 10%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 50% 14%, #394a28 0 11%, transparent 12%),
+    radial-gradient(circle at 45% 35%, #586c38 0 12%, transparent 13%),
+    radial-gradient(circle at 55% 60%, #283a22 0 12%, transparent 13%),
+    radial-gradient(circle at 48% 84%, #4a6131 0 13%, transparent 14%);
 }
 
 .player-marker {

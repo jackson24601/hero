@@ -257,7 +257,10 @@
 
       <section class="hero-card screen game-screen" id="game-screen" aria-labelledby="game-title-screen" hidden>
         <div class="game-hud">
-          <h2 id="game-title-screen">Vale of Thurindore</h2>
+          <div>
+            <h2 id="game-title-screen" data-scene-title>Vale of Thurindore</h2>
+            <span class="grid-location" data-grid-location>Dragon Stone Altar</span>
+          </div>
           <p data-movement-status aria-live="polite">Click a clear path to move your hero.</p>
         </div>
 
@@ -269,6 +272,15 @@
           <div class="scene-mound" aria-hidden="true"></div>
           <div class="scene-path" aria-hidden="true"></div>
           <div class="scene-ground" aria-hidden="true"></div>
+          <div class="scene-swamp-water" aria-hidden="true"></div>
+          <div class="scene-reeds scene-reeds-left" aria-hidden="true"></div>
+          <div class="scene-reeds scene-reeds-right" aria-hidden="true"></div>
+          <div class="scene-mountain-ridge scene-mountain-ridge-left" aria-hidden="true"></div>
+          <div class="scene-mountain-ridge scene-mountain-ridge-right" aria-hidden="true"></div>
+          <div class="scene-edge-blocker edge-north" data-edge-blocker="north" aria-hidden="true"></div>
+          <div class="scene-edge-blocker edge-east" data-edge-blocker="east" aria-hidden="true"></div>
+          <div class="scene-edge-blocker edge-south" data-edge-blocker="south" aria-hidden="true"></div>
+          <div class="scene-edge-blocker edge-west" data-edge-blocker="west" aria-hidden="true"></div>
           <div class="player-marker" data-player-marker aria-hidden="true"></div>
           <div class="player-sprite" data-player-sprite aria-label="Your hero"></div>
         </div>

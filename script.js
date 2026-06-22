@@ -15,6 +15,9 @@ const adventureScene = document.querySelector("[data-adventure-scene]");
 const playerSprite = document.querySelector("[data-player-sprite]");
 const playerMarker = document.querySelector("[data-player-marker]");
 const movementStatus = document.querySelector("[data-movement-status]");
+const sceneTitle = document.querySelector("[data-scene-title]");
+const gridLocation = document.querySelector("[data-grid-location]");
+const edgeBlockers = document.querySelectorAll("[data-edge-blocker]");
 const attributeLists = {
   left: document.querySelector('[data-attribute-list="left"]'),
   right: document.querySelector('[data-attribute-list="right"]'),
@@ -27,18 +30,71 @@ const POINT_POOL = 50;
 const ATTRIBUTE_STEP = 5;
 const MAX_ATTRIBUTE_VALUE = 100;
 const FIXED_ATTRIBUTES = new Set(["Experience", "Health", "Mana"]);
-const FIRST_SCENE = {
-  id: "thurindore-clearing",
-  name: "Vale of Thurindore",
-  startPosition: { x: 34, y: 78 },
-  // Scene coordinates are percentages so later grid data can target any screen size.
-  blockedZones: [
-    { id: "cottage", type: "rect", x: 6, y: 6, width: 30, height: 25 },
-    { id: "dragon-stone", type: "ellipse", x: 53, y: 38, radiusX: 20, radiusY: 15 },
-    { id: "left-tree-line", type: "rect", x: 0, y: 0, width: 9, height: 100 },
-    { id: "right-tree-line", type: "rect", x: 88, y: 0, width: 12, height: 100 },
-    { id: "upper-branches", type: "rect", x: 0, y: 0, width: 100, height: 14 },
-  ],
+const EMPTY_CELL = "XXXXXXXXXXX";
+const EXIT_THRESHOLD = 6;
+const START_GRID_POSITION = { row: 12, col: 5 };
+const START_SCENE_POSITION = { x: 50, y: 78 };
+const OPPOSITE_DIRECTIONS = {
+  north: "south",
+  east: "west",
+  south: "north",
+  west: "east",
+};
+const DIRECTION_DELTAS = {
+  north: { row: -1, col: 0 },
+  east: { row: 0, col: 1 },
+  south: { row: 1, col: 0 },
+  west: { row: 0, col: -1 },
+};
+const ENTRY_POINTS = {
+  north: { x: 50, y: 10 },
+  east: { x: 90, y: 74 },
+  south: { x: 50, y: 90 },
+  west: { x: 10, y: 74 },
+};
+const GAME_GRID = [
+  [EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL],
+  ["Dark Wizard Castle", EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL],
+  [EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, "Woods", EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL],
+  ["Mountains", "Mountains", "Mountains", "Mountains", "Mountains", "Woods", "Mountains", "Mountains", "Mountains", "Mountains", "Mountains"],
+  ["Troll", "Swamp", "Swamp", "Swamp", "Woods", "Woods", "Meadow", "Woods", "Woods", "Woods", "Mountains"],
+  ["Swamp", "Swamp", "Witch", "Swamp", "Woods", "Woods", "Woods", "Healer Hut", "Woods", "Woods", "Mountains"],
+  [EMPTY_CELL, "Swamp", "Swamp", "Swamp", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Mountains"],
+  [EMPTY_CELL, "Swamp", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Hall of Shadows"],
+  [EMPTY_CELL, "Swamp/Latern", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Mountains"],
+  [EMPTY_CELL, "Swamp", "Woods", "Woods", "Woods", "Town", "Woods", "Woods", "Woods", "Woods", "Mountains"],
+  ["Mountains", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Mountains"],
+  ["Mountains", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Woods", "Temple", "Mountains"],
+  ["Mountains", "Woods", "Woods", "Woods", "Woods", "Dragon Stone Altar", "Woods", "Woods", "Woods", "Woods", "Mountains"],
+  ["Mountains", "Mountains", "Mountains", "Mountains", "Mountains", "Mountains", "Mountains", "Mountains", "Mountains", "Mountains", "Mountains"],
+];
+const SCENE_TEMPLATES = {
+  woods: {
+    title: "Deep Woods",
+    cssClass: "scene-woods",
+    blockedZones: [],
+  },
+  swamp: {
+    title: "Mistwood Swamp",
+    cssClass: "scene-swamp",
+    blockedZones: [],
+  },
+  mountains: {
+    title: "Mountain Pass",
+    cssClass: "scene-mountains",
+    blockedZones: [
+      { id: "mountain-left-ridge", type: "rect", x: 0, y: 0, width: 9, height: 100 },
+      { id: "mountain-right-ridge", type: "rect", x: 91, y: 0, width: 9, height: 100 },
+      { id: "mountain-upper-ridge", type: "rect", x: 0, y: 0, width: 100, height: 10 },
+    ],
+  },
+  clearing: {
+    title: "Vale of Thurindore",
+    cssClass: "scene-clearing",
+    blockedZones: [
+      { id: "dragon-stone", type: "ellipse", x: 53, y: 38, radiusX: 20, radiusY: 15 },
+    ],
+  },
 };
 const ATTRIBUTE_GROUPS = {
   left: [
@@ -121,7 +177,9 @@ let baseAttributes = {};
 let currentAttributes = {};
 let remainingPoints = POINT_POOL;
 let selectedCharacterCard = null;
-let playerPosition = { ...FIRST_SCENE.startPosition };
+let currentGridPosition = { ...START_GRID_POSITION };
+let playerPosition = { ...START_SCENE_POSITION };
+let currentSceneTemplate = SCENE_TEMPLATES.clearing;
 
 function showScreen(screenToShow) {
   [titleScreen, selectionScreen, attributeScreen, introScreen, gameScreen].forEach((screen) => {
@@ -255,6 +313,67 @@ function renderPlayerSprite() {
   playerSprite.replaceChildren(characterArt);
 }
 
+function getCell(position) {
+  return GAME_GRID[position.row]?.[position.col] || EMPTY_CELL;
+}
+
+function isExistingCell(position) {
+  return getCell(position) !== EMPTY_CELL;
+}
+
+function getSceneType(cell) {
+  if (cell === "Mountains") {
+    return "mountains";
+  }
+
+  if (cell.includes("Swamp")) {
+    return "swamp";
+  }
+
+  if (cell.includes("Woods") || cell === "Healer Hut" || cell === "Town" || cell === "Temple") {
+    return "woods";
+  }
+
+  return "clearing";
+}
+
+function getCurrentSceneName() {
+  return getCell(currentGridPosition);
+}
+
+function getNeighborPosition(direction) {
+  const delta = DIRECTION_DELTAS[direction];
+
+  return {
+    row: currentGridPosition.row + delta.row,
+    col: currentGridPosition.col + delta.col,
+  };
+}
+
+function getBlockedDirections() {
+  return Object.keys(DIRECTION_DELTAS).filter((direction) => !isExistingCell(getNeighborPosition(direction)));
+}
+
+function renderScene() {
+  const cell = getCurrentSceneName();
+  const sceneType = getSceneType(cell);
+  const template = SCENE_TEMPLATES[sceneType];
+  const blockedDirections = getBlockedDirections();
+
+  currentSceneTemplate = template;
+  adventureScene.classList.remove("scene-woods", "scene-swamp", "scene-mountains", "scene-clearing");
+  adventureScene.classList.add(template.cssClass);
+  sceneTitle.textContent = cell === "Woods" || cell === "Swamp" || cell === "Mountains"
+    ? template.title
+    : cell;
+  gridLocation.textContent = `Grid ${currentGridPosition.row + 1}, ${currentGridPosition.col + 1}`;
+  adventureScene.setAttribute("aria-label", `${cell}. Click a clear spot to move.`);
+
+  edgeBlockers.forEach((blocker) => {
+    blocker.hidden = !blockedDirections.includes(blocker.dataset.edgeBlocker);
+  });
+}
+
 function placePlayer(point, shouldAnimate = true) {
   const distance = Math.hypot(point.x - playerPosition.x, point.y - playerPosition.y);
   const duration = shouldAnimate ? Math.min(Math.max(distance * 18, 220), 1200) : 0;
@@ -268,9 +387,12 @@ function placePlayer(point, shouldAnimate = true) {
 }
 
 function startFirstScene() {
+  currentGridPosition = { ...START_GRID_POSITION };
+  playerPosition = { ...START_SCENE_POSITION };
   renderPlayerSprite();
-  placePlayer({ ...FIRST_SCENE.startPosition }, false);
-  movementStatus.textContent = "Click a clear path to move your hero.";
+  renderScene();
+  placePlayer({ ...START_SCENE_POSITION }, false);
+  movementStatus.textContent = "Click within the scene to walk, or click an edge to travel.";
   showScreen(gameScreen);
 }
 
@@ -281,6 +403,26 @@ function getScenePoint(event) {
     x: ((event.clientX - rect.left) / rect.width) * 100,
     y: ((event.clientY - rect.top) / rect.height) * 100,
   };
+}
+
+function getExitDirection(point) {
+  if (point.y <= EXIT_THRESHOLD) {
+    return "north";
+  }
+
+  if (point.x >= 100 - EXIT_THRESHOLD) {
+    return "east";
+  }
+
+  if (point.y >= 100 - EXIT_THRESHOLD) {
+    return "south";
+  }
+
+  if (point.x <= EXIT_THRESHOLD) {
+    return "west";
+  }
+
+  return null;
 }
 
 function isPointInBlockedZone(point, zone) {
@@ -305,7 +447,21 @@ function isBlockedPoint(point) {
     || point.x > 100
     || point.y < 0
     || point.y > 100
-    || FIRST_SCENE.blockedZones.some((zone) => isPointInBlockedZone(point, zone));
+    || currentSceneTemplate.blockedZones.some((zone) => isPointInBlockedZone(point, zone));
+}
+
+function attemptGridMove(direction) {
+  const nextPosition = getNeighborPosition(direction);
+
+  if (!isExistingCell(nextPosition)) {
+    movementStatus.textContent = "That direction is blocked by impassable terrain.";
+    return;
+  }
+
+  currentGridPosition = nextPosition;
+  renderScene();
+  placePlayer(ENTRY_POINTS[OPPOSITE_DIRECTIONS[direction]], false);
+  movementStatus.textContent = `You enter ${getCurrentSceneName()}.`;
 }
 
 document.querySelectorAll("[data-action]").forEach((button) => {
@@ -391,6 +547,12 @@ document.addEventListener("click", (event) => {
 
 adventureScene.addEventListener("click", (event) => {
   const point = getScenePoint(event);
+  const exitDirection = getExitDirection(point);
+
+  if (exitDirection) {
+    attemptGridMove(exitDirection);
+    return;
+  }
 
   if (isBlockedPoint(point)) {
     movementStatus.textContent = "That way is blocked. Choose a clear path.";
@@ -398,5 +560,5 @@ adventureScene.addEventListener("click", (event) => {
   }
 
   placePlayer(point);
-  movementStatus.textContent = "Your hero moves through the clearing.";
+  movementStatus.textContent = `Your hero moves through ${getCurrentSceneName()}.`;
 });
