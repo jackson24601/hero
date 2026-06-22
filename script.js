@@ -34,9 +34,11 @@ const EMPTY_CELL = "XXXXXXXXXXX";
 const TOWN_CELL = "Town";
 const DRAGON_ALTAR_CELL = "Dragon Stone Altar";
 const HEALER_HUT_CELL = "Healer Hut";
+const WITCH_CELL = "Witch";
 const EXIT_THRESHOLD = 6;
 const HEALER_HUT_DOOR_ZONE = { id: "healer-hut-door", type: "rect", x: 44, y: 44, width: 12, height: 18 };
 const HEALER_INTERIOR_EXIT_ZONE = { id: "healer-hut-exit", type: "rect", x: 42, y: 83, width: 16, height: 17 };
+const WITCH_DOOR_ZONE = { id: "witch-cottage-door", type: "rect", x: 47, y: 42, width: 8, height: 15 };
 const START_GRID_POSITION = { row: 12, col: 5 };
 const START_SCENE_POSITION = { x: 50, y: 78 };
 const OPPOSITE_DIRECTIONS = {
@@ -128,6 +130,16 @@ const SCENE_TEMPLATES = {
       { id: "healer-right-shelf", type: "rect", x: 61, y: 8, width: 34, height: 18 },
     ],
   },
+  witch: {
+    title: "Witch's Cottage",
+    cssClass: "scene-witch",
+    blockedZones: [
+      { id: "witch-cottage-left", type: "rect", x: 29, y: 23, width: 18, height: 36 },
+      { id: "witch-cottage-right", type: "rect", x: 54, y: 23, width: 18, height: 36 },
+      { id: "witch-cottage-roof", type: "rect", x: 26, y: 16, width: 49, height: 20 },
+      WITCH_DOOR_ZONE,
+    ],
+  },
 };
 const ATTRIBUTE_GROUPS = {
   left: [
@@ -214,6 +226,7 @@ let currentGridPosition = { ...START_GRID_POSITION };
 let playerPosition = { ...START_SCENE_POSITION };
 let currentSceneTemplate = SCENE_TEMPLATES.clearing;
 let isInsideHealerHut = false;
+let hasWitchesKey = false;
 
 function showScreen(screenToShow) {
   [titleScreen, selectionScreen, attributeScreen, introScreen, gameScreen].forEach((screen) => {
@@ -364,6 +377,10 @@ function getSceneType(cell) {
     return "healerHut";
   }
 
+  if (cell === WITCH_CELL) {
+    return "witch";
+  }
+
   if (cell === "Mountains") {
     return "mountains";
   }
@@ -439,6 +456,7 @@ function renderScene() {
     "scene-dragon-altar",
     "scene-healer-hut",
     "scene-healer-interior",
+    "scene-witch",
   );
   adventureScene.classList.add(template.cssClass);
   sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains"
@@ -543,6 +561,15 @@ function leaveHealerHut() {
   renderScene();
   placePlayer({ x: 50, y: 68 }, false);
   movementStatus.textContent = "You step back outside the Healer Hut.";
+}
+
+function tryEnterWitchCottage() {
+  if (!hasWitchesKey) {
+    movementStatus.textContent = "The witch's door is locked. You need the Witches' Key.";
+    return;
+  }
+
+  movementStatus.textContent = "The Witches' Key turns in the lock, but the cottage interior is not ready yet.";
 }
 
 function attemptGridMove(direction) {
@@ -668,6 +695,11 @@ adventureScene.addEventListener("click", (event) => {
 
   if (exitDirection) {
     attemptGridMove(exitDirection);
+    return;
+  }
+
+  if (getCurrentSceneName() === WITCH_CELL && isPointInBlockedZone(point, WITCH_DOOR_ZONE)) {
+    tryEnterWitchCottage();
     return;
   }
 

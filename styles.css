@@ -1058,6 +1058,12 @@ button:disabled:not(.step-button) {
   cursor: crosshair;
 }
 
+.adventure-scene.scene-witch {
+  background:
+    radial-gradient(ellipse at 50% 34%, rgba(49, 77, 58, 0.66) 0 28%, transparent 29%),
+    radial-gradient(ellipse at 50% 78%, rgba(29, 69, 58, 0.95) 0 44%, rgba(13, 39, 35, 0.98) 70%, #081917 100%);
+}
+
 .adventure-scene > * {
   position: absolute;
 }
@@ -1180,11 +1186,17 @@ button:disabled:not(.step-button) {
 .scene-healer-interior .scene-tree,
 .scene-healer-interior .scene-path,
 .scene-healer-interior .scene-ground,
-.scene-healer-interior .scene-sky {
+.scene-healer-interior .scene-sky,
+.scene-witch .scene-cottage,
+.scene-witch .scene-mound {
   display: none;
 }
 
 .scene-hut-door,
+.scene-witch-cottage,
+.scene-witch-smoke,
+.scene-witch-window,
+.scene-witch-door,
 .hut-interior-wall,
 .hut-shelf,
 .hut-hearth,
@@ -1193,6 +1205,150 @@ button:disabled:not(.step-button) {
 .hut-healer,
 .hut-doorway {
   display: none;
+}
+
+.scene-witch .scene-sky {
+  background:
+    radial-gradient(ellipse at 62% 2%, rgba(162, 177, 143, 0.32), transparent 20%),
+    linear-gradient(180deg, #435a52 0%, #2b443d 54%, transparent 100%);
+}
+
+.scene-witch .scene-swamp-water {
+  display: block;
+  inset: 50% 8% 10%;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(97, 130, 88, 0.36), transparent 14%),
+    radial-gradient(ellipse at 72% 64%, rgba(83, 119, 86, 0.34), transparent 15%),
+    repeating-linear-gradient(0deg, rgba(151, 175, 110, 0.12) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(27, 70, 62, 0.78), rgba(12, 42, 38, 0.9));
+  border-radius: 48%;
+  box-shadow:
+    inset 0 0 34px rgba(5, 20, 18, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.scene-witch .scene-reeds {
+  display: block;
+  bottom: 12%;
+  width: 20%;
+  height: 34%;
+  background:
+    linear-gradient(82deg, transparent 0 46%, #31431e 47% 51%, transparent 52%),
+    linear-gradient(100deg, transparent 0 42%, #5b6830 43% 48%, transparent 49%),
+    linear-gradient(72deg, transparent 0 58%, #24381d 59% 63%, transparent 64%);
+}
+
+.scene-witch .scene-path {
+  inset: 44% 10% -2%;
+  background:
+    radial-gradient(ellipse at 49% 56%, rgba(52, 91, 67, 0.45), transparent 29%),
+    radial-gradient(ellipse at 50% 78%, rgba(42, 76, 61, 0.52), transparent 44%);
+  clip-path: ellipse(50% 38% at 50% 68%);
+}
+
+.scene-witch .scene-witch-cottage {
+  display: block;
+  top: 18%;
+  left: 29%;
+  z-index: 5;
+  width: 43%;
+  height: 41%;
+  background:
+    linear-gradient(135deg, transparent 0 21%, #18100d 22% 49%, transparent 50%),
+    linear-gradient(45deg, transparent 0 25%, #3a2118 26% 53%, transparent 54%),
+    linear-gradient(180deg, #3b241b 0 36%, #1c1110 37% 100%);
+  border: 4px solid rgba(12, 8, 7, 0.88);
+  border-radius: 36% 46% 11px 11px;
+  box-shadow:
+    inset 0 0 25px rgba(0, 0, 0, 0.72),
+    0 20px 18px rgba(0, 0, 0, 0.48);
+  transform: rotate(-1deg);
+}
+
+.scene-witch .scene-witch-cottage::before,
+.scene-witch .scene-witch-cottage::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-witch .scene-witch-cottage::before {
+  top: -20%;
+  left: -9%;
+  width: 120%;
+  height: 43%;
+  background:
+    repeating-linear-gradient(112deg, #15100e 0 8px, #2b1b15 9px 16px),
+    linear-gradient(180deg, #382018, #140d0b);
+  border: 4px solid rgba(10, 7, 6, 0.9);
+  border-radius: 62% 58% 12% 12%;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.42);
+}
+
+.scene-witch .scene-witch-cottage::after {
+  top: -32%;
+  right: 17%;
+  width: 10%;
+  height: 24%;
+  background: linear-gradient(180deg, #211410, #080606);
+  border: 3px solid #080606;
+  border-radius: 5px 5px 0 0;
+  transform: rotate(5deg);
+}
+
+.scene-witch .scene-witch-smoke {
+  display: block;
+  top: 2%;
+  left: 58%;
+  z-index: 6;
+  width: 18%;
+  height: 28%;
+  background:
+    radial-gradient(circle at 28% 78%, rgba(145, 151, 140, 0.38) 0 13%, transparent 14%),
+    radial-gradient(circle at 58% 58%, rgba(135, 145, 134, 0.32) 0 15%, transparent 16%),
+    radial-gradient(circle at 38% 32%, rgba(166, 169, 158, 0.28) 0 17%, transparent 18%),
+    radial-gradient(circle at 64% 12%, rgba(126, 132, 124, 0.2) 0 15%, transparent 16%);
+  filter: blur(0.4px);
+}
+
+.scene-witch .scene-witch-window {
+  display: block;
+  top: 39%;
+  left: 36%;
+  z-index: 7;
+  width: 9%;
+  height: 10%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 240, 137, 0.96), rgba(218, 146, 45, 0.7) 45%, rgba(69, 36, 13, 0.2) 72%);
+  border: 3px solid #0d0807;
+  border-radius: 4px;
+  box-shadow:
+    0 0 18px rgba(255, 215, 84, 0.62),
+    inset 0 0 6px rgba(255, 255, 205, 0.6);
+}
+
+.scene-witch .scene-witch-window::before {
+  position: absolute;
+  inset: 0 45%;
+  content: "";
+  background: rgba(30, 16, 8, 0.6);
+}
+
+.scene-witch .scene-witch-door {
+  display: block;
+  top: 43%;
+  left: 47%;
+  z-index: 7;
+  width: 8%;
+  height: 16%;
+  background:
+    radial-gradient(circle at 73% 48%, #393326 0 6%, transparent 7%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 28%),
+    linear-gradient(180deg, #22130f, #090606);
+  border: 3px solid #060404;
+  border-radius: 45% 45% 6px 6px;
+  box-shadow:
+    inset -7px 0 10px rgba(0, 0, 0, 0.45),
+    0 8px 10px rgba(0, 0, 0, 0.38);
 }
 
 .scene-healer-hut .scene-sky {
