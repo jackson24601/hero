@@ -905,6 +905,12 @@ button:disabled:not(.step-button) {
     0 0 10px rgba(91, 26, 16, 0.24);
 }
 
+.enter-vale-button {
+  display: block;
+  min-width: min(100%, 230px);
+  margin: clamp(1.25rem, 4vw, 2rem) auto 0;
+}
+
 .scroll-cap {
   position: absolute;
   right: clamp(0.35rem, 3vw, 1.6rem);
@@ -948,6 +954,184 @@ button:disabled:not(.step-button) {
 
 .scroll-cap-bottom {
   bottom: 0;
+}
+
+.game-screen {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: clamp(0.85rem, 2vw, 1.2rem);
+  min-height: min(94vh, 860px);
+  background:
+    radial-gradient(circle at 50% 25%, rgba(98, 137, 178, 0.22), transparent 28rem),
+    linear-gradient(180deg, rgba(16, 28, 35, 0.38), rgba(4, 7, 9, 0.7)),
+    #101819;
+}
+
+.game-hud {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  color: #fbe9ad;
+  background: linear-gradient(180deg, rgba(82, 20, 18, 0.9), rgba(32, 9, 12, 0.94));
+  border: 4px solid rgba(255, 215, 107, 0.8);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.32),
+    inset 0 0 18px rgba(255, 189, 66, 0.22);
+}
+
+.game-hud h2 {
+  margin: 0;
+  color: var(--gold);
+  font-size: clamp(1.35rem, 3.4vw, 2.1rem);
+  text-shadow: 2px 2px 0 #3d110d;
+}
+
+.game-hud p {
+  margin: 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  text-shadow: 1px 1px 0 #140706;
+}
+
+.adventure-scene {
+  position: relative;
+  z-index: 4;
+  min-height: 560px;
+  overflow: hidden;
+  cursor: crosshair;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(122, 171, 88, 0.72) 0 18%, transparent 19%),
+    radial-gradient(ellipse at 52% 75%, rgba(159, 100, 58, 0.9) 0 44%, rgba(78, 48, 32, 0.96) 70%, #261914 100%);
+  border: 7px ridge #6b3d1b;
+  border-radius: 18px;
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 224, 141, 0.18),
+    inset 0 0 70px rgba(0, 0, 0, 0.42),
+    0 24px 44px rgba(0, 0, 0, 0.42);
+}
+
+.adventure-scene > * {
+  position: absolute;
+}
+
+.scene-sky {
+  inset: 0 0 46%;
+  background:
+    radial-gradient(ellipse at 66% 0%, rgba(255, 239, 198, 0.62), transparent 24%),
+    linear-gradient(180deg, #7f9fa3 0%, #5f806e 50%, transparent 100%);
+  opacity: 0.72;
+}
+
+.scene-ground {
+  inset: 42% -10% -8%;
+  background:
+    repeating-radial-gradient(ellipse at 50% 78%, rgba(52, 34, 24, 0.24) 0 4px, transparent 5px 17px),
+    radial-gradient(ellipse at 50% 60%, rgba(183, 119, 67, 0.7), rgba(83, 50, 32, 0.42) 55%, transparent 72%);
+}
+
+.scene-path {
+  inset: 39% 3% -4%;
+  background:
+    radial-gradient(ellipse at 34% 90%, rgba(218, 148, 87, 0.72), transparent 30%),
+    radial-gradient(ellipse at 62% 65%, rgba(195, 123, 66, 0.52), transparent 42%);
+  clip-path: ellipse(48% 42% at 45% 70%);
+}
+
+.scene-mound {
+  top: 18%;
+  left: 35%;
+  width: 36%;
+  height: 33%;
+  background:
+    radial-gradient(ellipse at 58% 38%, rgba(255, 245, 192, 0.75), transparent 12%),
+    radial-gradient(ellipse at 52% 48%, #dad09b 0 24%, #86794c 46%, #4a4c35 72%, transparent 73%),
+    radial-gradient(ellipse at 50% 70%, rgba(93, 159, 72, 0.95) 0 60%, transparent 61%);
+  filter: drop-shadow(0 12px 10px rgba(0, 0, 0, 0.32));
+}
+
+.scene-cottage {
+  top: 8%;
+  left: 9%;
+  width: 25%;
+  height: 23%;
+  background:
+    linear-gradient(135deg, transparent 0 24%, #6d3c1e 25% 51%, transparent 52%),
+    linear-gradient(45deg, transparent 0 28%, #8b542b 29% 54%, transparent 55%),
+    linear-gradient(180deg, #7b4b28 0 42%, #362019 43% 100%);
+  border-radius: 12px 12px 4px 4px;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.36);
+  opacity: 0.85;
+}
+
+.scene-tree {
+  top: -8%;
+  width: 24%;
+  height: 78%;
+  pointer-events: none;
+}
+
+.scene-tree::before,
+.scene-tree::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-tree::before {
+  inset: 0 38% -8% 36%;
+  background:
+    linear-gradient(90deg, #2a150e, #6f3a1f 45%, #1d0e0a);
+  border-radius: 50% 45% 38% 44%;
+  transform: rotate(10deg);
+}
+
+.scene-tree::after {
+  inset: 0;
+  background:
+    radial-gradient(circle at 45% 20%, #273f22 0 17%, transparent 18%),
+    radial-gradient(circle at 68% 30%, #1d311b 0 19%, transparent 20%),
+    radial-gradient(circle at 32% 42%, #38562b 0 18%, transparent 19%);
+  filter: drop-shadow(0 14px 10px rgba(0, 0, 0, 0.38));
+}
+
+.scene-tree-left {
+  left: -9%;
+}
+
+.scene-tree-right {
+  right: -9%;
+  transform: scaleX(-1);
+}
+
+.player-marker {
+  z-index: 8;
+  width: 3.1rem;
+  height: 1.15rem;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.42), transparent 68%);
+  transform: translate(-50%, -28%);
+  transition:
+    left var(--walk-duration, 500ms) linear,
+    top var(--walk-duration, 500ms) linear;
+}
+
+.player-sprite {
+  z-index: 9;
+  width: clamp(48px, 8vw, 78px);
+  aspect-ratio: 3 / 4;
+  transform: translate(-50%, -100%);
+  filter: drop-shadow(0 8px 5px rgba(0, 0, 0, 0.48));
+  pointer-events: none;
+  transition:
+    left var(--walk-duration, 500ms) linear,
+    top var(--walk-duration, 500ms) linear;
+}
+
+.player-sprite .game-character-art {
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 680px) {
@@ -1008,6 +1192,10 @@ button:disabled:not(.step-button) {
 
   .scroll-cap::after {
     right: -1.45rem;
+  }
+
+  .adventure-scene {
+    min-height: 430px;
   }
 }
 

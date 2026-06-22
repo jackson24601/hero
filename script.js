@@ -4,12 +4,17 @@ const titleScreen = document.querySelector("#title-screen");
 const selectionScreen = document.querySelector("#selection-screen");
 const attributeScreen = document.querySelector("#attribute-screen");
 const introScreen = document.querySelector("#intro-screen");
+const gameScreen = document.querySelector("#game-screen");
 const characterCards = document.querySelectorAll("[data-character]");
 const selectedClass = document.querySelector("[data-selected-class]");
 const selectedPortrait = document.querySelector("[data-selected-portrait]");
 const pointsRemaining = document.querySelector("[data-points-remaining]");
 const allocationStatus = document.querySelector("[data-allocation-status]");
 const beginQuestButton = document.querySelector("[data-begin-quest]");
+const adventureScene = document.querySelector("[data-adventure-scene]");
+const playerSprite = document.querySelector("[data-player-sprite]");
+const playerMarker = document.querySelector("[data-player-marker]");
+const movementStatus = document.querySelector("[data-movement-status]");
 const attributeLists = {
   left: document.querySelector('[data-attribute-list="left"]'),
   right: document.querySelector('[data-attribute-list="right"]'),
@@ -22,6 +27,19 @@ const POINT_POOL = 50;
 const ATTRIBUTE_STEP = 5;
 const MAX_ATTRIBUTE_VALUE = 100;
 const FIXED_ATTRIBUTES = new Set(["Experience", "Health", "Mana"]);
+const FIRST_SCENE = {
+  id: "thurindore-clearing",
+  name: "Vale of Thurindore",
+  startPosition: { x: 34, y: 78 },
+  // Scene coordinates are percentages so later grid data can target any screen size.
+  blockedZones: [
+    { id: "cottage", type: "rect", x: 6, y: 6, width: 30, height: 25 },
+    { id: "dragon-stone", type: "ellipse", x: 53, y: 38, radiusX: 20, radiusY: 15 },
+    { id: "left-tree-line", type: "rect", x: 0, y: 0, width: 9, height: 100 },
+    { id: "right-tree-line", type: "rect", x: 88, y: 0, width: 12, height: 100 },
+    { id: "upper-branches", type: "rect", x: 0, y: 0, width: 100, height: 14 },
+  ],
+};
 const ATTRIBUTE_GROUPS = {
   left: [
     "Strength",
@@ -102,9 +120,11 @@ const CLASS_STARTS = {
 let baseAttributes = {};
 let currentAttributes = {};
 let remainingPoints = POINT_POOL;
+let selectedCharacterCard = null;
+let playerPosition = { ...FIRST_SCENE.startPosition };
 
 function showScreen(screenToShow) {
-  [titleScreen, selectionScreen, attributeScreen, introScreen].forEach((screen) => {
+  [titleScreen, selectionScreen, attributeScreen, introScreen, gameScreen].forEach((screen) => {
     const isActive = screen === screenToShow;
     screen.hidden = !isActive;
     screen.classList.toggle("is-active", isActive);
@@ -213,6 +233,7 @@ function showAttributesFor(card) {
   const character = card.dataset.character;
   const portrait = card.querySelector(".portrait-frame").cloneNode(true);
 
+  selectedCharacterCard = card;
   uniquifySvgIds(portrait, `attribute-${character.toLowerCase()}`);
   selectedClass.textContent = character;
   selectedPortrait.replaceChildren(portrait);
@@ -221,6 +242,70 @@ function showAttributesFor(card) {
   remainingPoints = POINT_POOL;
   renderAttributes();
   showScreen(attributeScreen);
+}
+
+function renderPlayerSprite() {
+  const sourceCard = selectedCharacterCard || characterCards[0];
+  const character = sourceCard.dataset.character;
+  const characterArt = sourceCard.querySelector(".character").cloneNode(true);
+
+  characterArt.classList.add("game-character-art");
+  uniquifySvgIds(characterArt, `game-${character.toLowerCase()}`);
+  playerSprite.setAttribute("aria-label", `${character} hero`);
+  playerSprite.replaceChildren(characterArt);
+}
+
+function placePlayer(point, shouldAnimate = true) {
+  const distance = Math.hypot(point.x - playerPosition.x, point.y - playerPosition.y);
+  const duration = shouldAnimate ? Math.min(Math.max(distance * 18, 220), 1200) : 0;
+
+  playerPosition = point;
+  playerSprite.style.setProperty("--walk-duration", `${duration}ms`);
+  playerSprite.style.left = `${point.x}%`;
+  playerSprite.style.top = `${point.y}%`;
+  playerMarker.style.left = `${point.x}%`;
+  playerMarker.style.top = `${point.y}%`;
+}
+
+function startFirstScene() {
+  renderPlayerSprite();
+  placePlayer({ ...FIRST_SCENE.startPosition }, false);
+  movementStatus.textContent = "Click a clear path to move your hero.";
+  showScreen(gameScreen);
+}
+
+function getScenePoint(event) {
+  const rect = adventureScene.getBoundingClientRect();
+
+  return {
+    x: ((event.clientX - rect.left) / rect.width) * 100,
+    y: ((event.clientY - rect.top) / rect.height) * 100,
+  };
+}
+
+function isPointInBlockedZone(point, zone) {
+  if (zone.type === "rect") {
+    return point.x >= zone.x
+      && point.x <= zone.x + zone.width
+      && point.y >= zone.y
+      && point.y <= zone.y + zone.height;
+  }
+
+  if (zone.type === "ellipse") {
+    const normalizedX = (point.x - zone.x) / zone.radiusX;
+    const normalizedY = (point.y - zone.y) / zone.radiusY;
+    return (normalizedX * normalizedX) + (normalizedY * normalizedY) <= 1;
+  }
+
+  return false;
+}
+
+function isBlockedPoint(point) {
+  return point.x < 0
+    || point.x > 100
+    || point.y < 0
+    || point.y > 100
+    || FIRST_SCENE.blockedZones.some((zone) => isPointInBlockedZone(point, zone));
 }
 
 document.querySelectorAll("[data-action]").forEach((button) => {
@@ -250,6 +335,11 @@ document.querySelectorAll("[data-action]").forEach((button) => {
       }
 
       allocationStatus.textContent = `Allocate all points to continue: ${remainingPoints} remaining.`;
+      return;
+    }
+
+    if (button.dataset.action === "enter-vale") {
+      startFirstScene();
       return;
     }
 
@@ -297,4 +387,16 @@ document.addEventListener("click", (event) => {
   }
 
   updateAttributeControls();
+});
+
+adventureScene.addEventListener("click", (event) => {
+  const point = getScenePoint(event);
+
+  if (isBlockedPoint(point)) {
+    movementStatus.textContent = "That way is blocked. Choose a clear path.";
+    return;
+  }
+
+  placePlayer(point);
+  movementStatus.textContent = "Your hero moves through the clearing.";
 });
