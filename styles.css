@@ -1038,6 +1038,13 @@ button:disabled:not(.step-button) {
     radial-gradient(ellipse at 52% 75%, rgba(159, 100, 58, 0.9) 0 44%, rgba(78, 48, 32, 0.96) 70%, #261914 100%);
 }
 
+.adventure-scene.scene-dragon-altar {
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(138, 178, 98, 0.62) 0 28%, transparent 29%),
+    radial-gradient(ellipse at 50% 75%, rgba(116, 86, 60, 0.92) 0 45%, rgba(55, 42, 35, 0.96) 72%, #191514 100%),
+    linear-gradient(180deg, #6d8580 0%, #44624f 48%, #2b261f 100%);
+}
+
 .adventure-scene > * {
   position: absolute;
 }
@@ -1151,8 +1158,102 @@ button:disabled:not(.step-button) {
 .scene-swamp .scene-cottage,
 .scene-swamp .scene-mound,
 .scene-mountains .scene-cottage,
-.scene-mountains .scene-mound {
+.scene-mountains .scene-mound,
+.scene-dragon-altar .scene-cottage,
+.scene-dragon-altar .scene-mound {
   display: none;
+}
+
+.scene-altar-stones,
+.scene-altar-slab {
+  display: none;
+}
+
+.scene-dragon-altar .scene-altar-stones {
+  display: block;
+  top: 17%;
+  left: 21%;
+  width: 58%;
+  height: 43%;
+  background:
+    radial-gradient(ellipse at 18% 56%, #afa995 0 6%, #6d6a60 7% 10%, transparent 11%),
+    radial-gradient(ellipse at 27% 28%, #b9b39f 0 5%, #68655d 6% 9%, transparent 10%),
+    radial-gradient(ellipse at 43% 18%, #cbc2aa 0 5%, #756f62 6% 9%, transparent 10%),
+    radial-gradient(ellipse at 59% 19%, #a7a391 0 5%, #66625a 6% 9%, transparent 10%),
+    radial-gradient(ellipse at 76% 34%, #beb7a0 0 6%, #6c675d 7% 10%, transparent 11%),
+    radial-gradient(ellipse at 83% 58%, #9c9b8d 0 6%, #5d5c55 7% 10%, transparent 11%),
+    radial-gradient(ellipse at 30% 73%, #8d8b80 0 5%, #55544e 6% 9%, transparent 10%),
+    radial-gradient(ellipse at 69% 75%, #a9a491 0 5%, #646057 6% 9%, transparent 10%);
+  filter:
+    drop-shadow(0 13px 6px rgba(0, 0, 0, 0.32))
+    sepia(0.12);
+}
+
+.scene-dragon-altar .scene-altar-stones::before,
+.scene-dragon-altar .scene-altar-stones::after {
+  position: absolute;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(255, 255, 230, 0.18), transparent 28%),
+    linear-gradient(180deg, #aaa58f, #5e5c54);
+  border-radius: 42% 48% 30% 34%;
+  box-shadow:
+    inset -8px -10px 12px rgba(39, 38, 35, 0.35),
+    inset 5px 4px 8px rgba(255, 246, 205, 0.2),
+    0 8px 8px rgba(0, 0, 0, 0.28);
+}
+
+.scene-dragon-altar .scene-altar-stones::before {
+  top: 15%;
+  left: 38%;
+  width: 11%;
+  height: 48%;
+  transform: rotate(-4deg);
+}
+
+.scene-dragon-altar .scene-altar-stones::after {
+  top: 17%;
+  right: 34%;
+  width: 12%;
+  height: 44%;
+  transform: rotate(8deg);
+}
+
+.scene-dragon-altar .scene-altar-slab {
+  display: block;
+  top: 48%;
+  left: 36%;
+  z-index: 6;
+  width: 29%;
+  height: 12%;
+  background:
+    linear-gradient(26deg, transparent 0 48%, rgba(70, 67, 57, 0.42) 49% 51%, transparent 52%),
+    linear-gradient(160deg, transparent 0 42%, rgba(70, 67, 57, 0.3) 43% 45%, transparent 46%),
+    radial-gradient(ellipse at 50% 32%, #c7bfa5, #807969 62%, #46433c 100%);
+  border-radius: 48% 44% 42% 45%;
+  box-shadow:
+    inset 0 5px 8px rgba(255, 247, 215, 0.2),
+    inset 0 -10px 18px rgba(43, 41, 36, 0.38),
+    0 13px 12px rgba(0, 0, 0, 0.36);
+  transform: rotate(-2deg);
+}
+
+.scene-dragon-altar .scene-path {
+  inset: 36% 8% -3%;
+  background:
+    radial-gradient(ellipse at 50% 44%, rgba(132, 112, 83, 0.55), transparent 25%),
+    radial-gradient(ellipse at 51% 79%, rgba(168, 112, 73, 0.64), transparent 48%);
+  clip-path: ellipse(46% 42% at 50% 70%);
+}
+
+.scene-dragon-altar .scene-tree-left {
+  left: -12%;
+  opacity: 0.82;
+}
+
+.scene-dragon-altar .scene-tree-right {
+  right: -12%;
+  opacity: 0.82;
 }
 
 .scene-swamp .scene-sky {

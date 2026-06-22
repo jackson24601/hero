@@ -31,6 +31,8 @@ const ATTRIBUTE_STEP = 5;
 const MAX_ATTRIBUTE_VALUE = 100;
 const FIXED_ATTRIBUTES = new Set(["Experience", "Health", "Mana"]);
 const EMPTY_CELL = "XXXXXXXXXXX";
+const TOWN_CELL = "Town";
+const DRAGON_ALTAR_CELL = "Dragon Stone Altar";
 const EXIT_THRESHOLD = 6;
 const START_GRID_POSITION = { row: 12, col: 5 };
 const START_SCENE_POSITION = { x: 50, y: 78 };
@@ -93,6 +95,15 @@ const SCENE_TEMPLATES = {
     cssClass: "scene-clearing",
     blockedZones: [
       { id: "dragon-stone", type: "ellipse", x: 53, y: 38, radiusX: 20, radiusY: 15 },
+    ],
+  },
+  dragonAltar: {
+    title: "Dragon Stone Altar",
+    cssClass: "scene-dragon-altar",
+    blockedZones: [
+      { id: "altar-slab", type: "ellipse", x: 50, y: 54, radiusX: 16, radiusY: 8 },
+      { id: "fallen-stone-left", type: "rect", x: 27, y: 37, width: 10, height: 20 },
+      { id: "fallen-stone-right", type: "rect", x: 64, y: 36, width: 10, height: 21 },
     ],
   },
 };
@@ -322,6 +333,10 @@ function isExistingCell(position) {
 }
 
 function getSceneType(cell) {
+  if (cell === DRAGON_ALTAR_CELL) {
+    return "dragonAltar";
+  }
+
   if (cell === "Mountains") {
     return "mountains";
   }
@@ -350,8 +365,32 @@ function getNeighborPosition(direction) {
   };
 }
 
+function canEnterCell(position, direction) {
+  const cell = getCell(position);
+
+  if (cell === TOWN_CELL) {
+    return direction === "north";
+  }
+
+  return isExistingCell(position);
+}
+
+function canLeaveCurrentCell(direction) {
+  const cell = getCurrentSceneName();
+
+  if (cell === TOWN_CELL) {
+    return direction === "south";
+  }
+
+  return true;
+}
+
 function getBlockedDirections() {
-  return Object.keys(DIRECTION_DELTAS).filter((direction) => !isExistingCell(getNeighborPosition(direction)));
+  return Object.keys(DIRECTION_DELTAS).filter((direction) => {
+    const nextPosition = getNeighborPosition(direction);
+
+    return !canLeaveCurrentCell(direction) || !canEnterCell(nextPosition, direction);
+  });
 }
 
 function renderScene() {
@@ -361,7 +400,13 @@ function renderScene() {
   const blockedDirections = getBlockedDirections();
 
   currentSceneTemplate = template;
-  adventureScene.classList.remove("scene-woods", "scene-swamp", "scene-mountains", "scene-clearing");
+  adventureScene.classList.remove(
+    "scene-woods",
+    "scene-swamp",
+    "scene-mountains",
+    "scene-clearing",
+    "scene-dragon-altar",
+  );
   adventureScene.classList.add(template.cssClass);
   sceneTitle.textContent = cell === "Woods" || cell === "Swamp" || cell === "Mountains"
     ? template.title
@@ -453,7 +498,7 @@ function isBlockedPoint(point) {
 function attemptGridMove(direction) {
   const nextPosition = getNeighborPosition(direction);
 
-  if (!isExistingCell(nextPosition)) {
+  if (!canLeaveCurrentCell(direction) || !canEnterCell(nextPosition, direction)) {
     movementStatus.textContent = "That direction is blocked by impassable terrain.";
     return;
   }
