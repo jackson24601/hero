@@ -49,6 +49,8 @@ const LATERN_ITEM = "Latern";
 const MEADOW_CELL = "Meadow";
 const TROLL_CELL = "Troll";
 const TEMPLE_CELL = "Temple";
+const DARK_WIZARD_CASTLE_CELL = "Dark Wizard Castle";
+const ORB_OF_THE_DRAGON = "Orb of the Dragon";
 const EXIT_THRESHOLD = 6;
 const HEALER_HUT_DOOR_ZONE = { id: "healer-hut-door", type: "rect", x: 44, y: 44, width: 12, height: 18 };
 const HEALER_INTERIOR_EXIT_ZONE = { id: "healer-hut-exit", type: "rect", x: 42, y: 83, width: 16, height: 17 };
@@ -56,6 +58,7 @@ const WITCH_DOOR_ZONE = { id: "witch-cottage-door", type: "rect", x: 47, y: 42, 
 const HALL_OF_SHADOWS_DOOR_ZONE = { id: "hall-of-shadows-door", type: "rect", x: 43, y: 38, width: 14, height: 23 };
 const LATERN_PICKUP_ZONE = { id: "latern-pickup", type: "rect", x: 51, y: 30, width: 8, height: 18 };
 const TROLL_START_POSITION = { x: 20, y: 46 };
+const DARK_WIZARD_SNOW_ZONE = { id: "dark-wizard-snow", type: "rect", x: 0, y: 0, width: 100, height: 47 };
 const START_GRID_POSITION = { row: 12, col: 5 };
 const START_SCENE_POSITION = { x: 50, y: 78 };
 const OPPOSITE_DIRECTIONS = {
@@ -135,6 +138,11 @@ const SCENE_TEMPLATES = {
       { id: "temple-right-wing", type: "rect", x: 59, y: 24, width: 19, height: 30 },
       { id: "temple-pediment", type: "rect", x: 20, y: 16, width: 60, height: 16 },
     ],
+  },
+  darkWizard: {
+    title: "Dark Wizard Castle",
+    cssClass: "scene-dark-wizard",
+    blockedZones: [],
   },
   mountains: {
     title: "Mountain Pass",
@@ -483,6 +491,10 @@ function getSceneType(cell) {
     return "temple";
   }
 
+  if (cell === DARK_WIZARD_CASTLE_CELL) {
+    return "darkWizard";
+  }
+
   if (cell === HALL_OF_SHADOWS_CELL) {
     return "hallOfShadows";
   }
@@ -578,11 +590,12 @@ function renderScene() {
     "scene-meadow",
     "scene-troll",
     "scene-temple",
+    "scene-dark-wizard",
   );
   adventureScene.classList.add(template.cssClass);
   adventureScene.classList.toggle("has-latern", hasInventoryItem(LATERN_ITEM));
   resetTrollSprite();
-  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains" || cell === MEADOW_CELL || cell === TROLL_CELL || cell === TEMPLE_CELL
+  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains" || cell === MEADOW_CELL || cell === TROLL_CELL || cell === TEMPLE_CELL || cell === DARK_WIZARD_CASTLE_CELL
     ? template.title
     : cell;
   gridLocation.textContent = isInsideHealerHut
@@ -759,6 +772,20 @@ function sleepInMeadow() {
   movementStatus.textContent = `You sleep beneath the willow. This safe meadow restores your health to ${playerHealth.current}/${playerHealth.max}.`;
 }
 
+function handleDarkWizardSnow(point) {
+  if (getCurrentSceneName() !== DARK_WIZARD_CASTLE_CELL || !isPointInBlockedZone(point, DARK_WIZARD_SNOW_ZONE)) {
+    return false;
+  }
+
+  if (hasInventoryItem(ORB_OF_THE_DRAGON)) {
+    return false;
+  }
+
+  placePlayer({ x: point.x, y: 58 });
+  movementStatus.textContent = "A mysterious force drives you back.";
+  return true;
+}
+
 function attemptGridMove(direction) {
   if (isInsideHealerHut) {
     movementStatus.textContent = "The cottage walls keep you inside. Use the doorway to leave.";
@@ -927,6 +954,10 @@ adventureScene.addEventListener("click", (event) => {
   ) {
     showPickupPrompt("Take Latern");
     movementStatus.textContent = "A Latern hangs from the dead tree.";
+    return;
+  }
+
+  if (handleDarkWizardSnow(point)) {
     return;
   }
 

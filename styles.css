@@ -1195,6 +1195,12 @@ button:disabled:not(.step-button) {
     radial-gradient(ellipse at 50% 78%, rgba(118, 125, 92, 0.88) 0 48%, rgba(50, 69, 44, 0.98) 74%, #18261b 100%);
 }
 
+.adventure-scene.scene-dark-wizard {
+  background:
+    radial-gradient(ellipse at 50% 74%, rgba(69, 145, 54, 0.88) 0 32%, transparent 33%),
+    linear-gradient(180deg, #495a65 0%, #78858a 28%, #e5e8df 29% 45%, #579247 46%, #1b4527 100%);
+}
+
 .adventure-scene.scene-mountains {
   background:
     radial-gradient(ellipse at 50% 72%, rgba(106, 132, 85, 0.66) 0 38%, rgba(83, 72, 58, 0.76) 65%, #242221 100%),
@@ -1376,7 +1382,10 @@ button:disabled:not(.step-button) {
 .scene-troll .scene-mound,
 .scene-temple .scene-cottage,
 .scene-temple .scene-mound,
-.scene-temple .scene-tree {
+.scene-temple .scene-tree,
+.scene-dark-wizard .scene-cottage,
+.scene-dark-wizard .scene-mound,
+.scene-dark-wizard .scene-tree {
   display: none;
 }
 
@@ -1398,6 +1407,9 @@ button:disabled:not(.step-button) {
 .scene-temple-building,
 .scene-temple-columns,
 .scene-temple-steps,
+.scene-dark-mountains,
+.scene-snowfield,
+.scene-dark-tower,
 .hut-interior-wall,
 .hut-shelf,
 .hut-hearth,
@@ -1858,6 +1870,93 @@ button:disabled:not(.step-button) {
   border-bottom: 5px solid #4f4a43;
   clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
   box-shadow: 0 12px 13px rgba(0, 0, 0, 0.28);
+}
+
+.scene-dark-wizard .scene-sky {
+  background:
+    radial-gradient(ellipse at 70% 0%, rgba(207, 215, 216, 0.22), transparent 22%),
+    linear-gradient(180deg, #3b4650 0%, #6f7e84 58%, transparent 100%);
+}
+
+.scene-dark-wizard .scene-path {
+  inset: 43% 5% -3%;
+  background:
+    radial-gradient(ellipse at 50% 70%, rgba(91, 163, 62, 0.56), transparent 42%),
+    radial-gradient(ellipse at 50% 40%, rgba(232, 234, 223, 0.6), transparent 28%);
+  clip-path: ellipse(50% 40% at 50% 68%);
+}
+
+.scene-dark-wizard .scene-dark-mountains {
+  display: block;
+  top: 7%;
+  left: -3%;
+  z-index: 4;
+  width: 106%;
+  height: 35%;
+  background:
+    linear-gradient(135deg, transparent 0 24%, #29313b 25% 38%, transparent 39%),
+    linear-gradient(45deg, transparent 0 20%, #343d47 21% 35%, transparent 36%),
+    linear-gradient(120deg, transparent 0 44%, #1d252e 45% 58%, transparent 59%),
+    linear-gradient(180deg, #4a535b, #222933 70%, transparent 71%);
+  clip-path: polygon(0 100%, 0 58%, 9% 38%, 16% 60%, 27% 20%, 39% 68%, 50% 28%, 62% 64%, 75% 24%, 85% 58%, 94% 34%, 100% 62%, 100% 100%);
+  filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.42));
+}
+
+.scene-dark-wizard .scene-snowfield {
+  display: block;
+  top: 30%;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 24%;
+  background:
+    radial-gradient(ellipse at 22% 34%, rgba(255, 255, 255, 0.94), transparent 16%),
+    radial-gradient(ellipse at 72% 42%, rgba(237, 241, 236, 0.82), transparent 18%),
+    linear-gradient(180deg, #f2f4ee, #d4ddd5 66%, rgba(212, 221, 213, 0));
+  clip-path: polygon(0 0, 100% 0, 100% 63%, 83% 54%, 65% 66%, 48% 53%, 29% 64%, 12% 51%, 0 62%);
+  box-shadow: inset 0 -11px 16px rgba(92, 118, 105, 0.18);
+}
+
+.scene-dark-wizard .scene-dark-tower {
+  display: block;
+  top: 9%;
+  left: 47%;
+  z-index: 6;
+  width: 12%;
+  height: 34%;
+  background:
+    radial-gradient(circle at 48% 21%, rgba(126, 27, 88, 0.62) 0 6%, transparent 7%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 32%),
+    linear-gradient(180deg, #191421, #050407);
+  border: 3px solid #050407;
+  border-radius: 45% 45% 3px 3px / 14% 14% 3px 3px;
+  box-shadow:
+    0 0 18px rgba(7, 4, 12, 0.72),
+    0 19px 15px rgba(0, 0, 0, 0.4);
+}
+
+.scene-dark-wizard .scene-dark-tower::before,
+.scene-dark-wizard .scene-dark-tower::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-dark-wizard .scene-dark-tower::before {
+  top: -19%;
+  left: 18%;
+  width: 64%;
+  height: 25%;
+  background: #050407;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.scene-dark-wizard .scene-dark-tower::after {
+  top: 45%;
+  left: 40%;
+  width: 20%;
+  height: 31%;
+  background: #000;
+  border-radius: 45% 45% 0 0;
 }
 
 .scene-hall-shadows .scene-sky {
