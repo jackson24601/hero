@@ -21,6 +21,8 @@ const edgeBlockers = document.querySelectorAll("[data-edge-blocker]");
 const inventoryPanel = document.querySelector("[data-inventory-panel]");
 const inventoryList = document.querySelector("[data-inventory-list]");
 const inventoryEmpty = document.querySelector("[data-inventory-empty]");
+const pickupPrompt = document.querySelector("[data-pickup-prompt]");
+const pickupMessage = document.querySelector("[data-pickup-message]");
 const attributeLists = {
   left: document.querySelector('[data-attribute-list="left"]'),
   right: document.querySelector('[data-attribute-list="right"]'),
@@ -40,11 +42,14 @@ const HEALER_HUT_CELL = "Healer Hut";
 const WITCH_CELL = "Witch";
 const HALL_OF_SHADOWS_CELL = "Hall of Shadows";
 const AMULET_OF_SHADOWS = "Amulet of Shadows";
+const SWAMP_LATERN_CELL = "Swamp/Latern";
+const LATERN_ITEM = "Latern";
 const EXIT_THRESHOLD = 6;
 const HEALER_HUT_DOOR_ZONE = { id: "healer-hut-door", type: "rect", x: 44, y: 44, width: 12, height: 18 };
 const HEALER_INTERIOR_EXIT_ZONE = { id: "healer-hut-exit", type: "rect", x: 42, y: 83, width: 16, height: 17 };
 const WITCH_DOOR_ZONE = { id: "witch-cottage-door", type: "rect", x: 47, y: 42, width: 8, height: 15 };
 const HALL_OF_SHADOWS_DOOR_ZONE = { id: "hall-of-shadows-door", type: "rect", x: 43, y: 38, width: 14, height: 23 };
+const LATERN_PICKUP_ZONE = { id: "latern-pickup", type: "rect", x: 51, y: 30, width: 8, height: 18 };
 const START_GRID_POSITION = { row: 12, col: 5 };
 const START_SCENE_POSITION = { x: 50, y: 78 };
 const OPPOSITE_DIRECTIONS = {
@@ -91,6 +96,14 @@ const SCENE_TEMPLATES = {
     title: "Mistwood Swamp",
     cssClass: "scene-swamp",
     blockedZones: [],
+  },
+  swampLatern: {
+    title: "Swamp Latern",
+    cssClass: "scene-swamp-latern",
+    blockedZones: [
+      { id: "latern-island", type: "ellipse", x: 51, y: 57, radiusX: 18, radiusY: 9 },
+      { id: "dead-tree-trunk", type: "rect", x: 47, y: 31, width: 8, height: 28 },
+    ],
   },
   mountains: {
     title: "Mountain Pass",
@@ -416,6 +429,10 @@ function getSceneType(cell) {
     return "dragonAltar";
   }
 
+  if (cell === SWAMP_LATERN_CELL) {
+    return "swampLatern";
+  }
+
   if (cell === HALL_OF_SHADOWS_CELL) {
     return "hallOfShadows";
   }
@@ -494,6 +511,7 @@ function renderScene() {
   const template = SCENE_TEMPLATES[sceneType];
   const blockedDirections = getBlockedDirections();
 
+  hidePickupPrompt();
   currentSceneTemplate = template;
   adventureScene.classList.remove(
     "scene-woods",
@@ -505,8 +523,10 @@ function renderScene() {
     "scene-healer-interior",
     "scene-witch",
     "scene-hall-shadows",
+    "scene-swamp-latern",
   );
   adventureScene.classList.add(template.cssClass);
+  adventureScene.classList.toggle("has-latern", hasInventoryItem(LATERN_ITEM));
   sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains"
     ? template.title
     : cell;
@@ -630,6 +650,23 @@ function tryApproachHallOfShadows() {
   movementStatus.textContent = "The Amulet of Shadows glows as you approach the open door.";
 }
 
+function showPickupPrompt(message) {
+  pickupMessage.textContent = message;
+  pickupPrompt.hidden = false;
+}
+
+function hidePickupPrompt() {
+  pickupPrompt.hidden = true;
+}
+
+function takeLatern() {
+  addInventoryItem(LATERN_ITEM);
+  hidePickupPrompt();
+  adventureScene.classList.add("has-latern");
+  movementStatus.textContent = "You take the Latern and place it in your inventory.";
+  toggleInventory(true);
+}
+
 function attemptGridMove(direction) {
   if (isInsideHealerHut) {
     movementStatus.textContent = "The cottage walls keep you inside. Use the doorway to leave.";
@@ -694,6 +731,11 @@ document.querySelectorAll("[data-action]").forEach((button) => {
       return;
     }
 
+    if (button.dataset.action === "take-latern") {
+      takeLatern();
+      return;
+    }
+
     statusMessage.textContent = actions[button.dataset.action];
   });
 });
@@ -741,6 +783,10 @@ document.addEventListener("click", (event) => {
 });
 
 adventureScene.addEventListener("click", (event) => {
+  if (event.target.closest("[data-action]")) {
+    return;
+  }
+
   const point = getScenePoint(event);
 
   if (isInsideHealerHut) {
@@ -776,11 +822,22 @@ adventureScene.addEventListener("click", (event) => {
     return;
   }
 
+  if (
+    getCurrentSceneName() === SWAMP_LATERN_CELL
+    && !hasInventoryItem(LATERN_ITEM)
+    && isPointInBlockedZone(point, LATERN_PICKUP_ZONE)
+  ) {
+    showPickupPrompt("Take Latern");
+    movementStatus.textContent = "A Latern hangs from the dead tree.";
+    return;
+  }
+
   if (isBlockedPoint(point)) {
     movementStatus.textContent = "That way is blocked. Choose a clear path.";
     return;
   }
 
+  hidePickupPrompt();
   placePlayer(point);
   if (getCurrentSceneName() === HEALER_HUT_CELL && isPointInBlockedZone(point, HEALER_HUT_DOOR_ZONE)) {
     enterHealerHut();

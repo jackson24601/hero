@@ -410,6 +410,41 @@ button:disabled:not(.step-button) {
   margin-top: 1rem;
 }
 
+.pickup-prompt {
+  right: 50%;
+  bottom: 1.2rem;
+  z-index: 20;
+  width: min(90%, 260px);
+  padding: 0.85rem;
+  color: #3b1f10;
+  text-align: center;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 251, 218, 0.75), transparent 9rem),
+    linear-gradient(180deg, #f3d38a, #c99245);
+  border: 5px ridge #87521d;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 248, 207, 0.58),
+    0 16px 24px rgba(0, 0, 0, 0.36);
+  transform: translateX(50%);
+}
+
+.pickup-prompt[hidden] {
+  display: none;
+}
+
+.pickup-prompt p {
+  margin: 0 0 0.7rem;
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.pickup-prompt button {
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+}
+
 .menu-status {
   position: relative;
   z-index: 4;
@@ -1103,6 +1138,12 @@ button:disabled:not(.step-button) {
     radial-gradient(ellipse at 50% 78%, rgba(40, 84, 66, 0.95) 0 44%, rgba(18, 52, 45, 0.98) 70%, #0b201d 100%);
 }
 
+.adventure-scene.scene-swamp-latern {
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(69, 111, 78, 0.46) 0 26%, transparent 27%),
+    radial-gradient(ellipse at 50% 78%, rgba(35, 82, 67, 0.95) 0 44%, rgba(15, 47, 41, 0.98) 70%, #081f1c 100%);
+}
+
 .adventure-scene.scene-mountains {
   background:
     radial-gradient(ellipse at 50% 72%, rgba(106, 132, 85, 0.66) 0 38%, rgba(83, 72, 58, 0.76) 65%, #242221 100%),
@@ -1275,7 +1316,9 @@ button:disabled:not(.step-button) {
 .scene-witch .scene-mound,
 .scene-hall-shadows .scene-cottage,
 .scene-hall-shadows .scene-mound,
-.scene-hall-shadows .scene-tree {
+.scene-hall-shadows .scene-tree,
+.scene-swamp-latern .scene-cottage,
+.scene-swamp-latern .scene-mound {
   display: none;
 }
 
@@ -1286,6 +1329,9 @@ button:disabled:not(.step-button) {
 .scene-witch-door,
 .scene-hall-monolith,
 .scene-hall-door,
+.scene-latern-island,
+.scene-dead-tree,
+.scene-latern,
 .hut-interior-wall,
 .hut-shelf,
 .hut-hearth,
@@ -1293,6 +1339,131 @@ button:disabled:not(.step-button) {
 .hut-counter,
 .hut-healer,
 .hut-doorway {
+  display: none;
+}
+
+.scene-swamp-latern .scene-sky {
+  background:
+    radial-gradient(ellipse at 58% 2%, rgba(167, 184, 146, 0.34), transparent 21%),
+    linear-gradient(180deg, #50695f 0%, #344f47 54%, transparent 100%);
+}
+
+.scene-swamp-latern .scene-swamp-water {
+  display: block;
+  inset: 48% 7% 10%;
+  background:
+    radial-gradient(ellipse at 28% 34%, rgba(118, 160, 115, 0.38), transparent 12%),
+    radial-gradient(ellipse at 70% 62%, rgba(111, 151, 105, 0.35), transparent 15%),
+    repeating-linear-gradient(0deg, rgba(177, 204, 133, 0.13) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(30, 83, 72, 0.75), rgba(13, 50, 44, 0.88));
+  border-radius: 48%;
+  box-shadow:
+    inset 0 0 34px rgba(5, 23, 20, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.26);
+}
+
+.scene-swamp-latern .scene-reeds {
+  display: block;
+  bottom: 11%;
+  width: 20%;
+  height: 34%;
+  background:
+    linear-gradient(82deg, transparent 0 46%, #314d25 47% 51%, transparent 52%),
+    linear-gradient(100deg, transparent 0 42%, #667538 43% 48%, transparent 49%),
+    linear-gradient(72deg, transparent 0 58%, #263f22 59% 63%, transparent 64%);
+}
+
+.scene-swamp-latern .scene-path {
+  inset: 42% 6% -2%;
+  background:
+    radial-gradient(ellipse at 50% 52%, rgba(66, 120, 78, 0.45), transparent 28%),
+    radial-gradient(ellipse at 51% 78%, rgba(47, 95, 69, 0.5), transparent 44%);
+  clip-path: ellipse(50% 38% at 50% 68%);
+}
+
+.scene-swamp-latern .scene-latern-island {
+  display: block;
+  top: 49%;
+  left: 34%;
+  z-index: 5;
+  width: 34%;
+  height: 18%;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(115, 93, 52, 0.82), transparent 44%),
+    radial-gradient(ellipse at 50% 62%, #5f7c3c 0 55%, #304326 72%, transparent 73%);
+  border-radius: 52%;
+  box-shadow:
+    inset 0 -8px 13px rgba(15, 34, 20, 0.44),
+    0 12px 12px rgba(0, 0, 0, 0.28);
+}
+
+.scene-swamp-latern .scene-dead-tree {
+  display: block;
+  top: 26%;
+  left: 47%;
+  z-index: 6;
+  width: 20%;
+  height: 37%;
+  background:
+    linear-gradient(77deg, transparent 0 43%, #2d2017 44% 51%, transparent 52%),
+    linear-gradient(116deg, transparent 0 31%, #39271c 32% 39%, transparent 40%),
+    linear-gradient(12deg, transparent 0 43%, #2b1e17 44% 55%, transparent 56%);
+  filter: drop-shadow(0 8px 5px rgba(0, 0, 0, 0.42));
+}
+
+.scene-swamp-latern .scene-dead-tree::before,
+.scene-swamp-latern .scene-dead-tree::after {
+  position: absolute;
+  content: "";
+  background: #312218;
+  border-radius: 999px;
+  transform-origin: bottom left;
+}
+
+.scene-swamp-latern .scene-dead-tree::before {
+  top: 20%;
+  left: 35%;
+  width: 42%;
+  height: 8%;
+  transform: rotate(-25deg);
+}
+
+.scene-swamp-latern .scene-dead-tree::after {
+  top: 25%;
+  left: 43%;
+  width: 35%;
+  height: 7%;
+  transform: rotate(27deg);
+}
+
+.scene-swamp-latern .scene-latern {
+  display: block;
+  top: 34%;
+  left: 56%;
+  z-index: 7;
+  width: 5.2%;
+  height: 12%;
+  background:
+    linear-gradient(90deg, transparent 0 42%, #23170d 43% 57%, transparent 58%),
+    radial-gradient(ellipse at 50% 63%, rgba(255, 220, 88, 0.96) 0 29%, rgba(201, 108, 25, 0.75) 30% 48%, #2a1a0e 49% 100%);
+  border: 2px solid #1b1009;
+  border-radius: 40% 40% 45% 45%;
+  box-shadow:
+    0 0 20px rgba(255, 207, 70, 0.62),
+    0 6px 8px rgba(0, 0, 0, 0.36);
+}
+
+.scene-swamp-latern .scene-latern::before {
+  position: absolute;
+  top: -42%;
+  left: 44%;
+  width: 12%;
+  height: 50%;
+  content: "";
+  background: #1c120b;
+}
+
+.scene-swamp-latern.has-latern .scene-latern {
   display: none;
 }
 
