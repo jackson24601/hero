@@ -18,6 +18,9 @@ const movementStatus = document.querySelector("[data-movement-status]");
 const sceneTitle = document.querySelector("[data-scene-title]");
 const gridLocation = document.querySelector("[data-grid-location]");
 const edgeBlockers = document.querySelectorAll("[data-edge-blocker]");
+const inventoryPanel = document.querySelector("[data-inventory-panel]");
+const inventoryList = document.querySelector("[data-inventory-list]");
+const inventoryEmpty = document.querySelector("[data-inventory-empty]");
 const attributeLists = {
   left: document.querySelector('[data-attribute-list="left"]'),
   right: document.querySelector('[data-attribute-list="right"]'),
@@ -35,10 +38,13 @@ const TOWN_CELL = "Town";
 const DRAGON_ALTAR_CELL = "Dragon Stone Altar";
 const HEALER_HUT_CELL = "Healer Hut";
 const WITCH_CELL = "Witch";
+const HALL_OF_SHADOWS_CELL = "Hall of Shadows";
+const AMULET_OF_SHADOWS = "Amulet of Shadows";
 const EXIT_THRESHOLD = 6;
 const HEALER_HUT_DOOR_ZONE = { id: "healer-hut-door", type: "rect", x: 44, y: 44, width: 12, height: 18 };
 const HEALER_INTERIOR_EXIT_ZONE = { id: "healer-hut-exit", type: "rect", x: 42, y: 83, width: 16, height: 17 };
 const WITCH_DOOR_ZONE = { id: "witch-cottage-door", type: "rect", x: 47, y: 42, width: 8, height: 15 };
+const HALL_OF_SHADOWS_DOOR_ZONE = { id: "hall-of-shadows-door", type: "rect", x: 43, y: 38, width: 14, height: 23 };
 const START_GRID_POSITION = { row: 12, col: 5 };
 const START_SCENE_POSITION = { x: 50, y: 78 };
 const OPPOSITE_DIRECTIONS = {
@@ -140,6 +146,16 @@ const SCENE_TEMPLATES = {
       WITCH_DOOR_ZONE,
     ],
   },
+  hallOfShadows: {
+    title: "Hall of Shadows",
+    cssClass: "scene-hall-shadows",
+    blockedZones: [
+      { id: "hall-monolith-left", type: "rect", x: 28, y: 17, width: 15, height: 50 },
+      { id: "hall-monolith-right", type: "rect", x: 57, y: 17, width: 15, height: 50 },
+      { id: "hall-monolith-cap", type: "rect", x: 31, y: 13, width: 38, height: 13 },
+      HALL_OF_SHADOWS_DOOR_ZONE,
+    ],
+  },
 };
 const ATTRIBUTE_GROUPS = {
   left: [
@@ -226,7 +242,7 @@ let currentGridPosition = { ...START_GRID_POSITION };
 let playerPosition = { ...START_SCENE_POSITION };
 let currentSceneTemplate = SCENE_TEMPLATES.clearing;
 let isInsideHealerHut = false;
-let hasWitchesKey = false;
+const inventory = [];
 
 function showScreen(screenToShow) {
   [titleScreen, selectionScreen, attributeScreen, introScreen, gameScreen].forEach((screen) => {
@@ -360,6 +376,33 @@ function renderPlayerSprite() {
   playerSprite.replaceChildren(characterArt);
 }
 
+function renderInventory() {
+  inventoryList.replaceChildren(...inventory.map((item) => {
+    const itemNode = document.createElement("li");
+    itemNode.textContent = item;
+    return itemNode;
+  }));
+  inventoryEmpty.hidden = inventory.length > 0;
+}
+
+function addInventoryItem(item) {
+  if (inventory.includes(item)) {
+    return;
+  }
+
+  inventory.push(item);
+  renderInventory();
+}
+
+function hasInventoryItem(item) {
+  return inventory.includes(item);
+}
+
+function toggleInventory(forceOpen) {
+  const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : inventoryPanel.hidden;
+  inventoryPanel.hidden = !shouldOpen;
+}
+
 function getCell(position) {
   return GAME_GRID[position.row]?.[position.col] || EMPTY_CELL;
 }
@@ -371,6 +414,10 @@ function isExistingCell(position) {
 function getSceneType(cell) {
   if (cell === DRAGON_ALTAR_CELL) {
     return "dragonAltar";
+  }
+
+  if (cell === HALL_OF_SHADOWS_CELL) {
+    return "hallOfShadows";
   }
 
   if (cell === HEALER_HUT_CELL) {
@@ -457,6 +504,7 @@ function renderScene() {
     "scene-healer-hut",
     "scene-healer-interior",
     "scene-witch",
+    "scene-hall-shadows",
   );
   adventureScene.classList.add(template.cssClass);
   sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains"
@@ -564,12 +612,22 @@ function leaveHealerHut() {
 }
 
 function tryEnterWitchCottage() {
-  if (!hasWitchesKey) {
+  if (!hasInventoryItem("Witches' Key")) {
     movementStatus.textContent = "The witch's door is locked. You need the Witches' Key.";
     return;
   }
 
   movementStatus.textContent = "The Witches' Key turns in the lock, but the cottage interior is not ready yet.";
+}
+
+function tryApproachHallOfShadows() {
+  if (!hasInventoryItem(AMULET_OF_SHADOWS)) {
+    movementStatus.textContent = "A cold force pushes you back. You need the Amulet of Shadows to approach the open door.";
+    return;
+  }
+
+  placePlayer({ x: 50, y: 61 });
+  movementStatus.textContent = "The Amulet of Shadows glows as you approach the open door.";
 }
 
 function attemptGridMove(direction) {
@@ -623,6 +681,16 @@ document.querySelectorAll("[data-action]").forEach((button) => {
 
     if (button.dataset.action === "enter-vale") {
       startFirstScene();
+      return;
+    }
+
+    if (button.dataset.action === "toggle-inventory") {
+      toggleInventory();
+      return;
+    }
+
+    if (button.dataset.action === "close-inventory") {
+      toggleInventory(false);
       return;
     }
 
@@ -703,6 +771,11 @@ adventureScene.addEventListener("click", (event) => {
     return;
   }
 
+  if (getCurrentSceneName() === HALL_OF_SHADOWS_CELL && isPointInBlockedZone(point, HALL_OF_SHADOWS_DOOR_ZONE)) {
+    tryApproachHallOfShadows();
+    return;
+  }
+
   if (isBlockedPoint(point)) {
     movementStatus.textContent = "That way is blocked. Choose a clear path.";
     return;
@@ -716,3 +789,5 @@ adventureScene.addEventListener("click", (event) => {
 
   movementStatus.textContent = `Your hero moves through ${getCurrentSceneName()}.`;
 });
+
+renderInventory();

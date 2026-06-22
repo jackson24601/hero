@@ -333,6 +333,83 @@ button:disabled:not(.step-button) {
   transform: none;
 }
 
+.inventory-button {
+  position: fixed;
+  right: clamp(0.9rem, 3vw, 1.6rem);
+  bottom: clamp(0.9rem, 3vw, 1.6rem);
+  z-index: 30;
+  min-width: 150px;
+}
+
+.inventory-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 29;
+  display: grid;
+  padding: 1rem;
+  background: rgba(3, 5, 9, 0.58);
+  place-items: end center;
+}
+
+.inventory-panel[hidden] {
+  display: none;
+}
+
+.inventory-card {
+  width: min(100%, 430px);
+  margin-bottom: 5.2rem;
+  padding: 1rem;
+  color: #3b1f10;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 251, 218, 0.75), transparent 13rem),
+    linear-gradient(180deg, #f3d38a, #c99245);
+  border: 6px ridge #87521d;
+  border-radius: 16px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 248, 207, 0.58),
+    0 20px 35px rgba(0, 0, 0, 0.42);
+}
+
+.inventory-card h2 {
+  margin: 0 0 0.75rem;
+  color: #5b2312;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  text-shadow: 1px 1px 0 #f8e3a8;
+}
+
+.inventory-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inventory-list li {
+  padding: 0.55rem 0.7rem;
+  color: #2f1c10;
+  font-weight: 800;
+  background: rgba(255, 245, 205, 0.38);
+  border: 1px solid rgba(91, 44, 12, 0.18);
+  border-radius: 8px;
+}
+
+.inventory-empty {
+  margin: 0;
+  color: #4b2412;
+  font-weight: 800;
+}
+
+.inventory-empty[hidden] {
+  display: none;
+}
+
+.inventory-close {
+  width: 100%;
+  min-width: 0;
+  margin-top: 1rem;
+}
+
 .menu-status {
   position: relative;
   z-index: 4;
@@ -1064,6 +1141,13 @@ button:disabled:not(.step-button) {
     radial-gradient(ellipse at 50% 78%, rgba(29, 69, 58, 0.95) 0 44%, rgba(13, 39, 35, 0.98) 70%, #081917 100%);
 }
 
+.adventure-scene.scene-hall-shadows {
+  background:
+    radial-gradient(ellipse at 50% 37%, rgba(73, 80, 82, 0.68) 0 28%, transparent 29%),
+    radial-gradient(ellipse at 50% 79%, rgba(72, 70, 66, 0.92) 0 46%, rgba(32, 31, 31, 0.98) 73%, #0d0d0f 100%),
+    linear-gradient(180deg, #5f6b6e 0%, #30383b 47%, #171719 100%);
+}
+
 .adventure-scene > * {
   position: absolute;
 }
@@ -1188,7 +1272,10 @@ button:disabled:not(.step-button) {
 .scene-healer-interior .scene-ground,
 .scene-healer-interior .scene-sky,
 .scene-witch .scene-cottage,
-.scene-witch .scene-mound {
+.scene-witch .scene-mound,
+.scene-hall-shadows .scene-cottage,
+.scene-hall-shadows .scene-mound,
+.scene-hall-shadows .scene-tree {
   display: none;
 }
 
@@ -1197,6 +1284,8 @@ button:disabled:not(.step-button) {
 .scene-witch-smoke,
 .scene-witch-window,
 .scene-witch-door,
+.scene-hall-monolith,
+.scene-hall-door,
 .hut-interior-wall,
 .hut-shelf,
 .hut-hearth,
@@ -1205,6 +1294,85 @@ button:disabled:not(.step-button) {
 .hut-healer,
 .hut-doorway {
   display: none;
+}
+
+.scene-hall-shadows .scene-sky {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(183, 189, 183, 0.28), transparent 28%),
+    linear-gradient(180deg, #657073 0%, #394246 54%, transparent 100%);
+}
+
+.scene-hall-shadows .scene-path {
+  inset: 40% 10% -2%;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(106, 104, 99, 0.62), transparent 28%),
+    radial-gradient(ellipse at 50% 78%, rgba(86, 79, 72, 0.72), transparent 48%);
+  clip-path: ellipse(42% 42% at 50% 70%);
+}
+
+.scene-hall-shadows .scene-hall-monolith {
+  display: block;
+  top: 13%;
+  left: 28%;
+  z-index: 5;
+  width: 44%;
+  height: 57%;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 25% 75%, rgba(0, 0, 0, 0.25)),
+    radial-gradient(ellipse at 50% 8%, #8f9493 0 39%, transparent 40%),
+    linear-gradient(180deg, #777d7d 0%, #565b5b 50%, #313333 100%);
+  border: 6px solid #282b2c;
+  border-radius: 48% 48% 9px 9px / 16% 16% 9px 9px;
+  box-shadow:
+    inset 10px 0 18px rgba(255, 255, 255, 0.08),
+    inset -18px 0 24px rgba(0, 0, 0, 0.34),
+    0 24px 20px rgba(0, 0, 0, 0.45);
+}
+
+.scene-hall-shadows .scene-hall-monolith::before,
+.scene-hall-shadows .scene-hall-monolith::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-hall-shadows .scene-hall-monolith::before {
+  top: 12%;
+  left: 17%;
+  width: 66%;
+  height: 16%;
+  background:
+    linear-gradient(90deg, transparent 0 12%, rgba(33, 34, 35, 0.4) 13% 17%, transparent 18% 36%, rgba(33, 34, 35, 0.34) 37% 41%, transparent 42% 64%, rgba(33, 34, 35, 0.35) 65% 69%, transparent 70%),
+    linear-gradient(180deg, rgba(215, 218, 210, 0.16), rgba(38, 39, 40, 0.16));
+  border-radius: 8px;
+}
+
+.scene-hall-shadows .scene-hall-monolith::after {
+  right: 18%;
+  bottom: 13%;
+  left: 18%;
+  height: 4px;
+  background: rgba(19, 20, 21, 0.45);
+  box-shadow:
+    0 -48px 0 rgba(19, 20, 21, 0.16),
+    0 -91px 0 rgba(19, 20, 21, 0.12);
+}
+
+.scene-hall-shadows .scene-hall-door {
+  display: block;
+  top: 38%;
+  left: 43%;
+  z-index: 7;
+  width: 14%;
+  height: 25%;
+  background:
+    radial-gradient(ellipse at 50% 70%, rgba(62, 70, 81, 0.22), transparent 54%),
+    linear-gradient(180deg, #030405, #000);
+  border: 5px solid #202324;
+  border-bottom-color: #080909;
+  border-radius: 48% 48% 4px 4px;
+  box-shadow:
+    inset 0 0 22px rgba(0, 0, 0, 0.95),
+    0 0 24px rgba(31, 34, 42, 0.72);
 }
 
 .scene-witch .scene-sky {

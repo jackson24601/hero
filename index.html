@@ -274,6 +274,8 @@
           <div class="scene-witch-smoke" aria-hidden="true"></div>
           <div class="scene-witch-window" aria-hidden="true"></div>
           <div class="scene-witch-door" aria-hidden="true"></div>
+          <div class="scene-hall-monolith" aria-hidden="true"></div>
+          <div class="scene-hall-door" aria-hidden="true"></div>
           <div class="scene-mound" aria-hidden="true"></div>
           <div class="scene-altar-stones" aria-hidden="true"></div>
           <div class="scene-altar-slab" aria-hidden="true"></div>
@@ -301,6 +303,17 @@
         </div>
       </section>
     </main>
+
+    <aside class="inventory-panel" data-inventory-panel hidden aria-labelledby="inventory-title">
+      <div class="inventory-card">
+        <h2 id="inventory-title">Inventory</h2>
+        <ul class="inventory-list" data-inventory-list></ul>
+        <p class="inventory-empty" data-inventory-empty>Your inventory is empty.</p>
+        <button type="button" class="inventory-close" data-action="close-inventory">Close</button>
+      </div>
+    </aside>
+
+    <button type="button" class="inventory-button" data-action="toggle-inventory">Inventory</button>
 
     <script src="script.js"></script>
   </body>
