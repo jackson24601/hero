@@ -33,7 +33,10 @@ const FIXED_ATTRIBUTES = new Set(["Experience", "Health", "Mana"]);
 const EMPTY_CELL = "XXXXXXXXXXX";
 const TOWN_CELL = "Town";
 const DRAGON_ALTAR_CELL = "Dragon Stone Altar";
+const HEALER_HUT_CELL = "Healer Hut";
 const EXIT_THRESHOLD = 6;
+const HEALER_HUT_DOOR_ZONE = { id: "healer-hut-door", type: "rect", x: 44, y: 44, width: 12, height: 18 };
+const HEALER_INTERIOR_EXIT_ZONE = { id: "healer-hut-exit", type: "rect", x: 42, y: 83, width: 16, height: 17 };
 const START_GRID_POSITION = { row: 12, col: 5 };
 const START_SCENE_POSITION = { x: 50, y: 78 };
 const OPPOSITE_DIRECTIONS = {
@@ -104,6 +107,25 @@ const SCENE_TEMPLATES = {
       { id: "altar-slab", type: "ellipse", x: 50, y: 54, radiusX: 16, radiusY: 8 },
       { id: "fallen-stone-left", type: "rect", x: 27, y: 37, width: 10, height: 20 },
       { id: "fallen-stone-right", type: "rect", x: 64, y: 36, width: 10, height: 21 },
+    ],
+  },
+  healerHut: {
+    title: "Healer Hut",
+    cssClass: "scene-healer-hut",
+    blockedZones: [
+      { id: "healer-hut-house-left", type: "rect", x: 28, y: 24, width: 16, height: 39 },
+      { id: "healer-hut-house-right", type: "rect", x: 56, y: 24, width: 16, height: 39 },
+      { id: "healer-hut-roof", type: "rect", x: 25, y: 19, width: 50, height: 20 },
+    ],
+  },
+  healerInterior: {
+    title: "Inside the Healer Hut",
+    cssClass: "scene-healer-interior",
+    blockedZones: [
+      { id: "healer-counter", type: "rect", x: 60, y: 42, width: 28, height: 28 },
+      { id: "healer-hearth", type: "rect", x: 10, y: 38, width: 22, height: 28 },
+      { id: "healer-left-shelf", type: "rect", x: 4, y: 8, width: 30, height: 18 },
+      { id: "healer-right-shelf", type: "rect", x: 61, y: 8, width: 34, height: 18 },
     ],
   },
 };
@@ -191,6 +213,7 @@ let selectedCharacterCard = null;
 let currentGridPosition = { ...START_GRID_POSITION };
 let playerPosition = { ...START_SCENE_POSITION };
 let currentSceneTemplate = SCENE_TEMPLATES.clearing;
+let isInsideHealerHut = false;
 
 function showScreen(screenToShow) {
   [titleScreen, selectionScreen, attributeScreen, introScreen, gameScreen].forEach((screen) => {
@@ -337,6 +360,10 @@ function getSceneType(cell) {
     return "dragonAltar";
   }
 
+  if (cell === HEALER_HUT_CELL) {
+    return "healerHut";
+  }
+
   if (cell === "Mountains") {
     return "mountains";
   }
@@ -345,7 +372,7 @@ function getSceneType(cell) {
     return "swamp";
   }
 
-  if (cell.includes("Woods") || cell === "Healer Hut" || cell === "Town" || cell === "Temple") {
+  if (cell.includes("Woods") || cell === "Town" || cell === "Temple") {
     return "woods";
   }
 
@@ -386,6 +413,10 @@ function canLeaveCurrentCell(direction) {
 }
 
 function getBlockedDirections() {
+  if (isInsideHealerHut) {
+    return [];
+  }
+
   return Object.keys(DIRECTION_DELTAS).filter((direction) => {
     const nextPosition = getNeighborPosition(direction);
 
@@ -395,7 +426,7 @@ function getBlockedDirections() {
 
 function renderScene() {
   const cell = getCurrentSceneName();
-  const sceneType = getSceneType(cell);
+  const sceneType = isInsideHealerHut ? "healerInterior" : getSceneType(cell);
   const template = SCENE_TEMPLATES[sceneType];
   const blockedDirections = getBlockedDirections();
 
@@ -406,13 +437,17 @@ function renderScene() {
     "scene-mountains",
     "scene-clearing",
     "scene-dragon-altar",
+    "scene-healer-hut",
+    "scene-healer-interior",
   );
   adventureScene.classList.add(template.cssClass);
-  sceneTitle.textContent = cell === "Woods" || cell === "Swamp" || cell === "Mountains"
+  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains"
     ? template.title
     : cell;
-  gridLocation.textContent = `Grid ${currentGridPosition.row + 1}, ${currentGridPosition.col + 1}`;
-  adventureScene.setAttribute("aria-label", `${cell}. Click a clear spot to move.`);
+  gridLocation.textContent = isInsideHealerHut
+    ? "Inside the cottage"
+    : `Grid ${currentGridPosition.row + 1}, ${currentGridPosition.col + 1}`;
+  adventureScene.setAttribute("aria-label", `${sceneTitle.textContent}. Click a clear spot to move.`);
 
   edgeBlockers.forEach((blocker) => {
     blocker.hidden = !blockedDirections.includes(blocker.dataset.edgeBlocker);
@@ -434,6 +469,7 @@ function placePlayer(point, shouldAnimate = true) {
 function startFirstScene() {
   currentGridPosition = { ...START_GRID_POSITION };
   playerPosition = { ...START_SCENE_POSITION };
+  isInsideHealerHut = false;
   renderPlayerSprite();
   renderScene();
   placePlayer({ ...START_SCENE_POSITION }, false);
@@ -495,7 +531,26 @@ function isBlockedPoint(point) {
     || currentSceneTemplate.blockedZones.some((zone) => isPointInBlockedZone(point, zone));
 }
 
+function enterHealerHut() {
+  isInsideHealerHut = true;
+  renderScene();
+  placePlayer({ x: 50, y: 82 }, false);
+  movementStatus.textContent = "The healer's door opens. You step into the warm cottage.";
+}
+
+function leaveHealerHut() {
+  isInsideHealerHut = false;
+  renderScene();
+  placePlayer({ x: 50, y: 68 }, false);
+  movementStatus.textContent = "You step back outside the Healer Hut.";
+}
+
 function attemptGridMove(direction) {
+  if (isInsideHealerHut) {
+    movementStatus.textContent = "The cottage walls keep you inside. Use the doorway to leave.";
+    return;
+  }
+
   const nextPosition = getNeighborPosition(direction);
 
   if (!canLeaveCurrentCell(direction) || !canEnterCell(nextPosition, direction)) {
@@ -592,6 +647,23 @@ document.addEventListener("click", (event) => {
 
 adventureScene.addEventListener("click", (event) => {
   const point = getScenePoint(event);
+
+  if (isInsideHealerHut) {
+    if (isPointInBlockedZone(point, HEALER_INTERIOR_EXIT_ZONE)) {
+      leaveHealerHut();
+      return;
+    }
+
+    if (isBlockedPoint(point)) {
+      movementStatus.textContent = "Shelves and furniture block that spot.";
+      return;
+    }
+
+    placePlayer(point);
+    movementStatus.textContent = "Your hero walks across the healer's cozy cottage.";
+    return;
+  }
+
   const exitDirection = getExitDirection(point);
 
   if (exitDirection) {
@@ -605,5 +677,10 @@ adventureScene.addEventListener("click", (event) => {
   }
 
   placePlayer(point);
+  if (getCurrentSceneName() === HEALER_HUT_CELL && isPointInBlockedZone(point, HEALER_HUT_DOOR_ZONE)) {
+    enterHealerHut();
+    return;
+  }
+
   movementStatus.textContent = `Your hero moves through ${getCurrentSceneName()}.`;
 });

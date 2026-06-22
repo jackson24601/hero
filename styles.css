@@ -1045,6 +1045,19 @@ button:disabled:not(.step-button) {
     linear-gradient(180deg, #6d8580 0%, #44624f 48%, #2b261f 100%);
 }
 
+.adventure-scene.scene-healer-hut {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(144, 215, 96, 0.82) 0 34%, transparent 35%),
+    radial-gradient(ellipse at 52% 78%, rgba(70, 158, 65, 0.88) 0 48%, rgba(26, 91, 45, 0.98) 74%, #102b1e 100%);
+}
+
+.adventure-scene.scene-healer-interior {
+  background:
+    radial-gradient(circle at 22% 48%, rgba(255, 152, 74, 0.32), transparent 14rem),
+    linear-gradient(180deg, #5a321f 0%, #3d2218 43%, #6b3d21 44%, #2b1711 100%);
+  cursor: crosshair;
+}
+
 .adventure-scene > * {
   position: absolute;
 }
@@ -1160,8 +1173,242 @@ button:disabled:not(.step-button) {
 .scene-mountains .scene-cottage,
 .scene-mountains .scene-mound,
 .scene-dragon-altar .scene-cottage,
-.scene-dragon-altar .scene-mound {
+.scene-dragon-altar .scene-mound,
+.scene-healer-hut .scene-mound,
+.scene-healer-interior .scene-cottage,
+.scene-healer-interior .scene-mound,
+.scene-healer-interior .scene-tree,
+.scene-healer-interior .scene-path,
+.scene-healer-interior .scene-ground,
+.scene-healer-interior .scene-sky {
   display: none;
+}
+
+.scene-hut-door,
+.hut-interior-wall,
+.hut-shelf,
+.hut-hearth,
+.hut-cauldron,
+.hut-counter,
+.hut-healer,
+.hut-doorway {
+  display: none;
+}
+
+.scene-healer-hut .scene-sky {
+  background:
+    radial-gradient(ellipse at 58% 0%, rgba(255, 244, 184, 0.62), transparent 24%),
+    linear-gradient(180deg, #81a99d 0%, #67956e 50%, transparent 100%);
+}
+
+.scene-healer-hut .scene-cottage {
+  display: block;
+  top: 19%;
+  left: 28%;
+  width: 44%;
+  height: 42%;
+  background:
+    radial-gradient(circle at 18% 26%, rgba(255, 243, 191, 0.72) 0 3%, transparent 4%),
+    radial-gradient(circle at 82% 29%, rgba(255, 243, 191, 0.72) 0 3%, transparent 4%),
+    linear-gradient(135deg, transparent 0 22%, #7a3f24 23% 49%, transparent 50%),
+    linear-gradient(45deg, transparent 0 25%, #a76332 26% 53%, transparent 54%),
+    linear-gradient(180deg, #d89b58 0 37%, #8c542f 38% 100%);
+  border: 4px solid rgba(75, 39, 20, 0.78);
+  border-radius: 40% 42% 12px 12px;
+  box-shadow:
+    inset 0 0 22px rgba(64, 31, 15, 0.42),
+    0 18px 16px rgba(0, 0, 0, 0.34);
+  opacity: 1;
+}
+
+.scene-healer-hut .scene-cottage::before,
+.scene-healer-hut .scene-cottage::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-healer-hut .scene-cottage::before {
+  top: -17%;
+  left: -9%;
+  width: 118%;
+  height: 42%;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(236, 195, 105, 0.9), transparent 36%),
+    repeating-linear-gradient(110deg, #6f3f1e 0 8px, #8d5a2d 9px 16px);
+  border: 4px solid rgba(70, 37, 18, 0.8);
+  border-radius: 58% 58% 12% 12%;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.24);
+}
+
+.scene-healer-hut .scene-cottage::after {
+  top: 40%;
+  left: 18%;
+  width: 13%;
+  height: 14%;
+  background:
+    linear-gradient(90deg, rgba(68, 36, 19, 0.7) 0 10%, transparent 11% 45%, rgba(68, 36, 19, 0.7) 46% 55%, transparent 56% 89%, rgba(68, 36, 19, 0.7) 90%),
+    linear-gradient(180deg, rgba(68, 36, 19, 0.7) 0 12%, transparent 13% 44%, rgba(68, 36, 19, 0.7) 45% 55%, transparent 56% 88%, rgba(68, 36, 19, 0.7) 89%),
+    #f7d984;
+  border: 3px solid #4a2413;
+  border-radius: 5px;
+  box-shadow: 36px 2px 0 -1px #f7d984, 36px 2px 0 2px #4a2413;
+}
+
+.scene-healer-hut .scene-hut-door {
+  display: block;
+  top: 44%;
+  left: 45%;
+  z-index: 7;
+  width: 10%;
+  height: 18%;
+  background:
+    radial-gradient(circle at 78% 53%, #f8d76c 0 5%, transparent 6%),
+    linear-gradient(90deg, rgba(255, 224, 132, 0.16), transparent 34%),
+    linear-gradient(180deg, #6b371e, #2a140d);
+  border: 3px solid #231009;
+  border-radius: 46% 46% 7px 7px;
+  box-shadow:
+    inset -8px 0 12px rgba(0, 0, 0, 0.28),
+    0 8px 9px rgba(0, 0, 0, 0.28);
+}
+
+.scene-healer-hut .scene-tree-left {
+  left: -5%;
+}
+
+.scene-healer-hut .scene-tree-right {
+  right: -5%;
+}
+
+.scene-healer-hut .scene-path {
+  inset: 46% 24% -4%;
+  background:
+    radial-gradient(ellipse at 50% 72%, rgba(218, 170, 100, 0.62), transparent 44%),
+    radial-gradient(ellipse at 50% 35%, rgba(177, 121, 69, 0.46), transparent 28%);
+  clip-path: ellipse(34% 46% at 50% 70%);
+}
+
+.scene-healer-interior .hut-interior-wall {
+  display: block;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 45%, rgba(255, 175, 86, 0.24), transparent 20%),
+    repeating-linear-gradient(90deg, rgba(255, 216, 142, 0.08) 0 2px, transparent 2px 28px),
+    linear-gradient(180deg, rgba(87, 48, 30, 0.92) 0 48%, rgba(55, 31, 22, 0.96) 49% 100%);
+}
+
+.scene-healer-interior .hut-shelf {
+  display: block;
+  top: 10%;
+  width: 31%;
+  height: 18%;
+  background:
+    radial-gradient(circle at 14% 34%, #74d1ff 0 4%, transparent 5%),
+    radial-gradient(circle at 28% 36%, #c45bff 0 4%, transparent 5%),
+    radial-gradient(circle at 44% 34%, #ffe377 0 4%, transparent 5%),
+    radial-gradient(circle at 61% 35%, #7dff91 0 4%, transparent 5%),
+    radial-gradient(circle at 77% 34%, #ff7c7c 0 4%, transparent 5%),
+    linear-gradient(180deg, transparent 0 42%, #8b552e 43% 58%, transparent 59%),
+    linear-gradient(180deg, transparent 0 76%, #6d3e23 77% 91%, transparent 92%);
+  border-top: 5px solid #3a1d12;
+  filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.28));
+}
+
+.hut-shelf-left {
+  left: 5%;
+}
+
+.hut-shelf-right {
+  right: 5%;
+}
+
+.scene-healer-interior .hut-hearth {
+  display: block;
+  top: 35%;
+  left: 9%;
+  width: 24%;
+  height: 29%;
+  background:
+    radial-gradient(ellipse at 50% 75%, rgba(255, 94, 28, 0.85) 0 18%, rgba(117, 35, 20, 0.84) 19% 36%, transparent 37%),
+    radial-gradient(ellipse at 50% 65%, #1a100c 0 44%, transparent 45%),
+    linear-gradient(180deg, #7c7562, #413b33);
+  border: 7px ridge #6d6453;
+  border-radius: 12px 12px 7px 7px;
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.48);
+}
+
+.scene-healer-interior .hut-cauldron {
+  display: block;
+  top: 48%;
+  left: 15%;
+  z-index: 7;
+  width: 12%;
+  height: 12%;
+  background:
+    radial-gradient(ellipse at 50% 20%, #92e394 0 16%, transparent 17%),
+    radial-gradient(ellipse at 50% 58%, #2d302c 0 52%, #121413 53% 100%);
+  border-radius: 45% 45% 50% 50%;
+  box-shadow:
+    0 -13px 18px rgba(120, 255, 134, 0.2),
+    0 8px 8px rgba(0, 0, 0, 0.32);
+}
+
+.scene-healer-interior .hut-counter {
+  display: block;
+  top: 48%;
+  right: 10%;
+  z-index: 6;
+  width: 32%;
+  height: 22%;
+  background:
+    linear-gradient(180deg, #b67a3d 0 22%, #6f3f22 23% 100%);
+  border: 5px solid #33170e;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 8px 10px rgba(255, 223, 152, 0.22),
+    0 12px 14px rgba(0, 0, 0, 0.3);
+}
+
+.scene-healer-interior .hut-healer {
+  display: block;
+  top: 32%;
+  right: 20%;
+  z-index: 8;
+  width: 10%;
+  height: 27%;
+  background:
+    radial-gradient(circle at 50% 12%, #f0c08e 0 13%, transparent 14%),
+    radial-gradient(ellipse at 50% 23%, #d8d0c0 0 18%, transparent 19%),
+    linear-gradient(180deg, transparent 0 31%, #73538a 32% 74%, #3b284b 75% 100%);
+  border-radius: 45% 45% 8px 8px;
+  filter: drop-shadow(0 8px 5px rgba(0, 0, 0, 0.34));
+}
+
+.scene-healer-interior .hut-healer::before {
+  position: absolute;
+  top: 21%;
+  left: 18%;
+  width: 64%;
+  height: 26%;
+  content: "";
+  background: #e8e1d2;
+  border-radius: 48%;
+  box-shadow: inset 0 -5px 5px rgba(120, 110, 100, 0.26);
+}
+
+.scene-healer-interior .hut-doorway {
+  display: block;
+  bottom: -1%;
+  left: 42%;
+  width: 16%;
+  height: 18%;
+  background:
+    radial-gradient(ellipse at 50% 92%, rgba(183, 116, 58, 0.72), transparent 58%),
+    linear-gradient(180deg, #160b08, #3f2115);
+  border: 4px solid #1e0e09;
+  border-bottom: 0;
+  border-radius: 48% 48% 0 0;
+  box-shadow: 0 -10px 16px rgba(0, 0, 0, 0.25);
 }
 
 .scene-altar-stones,
