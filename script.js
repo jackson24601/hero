@@ -23,6 +23,7 @@ const inventoryList = document.querySelector("[data-inventory-list]");
 const inventoryEmpty = document.querySelector("[data-inventory-empty]");
 const pickupPrompt = document.querySelector("[data-pickup-prompt]");
 const pickupMessage = document.querySelector("[data-pickup-message]");
+const meadowRestPanel = document.querySelector("[data-meadow-rest]");
 const attributeLists = {
   left: document.querySelector('[data-attribute-list="left"]'),
   right: document.querySelector('[data-attribute-list="right"]'),
@@ -44,6 +45,7 @@ const HALL_OF_SHADOWS_CELL = "Hall of Shadows";
 const AMULET_OF_SHADOWS = "Amulet of Shadows";
 const SWAMP_LATERN_CELL = "Swamp/Latern";
 const LATERN_ITEM = "Latern";
+const MEADOW_CELL = "Meadow";
 const EXIT_THRESHOLD = 6;
 const HEALER_HUT_DOOR_ZONE = { id: "healer-hut-door", type: "rect", x: 44, y: 44, width: 12, height: 18 };
 const HEALER_INTERIOR_EXIT_ZONE = { id: "healer-hut-exit", type: "rect", x: 42, y: 83, width: 16, height: 17 };
@@ -103,6 +105,14 @@ const SCENE_TEMPLATES = {
     blockedZones: [
       { id: "latern-island", type: "ellipse", x: 51, y: 57, radiusX: 18, radiusY: 9 },
       { id: "dead-tree-trunk", type: "rect", x: 47, y: 31, width: 8, height: 28 },
+    ],
+  },
+  meadow: {
+    title: "Willow Meadow",
+    cssClass: "scene-meadow",
+    safe: true,
+    blockedZones: [
+      { id: "willow-trunk", type: "rect", x: 47, y: 24, width: 8, height: 31 },
     ],
   },
   mountains: {
@@ -256,6 +266,7 @@ let playerPosition = { ...START_SCENE_POSITION };
 let currentSceneTemplate = SCENE_TEMPLATES.clearing;
 let isInsideHealerHut = false;
 const inventory = [];
+let playerHealth = { current: 0, max: 0 };
 
 function showScreen(screenToShow) {
   [titleScreen, selectionScreen, attributeScreen, introScreen, gameScreen].forEach((screen) => {
@@ -416,6 +427,11 @@ function toggleInventory(forceOpen) {
   inventoryPanel.hidden = !shouldOpen;
 }
 
+function initializePlayerHealth() {
+  playerHealth.max = currentAttributes.Health || 100;
+  playerHealth.current = playerHealth.max;
+}
+
 function getCell(position) {
   return GAME_GRID[position.row]?.[position.col] || EMPTY_CELL;
 }
@@ -431,6 +447,10 @@ function getSceneType(cell) {
 
   if (cell === SWAMP_LATERN_CELL) {
     return "swampLatern";
+  }
+
+  if (cell === MEADOW_CELL) {
+    return "meadow";
   }
 
   if (cell === HALL_OF_SHADOWS_CELL) {
@@ -512,6 +532,7 @@ function renderScene() {
   const blockedDirections = getBlockedDirections();
 
   hidePickupPrompt();
+  meadowRestPanel.hidden = sceneType !== "meadow";
   currentSceneTemplate = template;
   adventureScene.classList.remove(
     "scene-woods",
@@ -524,10 +545,11 @@ function renderScene() {
     "scene-witch",
     "scene-hall-shadows",
     "scene-swamp-latern",
+    "scene-meadow",
   );
   adventureScene.classList.add(template.cssClass);
   adventureScene.classList.toggle("has-latern", hasInventoryItem(LATERN_ITEM));
-  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains"
+  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains" || cell === MEADOW_CELL
     ? template.title
     : cell;
   gridLocation.textContent = isInsideHealerHut
@@ -556,6 +578,7 @@ function startFirstScene() {
   currentGridPosition = { ...START_GRID_POSITION };
   playerPosition = { ...START_SCENE_POSITION };
   isInsideHealerHut = false;
+  initializePlayerHealth();
   renderPlayerSprite();
   renderScene();
   placePlayer({ ...START_SCENE_POSITION }, false);
@@ -667,6 +690,19 @@ function takeLatern() {
   toggleInventory(true);
 }
 
+function sleepInMeadow() {
+  const restoreAmount = Math.ceil(playerHealth.max * 0.5);
+  const beforeSleep = playerHealth.current;
+  playerHealth.current = Math.min(playerHealth.max, playerHealth.current + restoreAmount);
+
+  if (playerHealth.current === beforeSleep) {
+    movementStatus.textContent = "You sleep beneath the willow. This meadow is safe, and your health is already full.";
+    return;
+  }
+
+  movementStatus.textContent = `You sleep beneath the willow. This safe meadow restores your health to ${playerHealth.current}/${playerHealth.max}.`;
+}
+
 function attemptGridMove(direction) {
   if (isInsideHealerHut) {
     movementStatus.textContent = "The cottage walls keep you inside. Use the doorway to leave.";
@@ -733,6 +769,11 @@ document.querySelectorAll("[data-action]").forEach((button) => {
 
     if (button.dataset.action === "take-latern") {
       takeLatern();
+      return;
+    }
+
+    if (button.dataset.action === "sleep-meadow") {
+      sleepInMeadow();
       return;
     }
 
