@@ -24,6 +24,7 @@ const inventoryEmpty = document.querySelector("[data-inventory-empty]");
 const pickupPrompt = document.querySelector("[data-pickup-prompt]");
 const pickupMessage = document.querySelector("[data-pickup-message]");
 const meadowRestPanel = document.querySelector("[data-meadow-rest]");
+const trollSprite = document.querySelector("[data-troll-sprite]");
 const attributeLists = {
   left: document.querySelector('[data-attribute-list="left"]'),
   right: document.querySelector('[data-attribute-list="right"]'),
@@ -46,12 +47,14 @@ const AMULET_OF_SHADOWS = "Amulet of Shadows";
 const SWAMP_LATERN_CELL = "Swamp/Latern";
 const LATERN_ITEM = "Latern";
 const MEADOW_CELL = "Meadow";
+const TROLL_CELL = "Troll";
 const EXIT_THRESHOLD = 6;
 const HEALER_HUT_DOOR_ZONE = { id: "healer-hut-door", type: "rect", x: 44, y: 44, width: 12, height: 18 };
 const HEALER_INTERIOR_EXIT_ZONE = { id: "healer-hut-exit", type: "rect", x: 42, y: 83, width: 16, height: 17 };
 const WITCH_DOOR_ZONE = { id: "witch-cottage-door", type: "rect", x: 47, y: 42, width: 8, height: 15 };
 const HALL_OF_SHADOWS_DOOR_ZONE = { id: "hall-of-shadows-door", type: "rect", x: 43, y: 38, width: 14, height: 23 };
 const LATERN_PICKUP_ZONE = { id: "latern-pickup", type: "rect", x: 51, y: 30, width: 8, height: 18 };
+const TROLL_START_POSITION = { x: 20, y: 46 };
 const START_GRID_POSITION = { row: 12, col: 5 };
 const START_SCENE_POSITION = { x: 50, y: 78 };
 const OPPOSITE_DIRECTIONS = {
@@ -113,6 +116,14 @@ const SCENE_TEMPLATES = {
     safe: true,
     blockedZones: [
       { id: "willow-trunk", type: "rect", x: 47, y: 24, width: 8, height: 31 },
+    ],
+  },
+  troll: {
+    title: "Troll Bog",
+    cssClass: "scene-troll",
+    blockedZones: [
+      { id: "troll-island", type: "ellipse", x: 22, y: 44, radiusX: 18, radiusY: 12 },
+      { id: "treasure-chest", type: "rect", x: 23, y: 38, width: 10, height: 7 },
     ],
   },
   mountains: {
@@ -267,6 +278,7 @@ let currentSceneTemplate = SCENE_TEMPLATES.clearing;
 let isInsideHealerHut = false;
 const inventory = [];
 let playerHealth = { current: 0, max: 0 };
+let trollPosition = { ...TROLL_START_POSITION };
 
 function showScreen(screenToShow) {
   [titleScreen, selectionScreen, attributeScreen, introScreen, gameScreen].forEach((screen) => {
@@ -453,6 +465,10 @@ function getSceneType(cell) {
     return "meadow";
   }
 
+  if (cell === TROLL_CELL) {
+    return "troll";
+  }
+
   if (cell === HALL_OF_SHADOWS_CELL) {
     return "hallOfShadows";
   }
@@ -546,10 +562,12 @@ function renderScene() {
     "scene-hall-shadows",
     "scene-swamp-latern",
     "scene-meadow",
+    "scene-troll",
   );
   adventureScene.classList.add(template.cssClass);
   adventureScene.classList.toggle("has-latern", hasInventoryItem(LATERN_ITEM));
-  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains" || cell === MEADOW_CELL
+  resetTrollSprite();
+  sceneTitle.textContent = isInsideHealerHut || cell === "Woods" || cell === "Swamp" || cell === "Mountains" || cell === MEADOW_CELL || cell === TROLL_CELL
     ? template.title
     : cell;
   gridLocation.textContent = isInsideHealerHut
@@ -572,6 +590,29 @@ function placePlayer(point, shouldAnimate = true) {
   playerSprite.style.top = `${point.y}%`;
   playerMarker.style.left = `${point.x}%`;
   playerMarker.style.top = `${point.y}%`;
+}
+
+function resetTrollSprite() {
+  trollPosition = { ...TROLL_START_POSITION };
+  trollSprite.style.setProperty("--troll-duration", "0ms");
+  trollSprite.style.left = `${TROLL_START_POSITION.x}%`;
+  trollSprite.style.top = `${TROLL_START_POSITION.y}%`;
+}
+
+function moveTrollTowardPlayer() {
+  if (getCurrentSceneName() !== TROLL_CELL) {
+    return;
+  }
+
+  const distance = Math.hypot(playerPosition.x - trollPosition.x, playerPosition.y - trollPosition.y);
+  const duration = Math.min(Math.max(distance * 18, 220), 1200);
+
+  trollSprite.style.setProperty("--troll-duration", `${duration}ms`);
+  trollPosition = { ...playerPosition };
+  requestAnimationFrame(() => {
+    trollSprite.style.left = `${playerPosition.x}%`;
+    trollSprite.style.top = `${playerPosition.y}%`;
+  });
 }
 
 function startFirstScene() {
@@ -720,6 +761,7 @@ function attemptGridMove(direction) {
   renderScene();
   placePlayer(ENTRY_POINTS[OPPOSITE_DIRECTIONS[direction]], false);
   movementStatus.textContent = `You enter ${getCurrentSceneName()}.`;
+  moveTrollTowardPlayer();
 }
 
 document.querySelectorAll("[data-action]").forEach((button) => {
@@ -880,6 +922,12 @@ adventureScene.addEventListener("click", (event) => {
 
   hidePickupPrompt();
   placePlayer(point);
+  if (getCurrentSceneName() === TROLL_CELL) {
+    moveTrollTowardPlayer();
+    movementStatus.textContent = "The massive troll lumbers straight toward you.";
+    return;
+  }
+
   if (getCurrentSceneName() === HEALER_HUT_CELL && isPointInBlockedZone(point, HEALER_HUT_DOOR_ZONE)) {
     enterHealerHut();
     return;

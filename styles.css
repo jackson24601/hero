@@ -1183,6 +1183,12 @@ button:disabled:not(.step-button) {
     radial-gradient(ellipse at 50% 79%, rgba(93, 181, 71, 0.9) 0 48%, rgba(36, 117, 46, 0.98) 74%, #16391d 100%);
 }
 
+.adventure-scene.scene-troll {
+  background:
+    radial-gradient(ellipse at 23% 42%, rgba(78, 116, 71, 0.5) 0 22%, transparent 23%),
+    radial-gradient(ellipse at 50% 78%, rgba(36, 84, 68, 0.95) 0 44%, rgba(14, 45, 39, 0.98) 70%, #081c19 100%);
+}
+
 .adventure-scene.scene-mountains {
   background:
     radial-gradient(ellipse at 50% 72%, rgba(106, 132, 85, 0.66) 0 38%, rgba(83, 72, 58, 0.76) 65%, #242221 100%),
@@ -1359,7 +1365,9 @@ button:disabled:not(.step-button) {
 .scene-swamp-latern .scene-cottage,
 .scene-swamp-latern .scene-mound,
 .scene-meadow .scene-cottage,
-.scene-meadow .scene-mound {
+.scene-meadow .scene-mound,
+.scene-troll .scene-cottage,
+.scene-troll .scene-mound {
   display: none;
 }
 
@@ -1375,6 +1383,9 @@ button:disabled:not(.step-button) {
 .scene-latern,
 .scene-meadow-flowers,
 .scene-willow,
+.scene-troll-island,
+.scene-treasure-chest,
+.scene-troll-figure,
 .hut-interior-wall,
 .hut-shelf,
 .hut-hearth,
@@ -1582,6 +1593,139 @@ button:disabled:not(.step-button) {
     linear-gradient(83deg, transparent 0 60%, rgba(55, 126, 40, 0.9) 61% 63%, transparent 64%),
     linear-gradient(91deg, transparent 0 76%, rgba(41, 99, 35, 0.9) 77% 79%, transparent 80%);
   border-radius: 0 0 45% 45%;
+}
+
+.scene-troll .scene-sky {
+  background:
+    radial-gradient(ellipse at 56% 2%, rgba(158, 177, 145, 0.32), transparent 21%),
+    linear-gradient(180deg, #4f665e 0%, #334d45 54%, transparent 100%);
+}
+
+.scene-troll .scene-swamp-water {
+  display: block;
+  inset: 47% 7% 10%;
+  background:
+    radial-gradient(ellipse at 25% 36%, rgba(118, 160, 115, 0.38), transparent 12%),
+    radial-gradient(ellipse at 70% 62%, rgba(111, 151, 105, 0.35), transparent 15%),
+    repeating-linear-gradient(0deg, rgba(177, 204, 133, 0.12) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(27, 78, 67, 0.76), rgba(12, 43, 38, 0.9));
+  border-radius: 48%;
+  box-shadow:
+    inset 0 0 34px rgba(5, 23, 20, 0.72),
+    0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.scene-troll .scene-reeds {
+  display: block;
+  bottom: 11%;
+  width: 20%;
+  height: 34%;
+  background:
+    linear-gradient(82deg, transparent 0 46%, #314d25 47% 51%, transparent 52%),
+    linear-gradient(100deg, transparent 0 42%, #667538 43% 48%, transparent 49%),
+    linear-gradient(72deg, transparent 0 58%, #263f22 59% 63%, transparent 64%);
+}
+
+.scene-troll .scene-path {
+  inset: 42% 6% -2%;
+  background:
+    radial-gradient(ellipse at 37% 48%, rgba(71, 114, 74, 0.48), transparent 24%),
+    radial-gradient(ellipse at 50% 78%, rgba(42, 91, 66, 0.52), transparent 44%);
+  clip-path: ellipse(50% 38% at 50% 68%);
+}
+
+.scene-troll .scene-troll-island {
+  display: block;
+  top: 33%;
+  left: 6%;
+  z-index: 5;
+  width: 34%;
+  height: 22%;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(128, 104, 55, 0.8), transparent 42%),
+    radial-gradient(ellipse at 50% 62%, #607c3a 0 56%, #2e4025 73%, transparent 74%);
+  border-radius: 52%;
+  box-shadow:
+    inset 0 -8px 13px rgba(15, 34, 20, 0.44),
+    0 12px 12px rgba(0, 0, 0, 0.28);
+}
+
+.scene-troll .scene-treasure-chest {
+  display: block;
+  top: 37%;
+  left: 24%;
+  z-index: 7;
+  width: 9%;
+  height: 8%;
+  background:
+    linear-gradient(90deg, transparent 0 45%, rgba(88, 45, 13, 0.7) 46% 54%, transparent 55%),
+    linear-gradient(180deg, #f1c75b 0 38%, #8f4f1e 39% 100%);
+  border: 3px solid #3d1d0b;
+  border-radius: 48% 48% 5px 5px;
+  box-shadow:
+    inset 0 3px 5px rgba(255, 247, 160, 0.5),
+    0 7px 7px rgba(0, 0, 0, 0.32);
+}
+
+.scene-troll .scene-treasure-chest::before {
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  width: 16%;
+  height: 24%;
+  content: "";
+  background: #ffe67a;
+  border: 1px solid #3d1d0b;
+}
+
+.scene-troll-figure {
+  z-index: 10;
+  width: clamp(70px, 12vw, 118px);
+  height: clamp(90px, 16vw, 150px);
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  transition:
+    left var(--troll-duration, 900ms) linear,
+    top var(--troll-duration, 900ms) linear;
+}
+
+.scene-troll .scene-troll-figure {
+  display: block;
+}
+
+.scene-troll-figure::before {
+  position: absolute;
+  inset: 22% 16% 0;
+  content: "";
+  background:
+    radial-gradient(circle at 30% 40%, #3a2a1e 0 5%, transparent 6%),
+    radial-gradient(circle at 70% 40%, #3a2a1e 0 5%, transparent 6%),
+    radial-gradient(ellipse at 50% 48%, #8a8f62 0 36%, transparent 37%),
+    linear-gradient(180deg, #697848 0 58%, #3c482f 59% 100%);
+  border: 4px solid #26301f;
+  border-radius: 42% 42% 18% 18%;
+  box-shadow:
+    inset -11px -9px 16px rgba(0, 0, 0, 0.26),
+    0 12px 9px rgba(0, 0, 0, 0.34);
+}
+
+.scene-troll-figure::after {
+  position: absolute;
+  top: 3%;
+  left: 27%;
+  width: 46%;
+  height: 31%;
+  content: "";
+  background:
+    radial-gradient(circle at 36% 41%, #1e1712 0 7%, transparent 8%),
+    radial-gradient(circle at 64% 41%, #1e1712 0 7%, transparent 8%),
+    radial-gradient(ellipse at 50% 68%, #3b2317 0 10%, transparent 11%),
+    radial-gradient(ellipse at 50% 52%, #87965f 0 58%, #4b5736 59% 100%);
+  border: 4px solid #26301f;
+  border-radius: 44% 44% 38% 38%;
+  box-shadow:
+    -17px 38px 0 -9px #667346,
+    17px 38px 0 -9px #667346;
 }
 
 .scene-hall-shadows .scene-sky {
