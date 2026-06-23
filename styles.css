@@ -1171,6 +1171,48 @@ button:disabled:not(.step-button) {
     radial-gradient(ellipse at 50% 78%, rgba(40, 84, 66, 0.95) 0 44%, rgba(18, 52, 45, 0.98) 70%, #0b201d 100%);
 }
 
+.adventure-scene.scene-swamp-latern {
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(69, 111, 78, 0.46) 0 26%, transparent 27%),
+    radial-gradient(ellipse at 50% 78%, rgba(35, 82, 67, 0.95) 0 44%, rgba(15, 47, 41, 0.98) 70%, #081f1c 100%);
+}
+
+.adventure-scene.scene-meadow {
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(169, 225, 102, 0.82) 0 35%, transparent 36%),
+    radial-gradient(ellipse at 50% 79%, rgba(93, 181, 71, 0.9) 0 48%, rgba(36, 117, 46, 0.98) 74%, #16391d 100%);
+}
+
+.adventure-scene.scene-troll {
+  background:
+    radial-gradient(ellipse at 23% 42%, rgba(78, 116, 71, 0.5) 0 22%, transparent 23%),
+    radial-gradient(ellipse at 50% 78%, rgba(36, 84, 68, 0.95) 0 44%, rgba(14, 45, 39, 0.98) 70%, #081c19 100%);
+}
+
+.adventure-scene.scene-temple {
+  background:
+    radial-gradient(ellipse at 50% 37%, rgba(178, 185, 166, 0.62) 0 30%, transparent 31%),
+    radial-gradient(ellipse at 50% 78%, rgba(118, 125, 92, 0.88) 0 48%, rgba(50, 69, 44, 0.98) 74%, #18261b 100%);
+}
+
+.adventure-scene.scene-dark-wizard {
+  background:
+    radial-gradient(ellipse at 50% 74%, rgba(69, 145, 54, 0.88) 0 32%, transparent 33%),
+    linear-gradient(180deg, #495a65 0%, #78858a 28%, #e5e8df 29% 45%, #579247 46%, #1b4527 100%);
+}
+
+.adventure-scene.scene-town-road {
+  background:
+    radial-gradient(ellipse at 50% 75%, rgba(133, 105, 73, 0.9) 0 34%, transparent 35%),
+    linear-gradient(180deg, #78979b 0%, #668b68 42%, #3d6f3a 100%);
+}
+
+.adventure-scene.scene-town-interior {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 194, 108, 0.22), transparent 16rem),
+    linear-gradient(180deg, #6b4328 0%, #4a2c1e 46%, #765032 47%, #352017 100%);
+}
+
 .adventure-scene.scene-mountains {
   background:
     radial-gradient(ellipse at 50% 72%, rgba(106, 132, 85, 0.66) 0 38%, rgba(83, 72, 58, 0.76) 65%, #242221 100%),
@@ -1181,6 +1223,39 @@ button:disabled:not(.step-button) {
   background:
     radial-gradient(ellipse at 50% 38%, rgba(122, 171, 88, 0.72) 0 18%, transparent 19%),
     radial-gradient(ellipse at 52% 75%, rgba(159, 100, 58, 0.9) 0 44%, rgba(78, 48, 32, 0.96) 70%, #261914 100%);
+}
+
+.adventure-scene.scene-dragon-altar {
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(138, 178, 98, 0.62) 0 28%, transparent 29%),
+    radial-gradient(ellipse at 50% 75%, rgba(116, 86, 60, 0.92) 0 45%, rgba(55, 42, 35, 0.96) 72%, #191514 100%),
+    linear-gradient(180deg, #6d8580 0%, #44624f 48%, #2b261f 100%);
+}
+
+.adventure-scene.scene-healer-hut {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(144, 215, 96, 0.82) 0 34%, transparent 35%),
+    radial-gradient(ellipse at 52% 78%, rgba(70, 158, 65, 0.88) 0 48%, rgba(26, 91, 45, 0.98) 74%, #102b1e 100%);
+}
+
+.adventure-scene.scene-healer-interior {
+  background:
+    radial-gradient(circle at 22% 48%, rgba(255, 152, 74, 0.32), transparent 14rem),
+    linear-gradient(180deg, #5a321f 0%, #3d2218 43%, #6b3d21 44%, #2b1711 100%);
+  cursor: crosshair;
+}
+
+.adventure-scene.scene-witch {
+  background:
+    radial-gradient(ellipse at 50% 34%, rgba(49, 77, 58, 0.66) 0 28%, transparent 29%),
+    radial-gradient(ellipse at 50% 78%, rgba(29, 69, 58, 0.95) 0 44%, rgba(13, 39, 35, 0.98) 70%, #081917 100%);
+}
+
+.adventure-scene.scene-hall-shadows {
+  background:
+    radial-gradient(ellipse at 50% 37%, rgba(73, 80, 82, 0.68) 0 28%, transparent 29%),
+    radial-gradient(ellipse at 50% 79%, rgba(72, 70, 66, 0.92) 0 46%, rgba(32, 31, 31, 0.98) 73%, #0d0d0f 100%),
+    linear-gradient(180deg, #5f6b6e 0%, #30383b 47%, #171719 100%);
 }
 
 .adventure-scene > * {
@@ -1296,8 +1371,1288 @@ button:disabled:not(.step-button) {
 .scene-swamp .scene-cottage,
 .scene-swamp .scene-mound,
 .scene-mountains .scene-cottage,
-.scene-mountains .scene-mound {
+.scene-mountains .scene-mound,
+.scene-dragon-altar .scene-cottage,
+.scene-dragon-altar .scene-mound,
+.scene-healer-hut .scene-mound,
+.scene-healer-interior .scene-cottage,
+.scene-healer-interior .scene-mound,
+.scene-healer-interior .scene-tree,
+.scene-healer-interior .scene-path,
+.scene-healer-interior .scene-ground,
+.scene-healer-interior .scene-sky,
+.scene-witch .scene-cottage,
+.scene-witch .scene-mound,
+.scene-hall-shadows .scene-cottage,
+.scene-hall-shadows .scene-mound,
+.scene-hall-shadows .scene-tree,
+.scene-swamp-latern .scene-cottage,
+.scene-swamp-latern .scene-mound,
+.scene-meadow .scene-cottage,
+.scene-meadow .scene-mound,
+.scene-troll .scene-cottage,
+.scene-troll .scene-mound,
+.scene-temple .scene-cottage,
+.scene-temple .scene-mound,
+.scene-temple .scene-tree,
+.scene-dark-wizard .scene-cottage,
+.scene-dark-wizard .scene-mound,
+.scene-dark-wizard .scene-tree,
+.scene-town-road .scene-cottage,
+.scene-town-road .scene-mound,
+.scene-town-road .scene-tree,
+.scene-town-interior .scene-cottage,
+.scene-town-interior .scene-mound,
+.scene-town-interior .scene-tree,
+.scene-town-interior .scene-path,
+.scene-town-interior .scene-ground,
+.scene-town-interior .scene-sky {
   display: none;
+}
+
+.scene-hut-door,
+.scene-witch-cottage,
+.scene-witch-smoke,
+.scene-witch-window,
+.scene-witch-door,
+.scene-hall-monolith,
+.scene-hall-door,
+.scene-latern-island,
+.scene-dead-tree,
+.scene-latern,
+.scene-meadow-flowers,
+.scene-willow,
+.scene-troll-island,
+.scene-treasure-chest,
+.scene-troll-figure,
+.scene-temple-building,
+.scene-temple-columns,
+.scene-temple-steps,
+.scene-dark-mountains,
+.scene-snowfield,
+.scene-dark-tower,
+.town-road,
+.town-gate,
+.town-facade,
+.town-interior-room,
+.town-interior-counter,
+.town-interior-shelves,
+.hut-interior-wall,
+.hut-shelf,
+.hut-hearth,
+.hut-cauldron,
+.hut-counter,
+.hut-healer,
+.hut-doorway {
+  display: none;
+}
+
+.scene-swamp-latern .scene-sky {
+  background:
+    radial-gradient(ellipse at 58% 2%, rgba(167, 184, 146, 0.34), transparent 21%),
+    linear-gradient(180deg, #50695f 0%, #344f47 54%, transparent 100%);
+}
+
+.scene-swamp-latern .scene-swamp-water {
+  display: block;
+  inset: 48% 7% 10%;
+  background:
+    radial-gradient(ellipse at 28% 34%, rgba(118, 160, 115, 0.38), transparent 12%),
+    radial-gradient(ellipse at 70% 62%, rgba(111, 151, 105, 0.35), transparent 15%),
+    repeating-linear-gradient(0deg, rgba(177, 204, 133, 0.13) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(30, 83, 72, 0.75), rgba(13, 50, 44, 0.88));
+  border-radius: 48%;
+  box-shadow:
+    inset 0 0 34px rgba(5, 23, 20, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.26);
+}
+
+.scene-swamp-latern .scene-reeds {
+  display: block;
+  bottom: 11%;
+  width: 20%;
+  height: 34%;
+  background:
+    linear-gradient(82deg, transparent 0 46%, #314d25 47% 51%, transparent 52%),
+    linear-gradient(100deg, transparent 0 42%, #667538 43% 48%, transparent 49%),
+    linear-gradient(72deg, transparent 0 58%, #263f22 59% 63%, transparent 64%);
+}
+
+.scene-swamp-latern .scene-path {
+  inset: 42% 6% -2%;
+  background:
+    radial-gradient(ellipse at 50% 52%, rgba(66, 120, 78, 0.45), transparent 28%),
+    radial-gradient(ellipse at 51% 78%, rgba(47, 95, 69, 0.5), transparent 44%);
+  clip-path: ellipse(50% 38% at 50% 68%);
+}
+
+.scene-swamp-latern .scene-latern-island {
+  display: block;
+  top: 49%;
+  left: 34%;
+  z-index: 5;
+  width: 34%;
+  height: 18%;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(115, 93, 52, 0.82), transparent 44%),
+    radial-gradient(ellipse at 50% 62%, #5f7c3c 0 55%, #304326 72%, transparent 73%);
+  border-radius: 52%;
+  box-shadow:
+    inset 0 -8px 13px rgba(15, 34, 20, 0.44),
+    0 12px 12px rgba(0, 0, 0, 0.28);
+}
+
+.scene-swamp-latern .scene-dead-tree {
+  display: block;
+  top: 26%;
+  left: 47%;
+  z-index: 6;
+  width: 20%;
+  height: 37%;
+  background:
+    linear-gradient(77deg, transparent 0 43%, #2d2017 44% 51%, transparent 52%),
+    linear-gradient(116deg, transparent 0 31%, #39271c 32% 39%, transparent 40%),
+    linear-gradient(12deg, transparent 0 43%, #2b1e17 44% 55%, transparent 56%);
+  filter: drop-shadow(0 8px 5px rgba(0, 0, 0, 0.42));
+}
+
+.scene-swamp-latern .scene-dead-tree::before,
+.scene-swamp-latern .scene-dead-tree::after {
+  position: absolute;
+  content: "";
+  background: #312218;
+  border-radius: 999px;
+  transform-origin: bottom left;
+}
+
+.scene-swamp-latern .scene-dead-tree::before {
+  top: 20%;
+  left: 35%;
+  width: 42%;
+  height: 8%;
+  transform: rotate(-25deg);
+}
+
+.scene-swamp-latern .scene-dead-tree::after {
+  top: 25%;
+  left: 43%;
+  width: 35%;
+  height: 7%;
+  transform: rotate(27deg);
+}
+
+.scene-swamp-latern .scene-latern {
+  display: block;
+  top: 34%;
+  left: 56%;
+  z-index: 7;
+  width: 5.2%;
+  height: 12%;
+  background:
+    linear-gradient(90deg, transparent 0 42%, #23170d 43% 57%, transparent 58%),
+    radial-gradient(ellipse at 50% 63%, rgba(255, 220, 88, 0.96) 0 29%, rgba(201, 108, 25, 0.75) 30% 48%, #2a1a0e 49% 100%);
+  border: 2px solid #1b1009;
+  border-radius: 40% 40% 45% 45%;
+  box-shadow:
+    0 0 20px rgba(255, 207, 70, 0.62),
+    0 6px 8px rgba(0, 0, 0, 0.36);
+}
+
+.scene-swamp-latern .scene-latern::before {
+  position: absolute;
+  top: -42%;
+  left: 44%;
+  width: 12%;
+  height: 50%;
+  content: "";
+  background: #1c120b;
+}
+
+.scene-swamp-latern.has-latern .scene-latern {
+  display: none;
+}
+
+.scene-meadow .scene-sky {
+  background:
+    radial-gradient(ellipse at 60% 0%, rgba(255, 252, 199, 0.72), transparent 23%),
+    linear-gradient(180deg, #85b6c6 0%, #76b77a 54%, transparent 100%);
+}
+
+.scene-meadow .scene-path {
+  inset: 45% 8% -4%;
+  background:
+    radial-gradient(ellipse at 45% 62%, rgba(170, 213, 94, 0.5), transparent 34%),
+    radial-gradient(ellipse at 50% 78%, rgba(116, 183, 72, 0.58), transparent 50%);
+  clip-path: ellipse(49% 38% at 50% 68%);
+}
+
+.scene-meadow .scene-meadow-flowers {
+  display: block;
+  inset: 42% 5% 8%;
+  z-index: 5;
+  background:
+    radial-gradient(circle at 12% 34%, #fff6a8 0 1.4%, transparent 1.6%),
+    radial-gradient(circle at 20% 58%, #ff8fcf 0 1.2%, transparent 1.4%),
+    radial-gradient(circle at 31% 45%, #f6f2ff 0 1.2%, transparent 1.4%),
+    radial-gradient(circle at 43% 64%, #ffd36b 0 1.3%, transparent 1.5%),
+    radial-gradient(circle at 54% 38%, #ff99ab 0 1.2%, transparent 1.4%),
+    radial-gradient(circle at 66% 59%, #efe6ff 0 1.2%, transparent 1.4%),
+    radial-gradient(circle at 78% 42%, #ffe86d 0 1.3%, transparent 1.5%),
+    radial-gradient(circle at 87% 62%, #ff91c2 0 1.2%, transparent 1.4%),
+    radial-gradient(circle at 36% 78%, #f7ffff 0 1.1%, transparent 1.3%),
+    radial-gradient(circle at 70% 80%, #fff2a0 0 1.2%, transparent 1.4%);
+}
+
+.scene-meadow .scene-willow {
+  display: block;
+  top: 13%;
+  left: 31%;
+  z-index: 6;
+  width: 39%;
+  height: 54%;
+  background:
+    radial-gradient(ellipse at 52% 12%, rgba(72, 138, 50, 0.96) 0 25%, transparent 26%),
+    radial-gradient(ellipse at 35% 28%, rgba(58, 127, 49, 0.9) 0 24%, transparent 25%),
+    radial-gradient(ellipse at 67% 31%, rgba(63, 139, 48, 0.9) 0 24%, transparent 25%),
+    radial-gradient(ellipse at 50% 43%, rgba(46, 115, 42, 0.88) 0 28%, transparent 29%);
+  filter: drop-shadow(0 16px 12px rgba(0, 0, 0, 0.34));
+}
+
+.scene-meadow .scene-willow::before,
+.scene-meadow .scene-willow::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-meadow .scene-willow::before {
+  top: 29%;
+  left: 44%;
+  width: 13%;
+  height: 55%;
+  background:
+    linear-gradient(90deg, #3d2213, #8a5a2e 45%, #2a170f);
+  border-radius: 50% 42% 30% 32%;
+  box-shadow: inset -8px 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.scene-meadow .scene-willow::after {
+  inset: 20% 3% 4%;
+  background:
+    linear-gradient(92deg, transparent 0 14%, rgba(42, 101, 35, 0.92) 15% 17%, transparent 18%),
+    linear-gradient(87deg, transparent 0 28%, rgba(53, 123, 41, 0.9) 29% 31%, transparent 32%),
+    linear-gradient(95deg, transparent 0 43%, rgba(46, 112, 38, 0.92) 44% 46%, transparent 47%),
+    linear-gradient(83deg, transparent 0 60%, rgba(55, 126, 40, 0.9) 61% 63%, transparent 64%),
+    linear-gradient(91deg, transparent 0 76%, rgba(41, 99, 35, 0.9) 77% 79%, transparent 80%);
+  border-radius: 0 0 45% 45%;
+}
+
+.scene-troll .scene-sky {
+  background:
+    radial-gradient(ellipse at 56% 2%, rgba(158, 177, 145, 0.32), transparent 21%),
+    linear-gradient(180deg, #4f665e 0%, #334d45 54%, transparent 100%);
+}
+
+.scene-troll .scene-swamp-water {
+  display: block;
+  inset: 47% 7% 10%;
+  background:
+    radial-gradient(ellipse at 25% 36%, rgba(118, 160, 115, 0.38), transparent 12%),
+    radial-gradient(ellipse at 70% 62%, rgba(111, 151, 105, 0.35), transparent 15%),
+    repeating-linear-gradient(0deg, rgba(177, 204, 133, 0.12) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(27, 78, 67, 0.76), rgba(12, 43, 38, 0.9));
+  border-radius: 48%;
+  box-shadow:
+    inset 0 0 34px rgba(5, 23, 20, 0.72),
+    0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.scene-troll .scene-reeds {
+  display: block;
+  bottom: 11%;
+  width: 20%;
+  height: 34%;
+  background:
+    linear-gradient(82deg, transparent 0 46%, #314d25 47% 51%, transparent 52%),
+    linear-gradient(100deg, transparent 0 42%, #667538 43% 48%, transparent 49%),
+    linear-gradient(72deg, transparent 0 58%, #263f22 59% 63%, transparent 64%);
+}
+
+.scene-troll .scene-path {
+  inset: 42% 6% -2%;
+  background:
+    radial-gradient(ellipse at 37% 48%, rgba(71, 114, 74, 0.48), transparent 24%),
+    radial-gradient(ellipse at 50% 78%, rgba(42, 91, 66, 0.52), transparent 44%);
+  clip-path: ellipse(50% 38% at 50% 68%);
+}
+
+.scene-troll .scene-troll-island {
+  display: block;
+  top: 33%;
+  left: 6%;
+  z-index: 5;
+  width: 34%;
+  height: 22%;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(128, 104, 55, 0.8), transparent 42%),
+    radial-gradient(ellipse at 50% 62%, #607c3a 0 56%, #2e4025 73%, transparent 74%);
+  border-radius: 52%;
+  box-shadow:
+    inset 0 -8px 13px rgba(15, 34, 20, 0.44),
+    0 12px 12px rgba(0, 0, 0, 0.28);
+}
+
+.scene-troll .scene-treasure-chest {
+  display: block;
+  top: 37%;
+  left: 24%;
+  z-index: 7;
+  width: 9%;
+  height: 8%;
+  background:
+    linear-gradient(90deg, transparent 0 45%, rgba(88, 45, 13, 0.7) 46% 54%, transparent 55%),
+    linear-gradient(180deg, #f1c75b 0 38%, #8f4f1e 39% 100%);
+  border: 3px solid #3d1d0b;
+  border-radius: 48% 48% 5px 5px;
+  box-shadow:
+    inset 0 3px 5px rgba(255, 247, 160, 0.5),
+    0 7px 7px rgba(0, 0, 0, 0.32);
+}
+
+.scene-troll .scene-treasure-chest::before {
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  width: 16%;
+  height: 24%;
+  content: "";
+  background: #ffe67a;
+  border: 1px solid #3d1d0b;
+}
+
+.scene-troll-figure {
+  z-index: 10;
+  width: clamp(70px, 12vw, 118px);
+  height: clamp(90px, 16vw, 150px);
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  transition:
+    left var(--troll-duration, 900ms) linear,
+    top var(--troll-duration, 900ms) linear;
+}
+
+.scene-troll .scene-troll-figure {
+  display: block;
+}
+
+.scene-troll-figure::before {
+  position: absolute;
+  inset: 22% 16% 0;
+  content: "";
+  background:
+    radial-gradient(circle at 30% 40%, #3a2a1e 0 5%, transparent 6%),
+    radial-gradient(circle at 70% 40%, #3a2a1e 0 5%, transparent 6%),
+    radial-gradient(ellipse at 50% 48%, #8a8f62 0 36%, transparent 37%),
+    linear-gradient(180deg, #697848 0 58%, #3c482f 59% 100%);
+  border: 4px solid #26301f;
+  border-radius: 42% 42% 18% 18%;
+  box-shadow:
+    inset -11px -9px 16px rgba(0, 0, 0, 0.26),
+    0 12px 9px rgba(0, 0, 0, 0.34);
+}
+
+.scene-troll-figure::after {
+  position: absolute;
+  top: 3%;
+  left: 27%;
+  width: 46%;
+  height: 31%;
+  content: "";
+  background:
+    radial-gradient(circle at 36% 41%, #1e1712 0 7%, transparent 8%),
+    radial-gradient(circle at 64% 41%, #1e1712 0 7%, transparent 8%),
+    radial-gradient(ellipse at 50% 68%, #3b2317 0 10%, transparent 11%),
+    radial-gradient(ellipse at 50% 52%, #87965f 0 58%, #4b5736 59% 100%);
+  border: 4px solid #26301f;
+  border-radius: 44% 44% 38% 38%;
+  box-shadow:
+    -17px 38px 0 -9px #667346,
+    17px 38px 0 -9px #667346;
+}
+
+.scene-temple .scene-sky {
+  background:
+    radial-gradient(ellipse at 60% 0%, rgba(255, 246, 201, 0.6), transparent 24%),
+    linear-gradient(180deg, #7d9fa9 0%, #6c8f75 54%, transparent 100%);
+}
+
+.scene-temple .scene-path {
+  inset: 43% 9% -2%;
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(174, 171, 146, 0.62), transparent 30%),
+    radial-gradient(ellipse at 50% 78%, rgba(111, 118, 85, 0.58), transparent 50%);
+  clip-path: ellipse(47% 40% at 50% 70%);
+}
+
+.scene-temple .scene-temple-building {
+  display: block;
+  top: 18%;
+  left: 20%;
+  z-index: 5;
+  width: 60%;
+  height: 42%;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14), transparent 22% 78%, rgba(0, 0, 0, 0.16)),
+    linear-gradient(180deg, #d7d1b9 0 25%, #a9a48f 26% 100%);
+  border: 5px solid #6f6a5d;
+  box-shadow:
+    inset 10px 0 18px rgba(255, 255, 235, 0.18),
+    inset -18px 0 24px rgba(63, 59, 51, 0.26),
+    0 22px 18px rgba(0, 0, 0, 0.32);
+}
+
+.scene-temple .scene-temple-building::before,
+.scene-temple .scene-temple-building::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-temple .scene-temple-building::before {
+  top: -34%;
+  left: -4%;
+  width: 108%;
+  height: 36%;
+  background:
+    radial-gradient(circle at 50% 62%, rgba(126, 116, 91, 0.32) 0 8%, transparent 9%),
+    linear-gradient(135deg, transparent 0 49%, #d9d2bd 50% 100%);
+  border: 5px solid #6f6a5d;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  box-shadow:
+    inset 0 -8px 12px rgba(90, 83, 68, 0.24),
+    0 8px 10px rgba(0, 0, 0, 0.24);
+}
+
+.scene-temple .scene-temple-building::after {
+  top: 13%;
+  left: 11%;
+  width: 78%;
+  height: 13%;
+  background:
+    repeating-linear-gradient(90deg, #6f6a5d 0 2px, transparent 2px 10px),
+    linear-gradient(180deg, #eee8d0, #aaa38d);
+  border-top: 4px solid #6f6a5d;
+  border-bottom: 4px solid #6f6a5d;
+}
+
+.scene-temple .scene-temple-columns {
+  display: block;
+  top: 29%;
+  left: 25%;
+  z-index: 7;
+  width: 50%;
+  height: 32%;
+  background:
+    linear-gradient(180deg, #eee8d0, #aaa38d);
+  mask-image:
+    repeating-linear-gradient(
+      90deg,
+      #000 0 9%,
+      transparent 9% 15%
+    );
+  -webkit-mask-image:
+    repeating-linear-gradient(
+      90deg,
+      #000 0 9%,
+      transparent 9% 15%
+    );
+  filter: drop-shadow(4px 6px 4px rgba(0, 0, 0, 0.28));
+}
+
+.scene-temple .scene-temple-columns::before,
+.scene-temple .scene-temple-columns::after {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 11%;
+  content: "";
+  background: #7d7664;
+}
+
+.scene-temple .scene-temple-columns::before {
+  top: 0;
+}
+
+.scene-temple .scene-temple-columns::after {
+  bottom: 0;
+}
+
+.scene-temple .scene-temple-steps {
+  display: block;
+  top: 60%;
+  left: 18%;
+  z-index: 6;
+  width: 64%;
+  height: 16%;
+  background:
+    linear-gradient(180deg, transparent 0 22%, #a7a08d 23% 38%, transparent 39% 48%, #8d8778 49% 64%, transparent 65% 74%, #726c61 75% 100%);
+  border-bottom: 5px solid #4f4a43;
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+  box-shadow: 0 12px 13px rgba(0, 0, 0, 0.28);
+}
+
+.scene-dark-wizard .scene-sky {
+  background:
+    radial-gradient(ellipse at 70% 0%, rgba(207, 215, 216, 0.22), transparent 22%),
+    linear-gradient(180deg, #3b4650 0%, #6f7e84 58%, transparent 100%);
+}
+
+.scene-dark-wizard .scene-path {
+  inset: 43% 5% -3%;
+  background:
+    radial-gradient(ellipse at 50% 70%, rgba(91, 163, 62, 0.56), transparent 42%),
+    radial-gradient(ellipse at 50% 40%, rgba(232, 234, 223, 0.6), transparent 28%);
+  clip-path: ellipse(50% 40% at 50% 68%);
+}
+
+.scene-dark-wizard .scene-dark-mountains {
+  display: block;
+  top: 7%;
+  left: -3%;
+  z-index: 4;
+  width: 106%;
+  height: 35%;
+  background:
+    linear-gradient(135deg, transparent 0 24%, #29313b 25% 38%, transparent 39%),
+    linear-gradient(45deg, transparent 0 20%, #343d47 21% 35%, transparent 36%),
+    linear-gradient(120deg, transparent 0 44%, #1d252e 45% 58%, transparent 59%),
+    linear-gradient(180deg, #4a535b, #222933 70%, transparent 71%);
+  clip-path: polygon(0 100%, 0 58%, 9% 38%, 16% 60%, 27% 20%, 39% 68%, 50% 28%, 62% 64%, 75% 24%, 85% 58%, 94% 34%, 100% 62%, 100% 100%);
+  filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.42));
+}
+
+.scene-dark-wizard .scene-snowfield {
+  display: block;
+  top: 30%;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 24%;
+  background:
+    radial-gradient(ellipse at 22% 34%, rgba(255, 255, 255, 0.94), transparent 16%),
+    radial-gradient(ellipse at 72% 42%, rgba(237, 241, 236, 0.82), transparent 18%),
+    linear-gradient(180deg, #f2f4ee, #d4ddd5 66%, rgba(212, 221, 213, 0));
+  clip-path: polygon(0 0, 100% 0, 100% 63%, 83% 54%, 65% 66%, 48% 53%, 29% 64%, 12% 51%, 0 62%);
+  box-shadow: inset 0 -11px 16px rgba(92, 118, 105, 0.18);
+}
+
+.scene-dark-wizard .scene-dark-tower {
+  display: block;
+  top: 9%;
+  left: 47%;
+  z-index: 6;
+  width: 12%;
+  height: 34%;
+  background:
+    radial-gradient(circle at 48% 21%, rgba(126, 27, 88, 0.62) 0 6%, transparent 7%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 32%),
+    linear-gradient(180deg, #191421, #050407);
+  border: 3px solid #050407;
+  border-radius: 45% 45% 3px 3px / 14% 14% 3px 3px;
+  box-shadow:
+    0 0 18px rgba(7, 4, 12, 0.72),
+    0 19px 15px rgba(0, 0, 0, 0.4);
+}
+
+.scene-dark-wizard .scene-dark-tower::before,
+.scene-dark-wizard .scene-dark-tower::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-dark-wizard .scene-dark-tower::before {
+  top: -19%;
+  left: 18%;
+  width: 64%;
+  height: 25%;
+  background: #050407;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.scene-dark-wizard .scene-dark-tower::after {
+  top: 45%;
+  left: 40%;
+  width: 20%;
+  height: 31%;
+  background: #000;
+  border-radius: 45% 45% 0 0;
+}
+
+.scene-town-road .scene-sky {
+  background:
+    radial-gradient(ellipse at 60% 0%, rgba(255, 235, 183, 0.55), transparent 23%),
+    linear-gradient(180deg, #7da4ad 0%, #77956f 55%, transparent 100%);
+}
+
+.scene-town-road .town-road {
+  display: block;
+  top: 0;
+  left: 39%;
+  z-index: 5;
+  width: 22%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(0deg, rgba(78, 52, 33, 0.2) 0 5px, transparent 5px 22px),
+    linear-gradient(90deg, #6a4f37, #b08355 48%, #5a402d);
+  border-right: 5px solid rgba(48, 31, 20, 0.54);
+  border-left: 5px solid rgba(48, 31, 20, 0.54);
+  box-shadow:
+    inset 12px 0 16px rgba(0, 0, 0, 0.22),
+    inset -12px 0 16px rgba(0, 0, 0, 0.22);
+}
+
+.scene-town-road .town-gate {
+  display: block;
+  bottom: 5%;
+  left: 34%;
+  z-index: 7;
+  width: 32%;
+  height: 20%;
+  background:
+    linear-gradient(90deg, transparent 0 18%, #654021 19% 27%, transparent 28% 72%, #654021 73% 81%, transparent 82%),
+    linear-gradient(180deg, transparent 0 40%, #8d5a2d 41% 58%, transparent 59%);
+  border-radius: 8px;
+}
+
+.scene-town-road .town-facade {
+  display: grid;
+  top: 22%;
+  z-index: 6;
+  width: 29%;
+  height: 43%;
+  padding-top: 8%;
+  color: #ffe9a2;
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 2px 2px 0 #30150d;
+  background:
+    radial-gradient(circle at 50% 55%, rgba(255, 231, 147, 0.7) 0 5%, transparent 6%),
+    linear-gradient(135deg, transparent 0 22%, #6d3c1e 23% 49%, transparent 50%),
+    linear-gradient(45deg, transparent 0 25%, #99592d 26% 53%, transparent 54%),
+    linear-gradient(180deg, #9b6536 0 36%, #57301f 37% 100%);
+  border: 5px solid rgba(47, 23, 13, 0.82);
+  border-radius: 11px;
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.34),
+    0 15px 15px rgba(0, 0, 0, 0.32);
+  place-items: start center;
+}
+
+.scene-town-road .town-facade::before,
+.scene-town-road .town-facade::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-town-road .town-facade::before {
+  right: 35%;
+  bottom: 0;
+  left: 35%;
+  height: 37%;
+  background:
+    radial-gradient(circle at 78% 50%, #f8d76c 0 6%, transparent 7%),
+    linear-gradient(180deg, #55301d, #1d0d08);
+  border: 3px solid #1c0c07;
+  border-radius: 45% 45% 0 0;
+}
+
+.scene-town-road .town-facade::after {
+  top: 34%;
+  left: 16%;
+  width: 14%;
+  height: 13%;
+  background: #f3d77c;
+  border: 3px solid #32160d;
+  box-shadow: 46px 0 0 -1px #f3d77c, 46px 0 0 2px #32160d;
+}
+
+.scene-town-road .town-facade-left {
+  left: 5%;
+}
+
+.scene-town-road .town-facade-right {
+  right: 5%;
+}
+
+.scene-town-interior .town-interior-room {
+  display: block;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 190, 98, 0.2), transparent 19rem),
+    repeating-linear-gradient(90deg, rgba(255, 216, 142, 0.07) 0 2px, transparent 2px 32px),
+    linear-gradient(180deg, rgba(92, 54, 34, 0.94) 0 47%, rgba(49, 29, 21, 0.96) 48% 100%);
+}
+
+.scene-town-interior .town-interior-shelves {
+  display: block;
+  top: 11%;
+  left: 8%;
+  width: 84%;
+  height: 18%;
+  background:
+    radial-gradient(circle at 12% 35%, #e7d18a 0 3%, transparent 4%),
+    radial-gradient(circle at 25% 35%, #7ac4ff 0 3%, transparent 4%),
+    radial-gradient(circle at 39% 35%, #db7aff 0 3%, transparent 4%),
+    radial-gradient(circle at 55% 35%, #a7ec86 0 3%, transparent 4%),
+    radial-gradient(circle at 72% 35%, #ff9680 0 3%, transparent 4%),
+    radial-gradient(circle at 86% 35%, #f8e06b 0 3%, transparent 4%),
+    linear-gradient(180deg, transparent 0 50%, #8b552e 51% 66%, transparent 67%);
+  border-top: 5px solid #2d140c;
+  filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.28));
+}
+
+.scene-town-interior .town-interior-counter {
+  display: block;
+  right: 13%;
+  bottom: 25%;
+  width: 36%;
+  height: 24%;
+  background:
+    linear-gradient(180deg, #b67a3d 0 22%, #6f3f22 23% 100%);
+  border: 5px solid #33170e;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 8px 10px rgba(255, 223, 152, 0.22),
+    0 12px 14px rgba(0, 0, 0, 0.3);
+}
+
+.scene-hall-shadows .scene-sky {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(183, 189, 183, 0.28), transparent 28%),
+    linear-gradient(180deg, #657073 0%, #394246 54%, transparent 100%);
+}
+
+.scene-hall-shadows .scene-path {
+  inset: 40% 10% -2%;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(106, 104, 99, 0.62), transparent 28%),
+    radial-gradient(ellipse at 50% 78%, rgba(86, 79, 72, 0.72), transparent 48%);
+  clip-path: ellipse(42% 42% at 50% 70%);
+}
+
+.scene-hall-shadows .scene-hall-monolith {
+  display: block;
+  top: 13%;
+  left: 28%;
+  z-index: 5;
+  width: 44%;
+  height: 57%;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 25% 75%, rgba(0, 0, 0, 0.25)),
+    radial-gradient(ellipse at 50% 8%, #8f9493 0 39%, transparent 40%),
+    linear-gradient(180deg, #777d7d 0%, #565b5b 50%, #313333 100%);
+  border: 6px solid #282b2c;
+  border-radius: 48% 48% 9px 9px / 16% 16% 9px 9px;
+  box-shadow:
+    inset 10px 0 18px rgba(255, 255, 255, 0.08),
+    inset -18px 0 24px rgba(0, 0, 0, 0.34),
+    0 24px 20px rgba(0, 0, 0, 0.45);
+}
+
+.scene-hall-shadows .scene-hall-monolith::before,
+.scene-hall-shadows .scene-hall-monolith::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-hall-shadows .scene-hall-monolith::before {
+  top: 12%;
+  left: 17%;
+  width: 66%;
+  height: 16%;
+  background:
+    linear-gradient(90deg, transparent 0 12%, rgba(33, 34, 35, 0.4) 13% 17%, transparent 18% 36%, rgba(33, 34, 35, 0.34) 37% 41%, transparent 42% 64%, rgba(33, 34, 35, 0.35) 65% 69%, transparent 70%),
+    linear-gradient(180deg, rgba(215, 218, 210, 0.16), rgba(38, 39, 40, 0.16));
+  border-radius: 8px;
+}
+
+.scene-hall-shadows .scene-hall-monolith::after {
+  right: 18%;
+  bottom: 13%;
+  left: 18%;
+  height: 4px;
+  background: rgba(19, 20, 21, 0.45);
+  box-shadow:
+    0 -48px 0 rgba(19, 20, 21, 0.16),
+    0 -91px 0 rgba(19, 20, 21, 0.12);
+}
+
+.scene-hall-shadows .scene-hall-door {
+  display: block;
+  top: 38%;
+  left: 43%;
+  z-index: 7;
+  width: 14%;
+  height: 25%;
+  background:
+    radial-gradient(ellipse at 50% 70%, rgba(62, 70, 81, 0.22), transparent 54%),
+    linear-gradient(180deg, #030405, #000);
+  border: 5px solid #202324;
+  border-bottom-color: #080909;
+  border-radius: 48% 48% 4px 4px;
+  box-shadow:
+    inset 0 0 22px rgba(0, 0, 0, 0.95),
+    0 0 24px rgba(31, 34, 42, 0.72);
+}
+
+.scene-witch .scene-sky {
+  background:
+    radial-gradient(ellipse at 62% 2%, rgba(162, 177, 143, 0.32), transparent 20%),
+    linear-gradient(180deg, #435a52 0%, #2b443d 54%, transparent 100%);
+}
+
+.scene-witch .scene-swamp-water {
+  display: block;
+  inset: 50% 8% 10%;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(97, 130, 88, 0.36), transparent 14%),
+    radial-gradient(ellipse at 72% 64%, rgba(83, 119, 86, 0.34), transparent 15%),
+    repeating-linear-gradient(0deg, rgba(151, 175, 110, 0.12) 0 2px, transparent 2px 12px),
+    linear-gradient(180deg, rgba(27, 70, 62, 0.78), rgba(12, 42, 38, 0.9));
+  border-radius: 48%;
+  box-shadow:
+    inset 0 0 34px rgba(5, 20, 18, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.scene-witch .scene-reeds {
+  display: block;
+  bottom: 12%;
+  width: 20%;
+  height: 34%;
+  background:
+    linear-gradient(82deg, transparent 0 46%, #31431e 47% 51%, transparent 52%),
+    linear-gradient(100deg, transparent 0 42%, #5b6830 43% 48%, transparent 49%),
+    linear-gradient(72deg, transparent 0 58%, #24381d 59% 63%, transparent 64%);
+}
+
+.scene-witch .scene-path {
+  inset: 44% 10% -2%;
+  background:
+    radial-gradient(ellipse at 49% 56%, rgba(52, 91, 67, 0.45), transparent 29%),
+    radial-gradient(ellipse at 50% 78%, rgba(42, 76, 61, 0.52), transparent 44%);
+  clip-path: ellipse(50% 38% at 50% 68%);
+}
+
+.scene-witch .scene-witch-cottage {
+  display: block;
+  top: 18%;
+  left: 29%;
+  z-index: 5;
+  width: 43%;
+  height: 41%;
+  background:
+    linear-gradient(135deg, transparent 0 21%, #18100d 22% 49%, transparent 50%),
+    linear-gradient(45deg, transparent 0 25%, #3a2118 26% 53%, transparent 54%),
+    linear-gradient(180deg, #3b241b 0 36%, #1c1110 37% 100%);
+  border: 4px solid rgba(12, 8, 7, 0.88);
+  border-radius: 36% 46% 11px 11px;
+  box-shadow:
+    inset 0 0 25px rgba(0, 0, 0, 0.72),
+    0 20px 18px rgba(0, 0, 0, 0.48);
+  transform: rotate(-1deg);
+}
+
+.scene-witch .scene-witch-cottage::before,
+.scene-witch .scene-witch-cottage::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-witch .scene-witch-cottage::before {
+  top: -20%;
+  left: -9%;
+  width: 120%;
+  height: 43%;
+  background:
+    repeating-linear-gradient(112deg, #15100e 0 8px, #2b1b15 9px 16px),
+    linear-gradient(180deg, #382018, #140d0b);
+  border: 4px solid rgba(10, 7, 6, 0.9);
+  border-radius: 62% 58% 12% 12%;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.42);
+}
+
+.scene-witch .scene-witch-cottage::after {
+  top: -32%;
+  right: 17%;
+  width: 10%;
+  height: 24%;
+  background: linear-gradient(180deg, #211410, #080606);
+  border: 3px solid #080606;
+  border-radius: 5px 5px 0 0;
+  transform: rotate(5deg);
+}
+
+.scene-witch .scene-witch-smoke {
+  display: block;
+  top: 2%;
+  left: 58%;
+  z-index: 6;
+  width: 18%;
+  height: 28%;
+  background:
+    radial-gradient(circle at 28% 78%, rgba(145, 151, 140, 0.38) 0 13%, transparent 14%),
+    radial-gradient(circle at 58% 58%, rgba(135, 145, 134, 0.32) 0 15%, transparent 16%),
+    radial-gradient(circle at 38% 32%, rgba(166, 169, 158, 0.28) 0 17%, transparent 18%),
+    radial-gradient(circle at 64% 12%, rgba(126, 132, 124, 0.2) 0 15%, transparent 16%);
+  filter: blur(0.4px);
+}
+
+.scene-witch .scene-witch-window {
+  display: block;
+  top: 39%;
+  left: 36%;
+  z-index: 7;
+  width: 9%;
+  height: 10%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 240, 137, 0.96), rgba(218, 146, 45, 0.7) 45%, rgba(69, 36, 13, 0.2) 72%);
+  border: 3px solid #0d0807;
+  border-radius: 4px;
+  box-shadow:
+    0 0 18px rgba(255, 215, 84, 0.62),
+    inset 0 0 6px rgba(255, 255, 205, 0.6);
+}
+
+.scene-witch .scene-witch-window::before {
+  position: absolute;
+  inset: 0 45%;
+  content: "";
+  background: rgba(30, 16, 8, 0.6);
+}
+
+.scene-witch .scene-witch-door {
+  display: block;
+  top: 43%;
+  left: 47%;
+  z-index: 7;
+  width: 8%;
+  height: 16%;
+  background:
+    radial-gradient(circle at 73% 48%, #393326 0 6%, transparent 7%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 28%),
+    linear-gradient(180deg, #22130f, #090606);
+  border: 3px solid #060404;
+  border-radius: 45% 45% 6px 6px;
+  box-shadow:
+    inset -7px 0 10px rgba(0, 0, 0, 0.45),
+    0 8px 10px rgba(0, 0, 0, 0.38);
+}
+
+.scene-healer-hut .scene-sky {
+  background:
+    radial-gradient(ellipse at 58% 0%, rgba(255, 244, 184, 0.62), transparent 24%),
+    linear-gradient(180deg, #81a99d 0%, #67956e 50%, transparent 100%);
+}
+
+.scene-healer-hut .scene-cottage {
+  display: block;
+  top: 19%;
+  left: 28%;
+  width: 44%;
+  height: 42%;
+  background:
+    radial-gradient(circle at 18% 26%, rgba(255, 243, 191, 0.72) 0 3%, transparent 4%),
+    radial-gradient(circle at 82% 29%, rgba(255, 243, 191, 0.72) 0 3%, transparent 4%),
+    linear-gradient(135deg, transparent 0 22%, #7a3f24 23% 49%, transparent 50%),
+    linear-gradient(45deg, transparent 0 25%, #a76332 26% 53%, transparent 54%),
+    linear-gradient(180deg, #d89b58 0 37%, #8c542f 38% 100%);
+  border: 4px solid rgba(75, 39, 20, 0.78);
+  border-radius: 40% 42% 12px 12px;
+  box-shadow:
+    inset 0 0 22px rgba(64, 31, 15, 0.42),
+    0 18px 16px rgba(0, 0, 0, 0.34);
+  opacity: 1;
+}
+
+.scene-healer-hut .scene-cottage::before,
+.scene-healer-hut .scene-cottage::after {
+  position: absolute;
+  content: "";
+}
+
+.scene-healer-hut .scene-cottage::before {
+  top: -17%;
+  left: -9%;
+  width: 118%;
+  height: 42%;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(236, 195, 105, 0.9), transparent 36%),
+    repeating-linear-gradient(110deg, #6f3f1e 0 8px, #8d5a2d 9px 16px);
+  border: 4px solid rgba(70, 37, 18, 0.8);
+  border-radius: 58% 58% 12% 12%;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.24);
+}
+
+.scene-healer-hut .scene-cottage::after {
+  top: 40%;
+  left: 18%;
+  width: 13%;
+  height: 14%;
+  background:
+    linear-gradient(90deg, rgba(68, 36, 19, 0.7) 0 10%, transparent 11% 45%, rgba(68, 36, 19, 0.7) 46% 55%, transparent 56% 89%, rgba(68, 36, 19, 0.7) 90%),
+    linear-gradient(180deg, rgba(68, 36, 19, 0.7) 0 12%, transparent 13% 44%, rgba(68, 36, 19, 0.7) 45% 55%, transparent 56% 88%, rgba(68, 36, 19, 0.7) 89%),
+    #f7d984;
+  border: 3px solid #4a2413;
+  border-radius: 5px;
+  box-shadow: 36px 2px 0 -1px #f7d984, 36px 2px 0 2px #4a2413;
+}
+
+.scene-healer-hut .scene-hut-door {
+  display: block;
+  top: 44%;
+  left: 45%;
+  z-index: 7;
+  width: 10%;
+  height: 18%;
+  background:
+    radial-gradient(circle at 78% 53%, #f8d76c 0 5%, transparent 6%),
+    linear-gradient(90deg, rgba(255, 224, 132, 0.16), transparent 34%),
+    linear-gradient(180deg, #6b371e, #2a140d);
+  border: 3px solid #231009;
+  border-radius: 46% 46% 7px 7px;
+  box-shadow:
+    inset -8px 0 12px rgba(0, 0, 0, 0.28),
+    0 8px 9px rgba(0, 0, 0, 0.28);
+}
+
+.scene-healer-hut .scene-tree-left {
+  left: -5%;
+}
+
+.scene-healer-hut .scene-tree-right {
+  right: -5%;
+}
+
+.scene-healer-hut .scene-path {
+  inset: 46% 24% -4%;
+  background:
+    radial-gradient(ellipse at 50% 72%, rgba(218, 170, 100, 0.62), transparent 44%),
+    radial-gradient(ellipse at 50% 35%, rgba(177, 121, 69, 0.46), transparent 28%);
+  clip-path: ellipse(34% 46% at 50% 70%);
+}
+
+.scene-healer-interior .hut-interior-wall {
+  display: block;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 45%, rgba(255, 175, 86, 0.24), transparent 20%),
+    repeating-linear-gradient(90deg, rgba(255, 216, 142, 0.08) 0 2px, transparent 2px 28px),
+    linear-gradient(180deg, rgba(87, 48, 30, 0.92) 0 48%, rgba(55, 31, 22, 0.96) 49% 100%);
+}
+
+.scene-healer-interior .hut-shelf {
+  display: block;
+  top: 10%;
+  width: 31%;
+  height: 18%;
+  background:
+    radial-gradient(circle at 14% 34%, #74d1ff 0 4%, transparent 5%),
+    radial-gradient(circle at 28% 36%, #c45bff 0 4%, transparent 5%),
+    radial-gradient(circle at 44% 34%, #ffe377 0 4%, transparent 5%),
+    radial-gradient(circle at 61% 35%, #7dff91 0 4%, transparent 5%),
+    radial-gradient(circle at 77% 34%, #ff7c7c 0 4%, transparent 5%),
+    linear-gradient(180deg, transparent 0 42%, #8b552e 43% 58%, transparent 59%),
+    linear-gradient(180deg, transparent 0 76%, #6d3e23 77% 91%, transparent 92%);
+  border-top: 5px solid #3a1d12;
+  filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.28));
+}
+
+.hut-shelf-left {
+  left: 5%;
+}
+
+.hut-shelf-right {
+  right: 5%;
+}
+
+.scene-healer-interior .hut-hearth {
+  display: block;
+  top: 35%;
+  left: 9%;
+  width: 24%;
+  height: 29%;
+  background:
+    radial-gradient(ellipse at 50% 75%, rgba(255, 94, 28, 0.85) 0 18%, rgba(117, 35, 20, 0.84) 19% 36%, transparent 37%),
+    radial-gradient(ellipse at 50% 65%, #1a100c 0 44%, transparent 45%),
+    linear-gradient(180deg, #7c7562, #413b33);
+  border: 7px ridge #6d6453;
+  border-radius: 12px 12px 7px 7px;
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.48);
+}
+
+.scene-healer-interior .hut-cauldron {
+  display: block;
+  top: 48%;
+  left: 15%;
+  z-index: 7;
+  width: 12%;
+  height: 12%;
+  background:
+    radial-gradient(ellipse at 50% 20%, #92e394 0 16%, transparent 17%),
+    radial-gradient(ellipse at 50% 58%, #2d302c 0 52%, #121413 53% 100%);
+  border-radius: 45% 45% 50% 50%;
+  box-shadow:
+    0 -13px 18px rgba(120, 255, 134, 0.2),
+    0 8px 8px rgba(0, 0, 0, 0.32);
+}
+
+.scene-healer-interior .hut-counter {
+  display: block;
+  top: 48%;
+  right: 10%;
+  z-index: 6;
+  width: 32%;
+  height: 22%;
+  background:
+    linear-gradient(180deg, #b67a3d 0 22%, #6f3f22 23% 100%);
+  border: 5px solid #33170e;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 8px 10px rgba(255, 223, 152, 0.22),
+    0 12px 14px rgba(0, 0, 0, 0.3);
+}
+
+.scene-healer-interior .hut-healer {
+  display: block;
+  top: 32%;
+  right: 20%;
+  z-index: 8;
+  width: 10%;
+  height: 27%;
+  background:
+    radial-gradient(circle at 50% 12%, #f0c08e 0 13%, transparent 14%),
+    radial-gradient(ellipse at 50% 23%, #d8d0c0 0 18%, transparent 19%),
+    linear-gradient(180deg, transparent 0 31%, #73538a 32% 74%, #3b284b 75% 100%);
+  border-radius: 45% 45% 8px 8px;
+  filter: drop-shadow(0 8px 5px rgba(0, 0, 0, 0.34));
+}
+
+.scene-healer-interior .hut-healer::before {
+  position: absolute;
+  top: 21%;
+  left: 18%;
+  width: 64%;
+  height: 26%;
+  content: "";
+  background: #e8e1d2;
+  border-radius: 48%;
+  box-shadow: inset 0 -5px 5px rgba(120, 110, 100, 0.26);
+}
+
+.scene-healer-interior .hut-doorway {
+  display: block;
+  bottom: -1%;
+  left: 42%;
+  width: 16%;
+  height: 18%;
+  background:
+    radial-gradient(ellipse at 50% 92%, rgba(183, 116, 58, 0.72), transparent 58%),
+    linear-gradient(180deg, #160b08, #3f2115);
+  border: 4px solid #1e0e09;
+  border-bottom: 0;
+  border-radius: 48% 48% 0 0;
+  box-shadow: 0 -10px 16px rgba(0, 0, 0, 0.25);
+}
+
+.scene-altar-stones,
+.scene-altar-slab {
+  display: none;
+}
+
+.scene-dragon-altar .scene-altar-stones {
+  display: block;
+  top: 17%;
+  left: 21%;
+  width: 58%;
+  height: 43%;
+  background:
+    radial-gradient(ellipse at 18% 56%, #afa995 0 6%, #6d6a60 7% 10%, transparent 11%),
+    radial-gradient(ellipse at 27% 28%, #b9b39f 0 5%, #68655d 6% 9%, transparent 10%),
+    radial-gradient(ellipse at 43% 18%, #cbc2aa 0 5%, #756f62 6% 9%, transparent 10%),
+    radial-gradient(ellipse at 59% 19%, #a7a391 0 5%, #66625a 6% 9%, transparent 10%),
+    radial-gradient(ellipse at 76% 34%, #beb7a0 0 6%, #6c675d 7% 10%, transparent 11%),
+    radial-gradient(ellipse at 83% 58%, #9c9b8d 0 6%, #5d5c55 7% 10%, transparent 11%),
+    radial-gradient(ellipse at 30% 73%, #8d8b80 0 5%, #55544e 6% 9%, transparent 10%),
+    radial-gradient(ellipse at 69% 75%, #a9a491 0 5%, #646057 6% 9%, transparent 10%);
+  filter:
+    drop-shadow(0 13px 6px rgba(0, 0, 0, 0.32))
+    sepia(0.12);
+}
+
+.scene-dragon-altar .scene-altar-stones::before,
+.scene-dragon-altar .scene-altar-stones::after {
+  position: absolute;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(255, 255, 230, 0.18), transparent 28%),
+    linear-gradient(180deg, #aaa58f, #5e5c54);
+  border-radius: 42% 48% 30% 34%;
+  box-shadow:
+    inset -8px -10px 12px rgba(39, 38, 35, 0.35),
+    inset 5px 4px 8px rgba(255, 246, 205, 0.2),
+    0 8px 8px rgba(0, 0, 0, 0.28);
+}
+
+.scene-dragon-altar .scene-altar-stones::before {
+  top: 15%;
+  left: 38%;
+  width: 11%;
+  height: 48%;
+  transform: rotate(-4deg);
+}
+
+.scene-dragon-altar .scene-altar-stones::after {
+  top: 17%;
+  right: 34%;
+  width: 12%;
+  height: 44%;
+  transform: rotate(8deg);
+}
+
+.scene-dragon-altar .scene-altar-slab {
+  display: block;
+  top: 48%;
+  left: 36%;
+  z-index: 6;
+  width: 29%;
+  height: 12%;
+  background:
+    linear-gradient(26deg, transparent 0 48%, rgba(70, 67, 57, 0.42) 49% 51%, transparent 52%),
+    linear-gradient(160deg, transparent 0 42%, rgba(70, 67, 57, 0.3) 43% 45%, transparent 46%),
+    radial-gradient(ellipse at 50% 32%, #c7bfa5, #807969 62%, #46433c 100%);
+  border-radius: 48% 44% 42% 45%;
+  box-shadow:
+    inset 0 5px 8px rgba(255, 247, 215, 0.2),
+    inset 0 -10px 18px rgba(43, 41, 36, 0.38),
+    0 13px 12px rgba(0, 0, 0, 0.36);
+  transform: rotate(-2deg);
+}
+
+.scene-dragon-altar .scene-path {
+  inset: 36% 8% -3%;
+  background:
+    radial-gradient(ellipse at 50% 44%, rgba(132, 112, 83, 0.55), transparent 25%),
+    radial-gradient(ellipse at 51% 79%, rgba(168, 112, 73, 0.64), transparent 48%);
+  clip-path: ellipse(46% 42% at 50% 70%);
+}
+
+.scene-dragon-altar .scene-tree-left {
+  left: -12%;
+  opacity: 0.82;
+}
+
+.scene-dragon-altar .scene-tree-right {
+  right: -12%;
+  opacity: 0.82;
 }
 
 .scene-swamp .scene-sky {

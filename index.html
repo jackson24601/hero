@@ -312,6 +312,19 @@
           <div class="scene-edge-blocker edge-east" data-edge-blocker="east" aria-hidden="true"></div>
           <div class="scene-edge-blocker edge-south" data-edge-blocker="south" aria-hidden="true"></div>
           <div class="scene-edge-blocker edge-west" data-edge-blocker="west" aria-hidden="true"></div>
+          <div class="pickup-prompt" data-pickup-prompt hidden>
+            <p data-pickup-message>Take Latern</p>
+            <button type="button" data-action="take-latern">Take Latern</button>
+          </div>
+          <div class="meadow-rest-panel" data-meadow-rest hidden>
+            <p>This peaceful meadow is safe. Rest beneath the willow?</p>
+            <button type="button" data-action="sleep-meadow">Sleep Here</button>
+          </div>
+          <div class="town-action-panel" data-town-action hidden>
+            <p data-town-action-message>Enter building?</p>
+            <button type="button" data-action="enter-town-building" data-town-enter>Enter</button>
+            <button type="button" data-action="leave-town-building" data-town-leave hidden>Back to Road</button>
+          </div>
           <div class="player-marker" data-player-marker aria-hidden="true"></div>
           <div class="player-sprite" data-player-sprite aria-label="Your hero"></div>
         </div>
