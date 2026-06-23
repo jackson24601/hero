@@ -69,6 +69,7 @@ const DARK_WIZARD_SNOW_ZONE = { id: "dark-wizard-snow", type: "rect", x: 0, y: 0
 const TOWN_LEFT_DOOR_ZONE = { id: "town-left-door", type: "rect", x: 13, y: 38, width: 14, height: 26 };
 const TOWN_RIGHT_DOOR_ZONE = { id: "town-right-door", type: "rect", x: 73, y: 38, width: 14, height: 26 };
 const START_GRID_POSITION = { row: 12, col: 5 };
+const TOWN_GRID_POSITION = { row: 9, col: 5 };
 const START_SCENE_POSITION = { x: 50, y: 78 };
 const OPPOSITE_DIRECTIONS = {
   north: "south",
@@ -700,14 +701,18 @@ function moveTrollTowardPlayer() {
 }
 
 function startFirstScene() {
-  currentGridPosition = { ...START_GRID_POSITION };
-  playerPosition = { ...START_SCENE_POSITION };
+  currentGridPosition = { ...TOWN_GRID_POSITION };
+  playerPosition = { x: 50, y: 83 };
   isInsideHealerHut = false;
+  isInTown = true;
+  isInsideTownBuilding = false;
+  townRoadIndex = 0;
+  selectedTownBuilding = null;
   initializePlayerHealth();
   renderPlayerSprite();
   renderScene();
-  placePlayer({ ...START_SCENE_POSITION }, false);
-  movementStatus.textContent = "Click within the scene to walk, or click an edge to travel.";
+  placePlayer({ x: 50, y: 83 }, false);
+  movementStatus.textContent = "You begin at the town entrance. The road leads north.";
   showScreen(gameScreen);
 }
 
