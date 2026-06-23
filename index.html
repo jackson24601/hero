@@ -269,7 +269,30 @@
           <div class="scene-tree scene-tree-left" aria-hidden="true"></div>
           <div class="scene-tree scene-tree-right" aria-hidden="true"></div>
           <div class="scene-cottage" aria-hidden="true"></div>
+          <div class="scene-hut-door" aria-hidden="true"></div>
+          <div class="scene-witch-cottage" aria-hidden="true"></div>
+          <div class="scene-witch-smoke" aria-hidden="true"></div>
+          <div class="scene-witch-window" aria-hidden="true"></div>
+          <div class="scene-witch-door" aria-hidden="true"></div>
+          <div class="scene-hall-monolith" aria-hidden="true"></div>
+          <div class="scene-hall-door" aria-hidden="true"></div>
           <div class="scene-mound" aria-hidden="true"></div>
+          <div class="scene-latern-island" aria-hidden="true"></div>
+          <div class="scene-dead-tree" aria-hidden="true"></div>
+          <div class="scene-latern" aria-hidden="true"></div>
+          <div class="scene-meadow-flowers" aria-hidden="true"></div>
+          <div class="scene-willow" aria-hidden="true"></div>
+          <div class="scene-troll-island" aria-hidden="true"></div>
+          <div class="scene-treasure-chest" aria-hidden="true"></div>
+          <div class="scene-troll-figure" data-troll-sprite aria-hidden="true"></div>
+          <div class="scene-temple-building" aria-hidden="true"></div>
+          <div class="scene-temple-columns" aria-hidden="true"></div>
+          <div class="scene-temple-steps" aria-hidden="true"></div>
+          <div class="scene-dark-mountains" aria-hidden="true"></div>
+          <div class="scene-snowfield" aria-hidden="true"></div>
+          <div class="scene-dark-tower" aria-hidden="true"></div>
+          <div class="scene-altar-stones" aria-hidden="true"></div>
+          <div class="scene-altar-slab" aria-hidden="true"></div>
           <div class="scene-path" aria-hidden="true"></div>
           <div class="scene-ground" aria-hidden="true"></div>
           <div class="scene-swamp-water" aria-hidden="true"></div>
@@ -277,6 +300,14 @@
           <div class="scene-reeds scene-reeds-right" aria-hidden="true"></div>
           <div class="scene-mountain-ridge scene-mountain-ridge-left" aria-hidden="true"></div>
           <div class="scene-mountain-ridge scene-mountain-ridge-right" aria-hidden="true"></div>
+          <div class="hut-interior-wall" aria-hidden="true"></div>
+          <div class="hut-shelf hut-shelf-left" aria-hidden="true"></div>
+          <div class="hut-shelf hut-shelf-right" aria-hidden="true"></div>
+          <div class="hut-hearth" aria-hidden="true"></div>
+          <div class="hut-cauldron" aria-hidden="true"></div>
+          <div class="hut-counter" aria-hidden="true"></div>
+          <div class="hut-healer" aria-hidden="true"></div>
+          <div class="hut-doorway" aria-hidden="true"></div>
           <div class="scene-edge-blocker edge-north" data-edge-blocker="north" aria-hidden="true"></div>
           <div class="scene-edge-blocker edge-east" data-edge-blocker="east" aria-hidden="true"></div>
           <div class="scene-edge-blocker edge-south" data-edge-blocker="south" aria-hidden="true"></div>
@@ -286,6 +317,17 @@
         </div>
       </section>
     </main>
+
+    <aside class="inventory-panel" data-inventory-panel hidden aria-labelledby="inventory-title">
+      <div class="inventory-card">
+        <h2 id="inventory-title">Inventory</h2>
+        <ul class="inventory-list" data-inventory-list></ul>
+        <p class="inventory-empty" data-inventory-empty>Your inventory is empty.</p>
+        <button type="button" class="inventory-close" data-action="close-inventory">Close</button>
+      </div>
+    </aside>
+
+    <button type="button" class="inventory-button" data-action="toggle-inventory">Inventory</button>
 
     <script src="script.js"></script>
   </body>

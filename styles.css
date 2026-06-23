@@ -333,6 +333,151 @@ button:disabled:not(.step-button) {
   transform: none;
 }
 
+.inventory-button {
+  position: fixed;
+  right: clamp(0.9rem, 3vw, 1.6rem);
+  bottom: clamp(0.9rem, 3vw, 1.6rem);
+  z-index: 30;
+  min-width: 150px;
+}
+
+.inventory-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 29;
+  display: grid;
+  padding: 1rem;
+  background: rgba(3, 5, 9, 0.58);
+  place-items: end center;
+}
+
+.inventory-panel[hidden] {
+  display: none;
+}
+
+.inventory-card {
+  width: min(100%, 430px);
+  margin-bottom: 5.2rem;
+  padding: 1rem;
+  color: #3b1f10;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 251, 218, 0.75), transparent 13rem),
+    linear-gradient(180deg, #f3d38a, #c99245);
+  border: 6px ridge #87521d;
+  border-radius: 16px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 248, 207, 0.58),
+    0 20px 35px rgba(0, 0, 0, 0.42);
+}
+
+.inventory-card h2 {
+  margin: 0 0 0.75rem;
+  color: #5b2312;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  text-shadow: 1px 1px 0 #f8e3a8;
+}
+
+.inventory-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inventory-list li {
+  padding: 0.55rem 0.7rem;
+  color: #2f1c10;
+  font-weight: 800;
+  background: rgba(255, 245, 205, 0.38);
+  border: 1px solid rgba(91, 44, 12, 0.18);
+  border-radius: 8px;
+}
+
+.inventory-empty {
+  margin: 0;
+  color: #4b2412;
+  font-weight: 800;
+}
+
+.inventory-empty[hidden] {
+  display: none;
+}
+
+.inventory-close {
+  width: 100%;
+  min-width: 0;
+  margin-top: 1rem;
+}
+
+.pickup-prompt {
+  right: 50%;
+  bottom: 1.2rem;
+  z-index: 20;
+  width: min(90%, 260px);
+  padding: 0.85rem;
+  color: #3b1f10;
+  text-align: center;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 251, 218, 0.75), transparent 9rem),
+    linear-gradient(180deg, #f3d38a, #c99245);
+  border: 5px ridge #87521d;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 248, 207, 0.58),
+    0 16px 24px rgba(0, 0, 0, 0.36);
+  transform: translateX(50%);
+}
+
+.pickup-prompt[hidden] {
+  display: none;
+}
+
+.pickup-prompt p {
+  margin: 0 0 0.7rem;
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.pickup-prompt button {
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+}
+
+.meadow-rest-panel {
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  width: min(90%, 310px);
+  padding: 0.85rem;
+  color: #2d4218;
+  text-align: center;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 218, 0.75), transparent 9rem),
+    linear-gradient(180deg, #e6f2a0, #91c45b);
+  border: 5px ridge #5c8c35;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 207, 0.58),
+    0 16px 24px rgba(0, 0, 0, 0.28);
+}
+
+.meadow-rest-panel[hidden] {
+  display: none;
+}
+
+.meadow-rest-panel p {
+  margin: 0 0 0.7rem;
+  font-weight: 900;
+}
+
+.meadow-rest-panel button {
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+}
+
 .menu-status {
   position: relative;
   z-index: 4;

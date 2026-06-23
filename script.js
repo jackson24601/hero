@@ -386,6 +386,29 @@ function placePlayer(point, shouldAnimate = true) {
   playerMarker.style.top = `${point.y}%`;
 }
 
+function resetTrollSprite() {
+  trollPosition = { ...TROLL_START_POSITION };
+  trollSprite.style.setProperty("--troll-duration", "0ms");
+  trollSprite.style.left = `${TROLL_START_POSITION.x}%`;
+  trollSprite.style.top = `${TROLL_START_POSITION.y}%`;
+}
+
+function moveTrollTowardPlayer() {
+  if (getCurrentSceneName() !== TROLL_CELL) {
+    return;
+  }
+
+  const distance = Math.hypot(playerPosition.x - trollPosition.x, playerPosition.y - trollPosition.y);
+  const duration = Math.min(Math.max(distance * 18, 220), 1200);
+
+  trollSprite.style.setProperty("--troll-duration", `${duration}ms`);
+  trollPosition = { ...playerPosition };
+  requestAnimationFrame(() => {
+    trollSprite.style.left = `${playerPosition.x}%`;
+    trollSprite.style.top = `${playerPosition.y}%`;
+  });
+}
+
 function startFirstScene() {
   currentGridPosition = { ...START_GRID_POSITION };
   playerPosition = { ...START_SCENE_POSITION };
@@ -499,6 +522,26 @@ document.querySelectorAll("[data-action]").forEach((button) => {
       return;
     }
 
+    if (button.dataset.action === "toggle-inventory") {
+      toggleInventory();
+      return;
+    }
+
+    if (button.dataset.action === "close-inventory") {
+      toggleInventory(false);
+      return;
+    }
+
+    if (button.dataset.action === "take-latern") {
+      takeLatern();
+      return;
+    }
+
+    if (button.dataset.action === "sleep-meadow") {
+      sleepInMeadow();
+      return;
+    }
+
     statusMessage.textContent = actions[button.dataset.action];
   });
 });
@@ -546,6 +589,10 @@ document.addEventListener("click", (event) => {
 });
 
 adventureScene.addEventListener("click", (event) => {
+  if (event.target.closest("[data-action]")) {
+    return;
+  }
+
   const point = getScenePoint(event);
   const exitDirection = getExitDirection(point);
 
@@ -554,11 +601,61 @@ adventureScene.addEventListener("click", (event) => {
     return;
   }
 
+  if (isInsideHealerHut) {
+    if (isPointInBlockedZone(point, HEALER_INTERIOR_EXIT_ZONE)) {
+      leaveHealerHut();
+      return;
+    }
+
+    if (isBlockedPoint(point)) {
+      movementStatus.textContent = "Shelves and furniture block that spot.";
+      return;
+    }
+
+    placePlayer(point);
+    movementStatus.textContent = "Your hero walks across the healer's cozy cottage.";
+    return;
+  }
+
+  const exitDirection = getExitDirection(point);
+
+  if (exitDirection) {
+    attemptGridMove(exitDirection);
+    return;
+  }
+
+  if (getCurrentSceneName() === WITCH_CELL && isPointInBlockedZone(point, WITCH_DOOR_ZONE)) {
+    tryEnterWitchCottage();
+    return;
+  }
+
+  if (getCurrentSceneName() === HALL_OF_SHADOWS_CELL && isPointInBlockedZone(point, HALL_OF_SHADOWS_DOOR_ZONE)) {
+    tryApproachHallOfShadows();
+    return;
+  }
+
+  if (
+    getCurrentSceneName() === SWAMP_LATERN_CELL
+    && !hasInventoryItem(LATERN_ITEM)
+    && isPointInBlockedZone(point, LATERN_PICKUP_ZONE)
+  ) {
+    showPickupPrompt("Take Latern");
+    movementStatus.textContent = "A Latern hangs from the dead tree.";
+    return;
+  }
+
+  if (handleDarkWizardSnow(point)) {
+    return;
+  }
+
   if (isBlockedPoint(point)) {
     movementStatus.textContent = "That way is blocked. Choose a clear path.";
     return;
   }
 
+  hidePickupPrompt();
   placePlayer(point);
   movementStatus.textContent = `Your hero moves through ${getCurrentSceneName()}.`;
 });
+
+renderInventory();
