@@ -1031,16 +1031,6 @@ document.querySelectorAll("[data-action]").forEach((button) => {
       return;
     }
 
-    if (button.dataset.action === "enter-town-building") {
-      enterTownBuilding();
-      return;
-    }
-
-    if (button.dataset.action === "leave-town-building") {
-      leaveTownBuilding();
-      return;
-    }
-
     statusMessage.textContent = actions[button.dataset.action];
   });
 });
@@ -1108,6 +1098,29 @@ adventureScene.addEventListener("click", (event) => {
       movementStatus.textContent = `${townRow.right} stands to the east.`;
       return;
     }
+  }
+
+  if (isInsideHealerHut) {
+    if (isPointInBlockedZone(point, HEALER_INTERIOR_EXIT_ZONE)) {
+      leaveHealerHut();
+      return;
+    }
+
+    if (isBlockedPoint(point)) {
+      movementStatus.textContent = "Shelves and furniture block that spot.";
+      return;
+    }
+
+    placePlayer(point);
+    movementStatus.textContent = "Your hero walks across the healer's cozy cottage.";
+    return;
+  }
+
+  const exitDirection = getExitDirection(point);
+
+  if (exitDirection) {
+    attemptGridMove(exitDirection);
+    return;
   }
 
   if (isInsideHealerHut) {
